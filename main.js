@@ -7,11 +7,11 @@ main();
 // Taking out "Shader creating" and "Program creating" is a good way to have a clean code.
 
 function createShader(gl, type, source) {
-  var shader = gl.createShader(type);   // создание шейдера
-  gl.shaderSource(shader, source);      // устанавливаем шейдеру его программный код
-  gl.compileShader(shader);             // компилируем шейдер
+  var shader = gl.createShader(type);   // create shader
+  gl.shaderSource(shader, source);      // set to shader his code
+  gl.compileShader(shader);             // compile shader
   var success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-  if (success) {                        // если компиляция прошла успешно - возвращаем шейдер
+  if (success) {
     return shader;
   }
 
@@ -19,13 +19,6 @@ function createShader(gl, type, source) {
   gl.deleteShader(shader);
 }
 
-// function createProgram(gl, vertexShader, fragmentShader) {
-
-
-
-//   return program
-//
-// }
 
 function main() {
 
@@ -51,9 +44,7 @@ function main() {
   `;
   // fShader hasn't precision
   // we need to define it
-  // highp
-  // mediump
-  // ...
+  // highp || mediump || ..
   // gl_FragColor - spec fragment shader var
   // Resonse for setting color
   const fsSource = `
@@ -78,5 +69,18 @@ function main() {
     throw 'Could not compile WebGL program. \n\n' + info;
   }
 
+  // getting attr reference
+  var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+
+  var positionBuffer = gl.createBuffer()
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
+
+  var positions = [
+    0, 0,
+    0, 0.5,
+    0.7, 0,
+  ];
+
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
 };
