@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- using cdd for stretching canvas to whole screen -->
+    <style>
+    /* remove the border */
+    body {
+      border: 0;
+      background-color: white;
+    }
+    /* make the canvas the size of the viewport */
+    canvas {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+  </style>
+  </head>
+
+<body onload="main();">
+<script src="libraries/toji-gl-matrix-7fc31d5/dist/gl-matrix-min.js"></script>
+<canvas id="glCanvas" width="640" height="480"></canvas>
+<script src="main.js"></script>
+  </body>
+</html>
