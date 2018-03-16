@@ -1,6 +1,4 @@
-
-// If applied, this commit will inplement a base code for initialize shared programs
-// and gl program with configuration of a buffer
+// If applied, this commit will
 main();
 
 // https://webglfundamentals.org/webgl/lessons/ru/webgl-fundamentals.html
@@ -77,16 +75,20 @@ function main() {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
 
   var positions = [
-    0, 0,
-    0, 0.5,
-    0.7, 0,
+    -0.5,0.5,
+    -0.5,-0.5,
+    0.5,0.5,
+
+    -0.5,-0.5,
+    0.5,-0.5,
+    0.5,0.5,
   ];
 
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
   gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
 
-  gl.clearColor(0,0,0,0)
+  gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
   gl.clear(gl.COLOR_BUFFER_BIT)
 
 
@@ -129,7 +131,7 @@ function main() {
 
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
 
-  let size = positions.length / 3
+  let size = 2
   let type = gl.FLOAT
   let normalize = false
   let stride = 0
@@ -143,6 +145,43 @@ function main() {
     stride,
     offset)
 
-    gl.drawArrays(gl.TRIANGLES, 0, 3)
+    gl.drawArrays(gl.TRIANGLES, 0, 6)
 
 };
+function setEventListner() {
+  // works
+  // https://caniuse.com/#feat=keyboardevent-key
+  // supported browsers
+  window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return; // Do nothing if the event was already processed
+  }
+
+  switch (event.key) {
+    case "ArrowDown":
+    console.log(1);
+      // Do something for "down arrow" key press.
+      break;
+    case "ArrowUp":
+      // Do something for "up arrow" key press.
+      break;
+    case "ArrowLeft":
+      // Do something for "left arrow" key press.
+      break;
+    case "ArrowRight":
+      // Do something for "right arrow" key press.
+      break;
+    case "Enter":
+      // Do something for "enter" or "return" key press.
+      break;
+    case "Escape":
+      // Do something for "esc" key press.
+      break;
+    default:
+      return; // Quit when this doesn't handle the key event.
+  }
+
+  // Cancel the default action to avoid it being handled twice
+  event.preventDefault();
+}, true);
+}
