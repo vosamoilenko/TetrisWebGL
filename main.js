@@ -1,5 +1,6 @@
 
-
+// If applied, this commit will inplement a base code for initialize shared programs
+// and gl program with configuration of a buffer
 main();
 
 // https://webglfundamentals.org/webgl/lessons/ru/webgl-fundamentals.html
@@ -69,7 +70,7 @@ function main() {
     throw 'Could not compile WebGL program. \n\n' + info;
   }
 
-  // getting attr reference
+  // getting attr reference (index)
   var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
 
   var positionBuffer = gl.createBuffer()
@@ -82,5 +83,66 @@ function main() {
   ];
 
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+  gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
+
+  gl.clearColor(0,0,0,0)
+  gl.clear(gl.COLOR_BUFFER_BIT)
+
+
+  gl.useProgram(program)
+
+  // turns on the generic vertex attribute array
+  // at the specified index into the list of attribute arrays.
+  gl.enableVertexAttribArray(positionAttributeLocation)
+
+/* Constant	             Description
+   gl.NO_ERROR	         No error has been recorded.
+                         The value of this constant is 0.
+
+   gl.INVALID_ENUM	     An unacceptable value has been specified
+                         for an enumerated argument.
+                         The command is ignored and the error flag is set.
+
+   gl.INVALID_VALUE	     A numeric argument is out of range.
+                         The command is ignored and the error flag is set.
+
+   gl.INVALID_OPERATION	 The specified command is not allowed for the
+                         current state. The command is ignored and the
+                         error flag is set.
+
+  gl.INVALID_FRAMEBUFFER_OPERATION
+                         The currently bound framebuffer is not framebuffer
+                         complete when trying to render to or to read from it.
+
+  gl.OUT_OF_MEMORY	     Not enough memory is left to execute the command.
+
+  gl.CONTEXT_LOST_WEBGL	 If the WebGL context is lost,
+                         this error is returned on the first call to
+                         getError. Afterwards and until the context has
+                         been restored, it returns 4gl.NO_ERROR.
+*/
+  let err = gl.getError();
+  if (err) {
+    throw 'Could not enabler Vertex. With err: ' + err;
+  }
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
+
+  let size = positions.length / 3
+  let type = gl.FLOAT
+  let normalize = false
+  let stride = 0
+  let offset = 0
+
+  gl.vertexAttribPointer(
+    positionBuffer,
+    size,
+    type,
+    normalize,
+    stride,
+    offset)
+
+    gl.drawArrays(gl.TRIANGLES, 0, 3)
 
 };
