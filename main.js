@@ -20,7 +20,6 @@ function createShader(gl, type, source) {
 
 
 function main() {
-
   // get contex from html canvas, if browser doesn't support html - return
   const canvas = document.querySelector('#glCanvas');
   const gl = canvas.getContext('webgl');
@@ -49,8 +48,10 @@ function main() {
   const fsSource = `
     precision mediump float;
 
+    uniform vec4 u_color;
+
     void main() {
-      gl_FragColor = vec4(1, 0, 0.5, 1);
+      gl_FragColor = u_color;
     }
   `;
   //                           gl, type,            shader source
@@ -70,21 +71,24 @@ function main() {
 
   // getting attr reference (index)
   var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  var colorUnformLocation = gl.getUniformLocation(program, "u_color")
 
   var positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
 
-  var positions = [
-    -0.5,0.5,
-    -0.5,-0.5,
-    0.5,0.5,
+  //////// This is redundant now
+  // var positions = [
+  //   -0.5,0.5,
+  //   -0.5,-0.5,
+  //   0.5,0.5,
+  //
+  //   -0.5,-0.5,
+  //   0.5,-0.5,
+  //   0.5,0.5,
+  // ];
 
-    -0.5,-0.5,
-    0.5,-0.5,
-    0.5,0.5,
-  ];
-
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+  // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+  ////////
 
   gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
 
@@ -145,9 +149,53 @@ function main() {
     stride,
     offset)
 
-    gl.drawArrays(gl.TRIANGLES, 0, 6)
+  for (var i = 0; i < 30; ++i) {
+
+    let x = randomFloat()
+    let y = randomFloat()
+    let width = randomFloat()
+    let height = randomFloat()
+
+    setRectangle(gl, x, y, width, height)
+    gl.uniform4f(
+      colorUnformLocation, Math.random(), Math.random(), Math.random(), Math.random()
+    )
+    let verticiesCounter = 6;
+    var drawingOffset = 0;
+
+    gl.drawArrays(gl.TRIANGLES, drawingOffset , verticiesCounter)
+  }
 
 };
+
+
+function randomFloat() {
+  let max = 1.0
+  let min = -1.0
+
+  return (Math.random() * (max - min) + min);
+}
+function setRectangle(gl, x, y, width, height) {
+  let x1 = x;
+  let x2 = x + width;
+  let y1 = y;
+  let y2 = y + height;
+
+  // NOTE: gl.bufferData(gl.ARRAY_BUFFER, ...) will affect
+  // whatever buffer is bound to the `ARRAY_BUFFER` bind point
+  // but so far we only have one buffer. If we had more than one
+  // buffer we'd want to bind that buffer to `ARRAY_BUFFER` first.
+
+  let positions = [
+    x1, y1,
+    x2, y1,
+    x1, y2,
+    x1, y2,
+    x2, y1,
+    x2, y2
+  ]
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+}
 function setEventListner() {
   // works
   // https://caniuse.com/#feat=keyboardevent-key
@@ -159,7 +207,7 @@ function setEventListner() {
 
   switch (event.key) {
     case "ArrowDown":
-    console.log(1);
+    // console.log(1);
       // Do something for "down arrow" key press.
       break;
     case "ArrowUp":
