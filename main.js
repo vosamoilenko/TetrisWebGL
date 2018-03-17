@@ -1,11 +1,12 @@
 // If applied, this commit will
 main();
-
+var positionAttributeLocation;
+var gl;
 // https://webglfundamentals.org/webgl/lessons/ru/webgl-fundamentals.html
 // I think this a good example of the right structure for setting a basic webGL things
 // Taking out "Shader creating" and "Program creating" is a good way to have a clean code.
 
-function createShader(gl, type, source) {
+function createShader(type, source) {
   var shader = gl.createShader(type);   // create shader
   gl.shaderSource(shader, source);      // set to shader his code
   gl.compileShader(shader);             // compile shader
@@ -22,7 +23,7 @@ function createShader(gl, type, source) {
 function main() {
   // get contex from html canvas, if browser doesn't support html - return
   const canvas = document.querySelector('#glCanvas');
-  const gl = canvas.getContext('webgl');
+  gl = canvas.getContext('webgl');
 
   if (!gl) {
     alert("Unable to initialize WebGL. Your browser or machine may not support it.");
@@ -58,8 +59,8 @@ function main() {
     }
   `;
   //                           gl, type,            shader source
-  const vShader = createShader(gl, gl.VERTEX_SHADER, vsSource)
-  const fShader = createShader(gl, gl.FRAGMENT_SHADER, fsSource)
+  const vShader = createShader(gl.VERTEX_SHADER, vsSource)
+  const fShader = createShader(gl.FRAGMENT_SHADER, fsSource)
 
   var program = gl.createProgram();
 
@@ -67,13 +68,13 @@ function main() {
   gl.attachShader(program, fShader);
   gl.linkProgram(program); // link them all together
 
-  if ( !gl.getProgramParameter( program, gl.LINK_STATUS) ) {
+  if ( !gl.getProgramParameter(program, gl.LINK_STATUS) ) {
     var info = gl.getProgramInfoLog(program);
     throw 'Could not compile WebGL program. \n\n' + info;
   }
 
   // getting attr reference (index)
-  var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  positionAttributeLocation = gl.getAttribLocation(program, "a_position");
   var colorUnformLocation = gl.getUniformLocation(program, "u_color")
 
   var positionBuffer = gl.createBuffer()
@@ -93,17 +94,6 @@ function main() {
   // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
   ////////
 
-  gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
-
-  gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
-  gl.clear(gl.COLOR_BUFFER_BIT)
-
-
-  gl.useProgram(program)
-
-  // turns on the generic vertex attribute array
-  // at the specified index into the list of attribute arrays.
-  gl.enableVertexAttribArray(positionAttributeLocation)
 
 /* Constant	             Description
    gl.NO_ERROR	         No error has been recorded.
@@ -131,10 +121,27 @@ function main() {
                          getError. Afterwards and until the context has
                          been restored, it returns 4gl.NO_ERROR.
 */
-  let err = gl.getError();
-  if (err) {
-    throw 'Could not enabler Vertex. With err: ' + err;
-  }
+
+drawScene(program, positionBuffer, colorUnformLocation)
+
+
+};
+
+function drawScene(program, positionBuffer, colorUnformLocation) {
+  checkGlError(gl)
+
+  gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
+
+  gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
+  gl.clear(gl.COLOR_BUFFER_BIT)
+
+
+  gl.useProgram(program)
+
+  // turns on the generic vertex attribute array
+  // at the specified index into the list of attribute arrays.
+  gl.enableVertexAttribArray(positionAttributeLocation)
+  checkGlError()
 
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
 
@@ -152,14 +159,14 @@ function main() {
     stride,
     offset)
 
-  for (var i = 0; i < 30; ++i) {
+  // for (var i = 0; i < 30; ++i) {
 
     let x = randomFloat()
     let y = randomFloat()
     let width = randomFloat()
     let height = randomFloat()
 
-    setRectangle(gl, x, y, width, height)
+    setRectangle(x, y, width, height)
     gl.uniform4f(
       colorUnformLocation, Math.random(), Math.random(), Math.random(), Math.random()
     )
@@ -167,9 +174,16 @@ function main() {
     var drawingOffset = 0;
 
     gl.drawArrays(gl.TRIANGLES, drawingOffset , verticiesCounter)
-  }
+  // }
 
-};
+}
+
+function checkGlError() {
+  let err = gl.getError();
+  if (err) {
+    throw 'Could not enabler Vertex. With err: ' + err;
+  }
+}
 
 
 function randomFloat() {
@@ -178,7 +192,7 @@ function randomFloat() {
 
   return (Math.random() * (max - min) + min);
 }
-function setRectangle(gl, x, y, width, height) {
+function setRectangle(x, y, width, height) {
   let x1 = x;
   let x2 = x + width;
   let y1 = y;
