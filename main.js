@@ -35,9 +35,12 @@ function main() {
 
   const vsSource = `
     attribute vec4 a_position;
+    varying vec4 v_color;
+
 
     void main() {
       gl_Position = a_position;
+      v_color = gl_Position * 0.5 + 0.5;
     }
   `;
   // fShader hasn't precision
@@ -47,11 +50,11 @@ function main() {
   // Resonse for setting color
   const fsSource = `
     precision mediump float;
-
+    varying vec4 v_color;
     uniform vec4 u_color;
 
     void main() {
-      gl_FragColor = u_color;
+      gl_FragColor = v_color * u_color;
     }
   `;
   //                           gl, type,            shader source
