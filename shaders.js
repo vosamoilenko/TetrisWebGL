@@ -8,8 +8,10 @@ const vsSource = `
   attribute vec4 a_color;
   varying vec4 v_color;
 
+  uniform float shiftX;
+
   void main() {
-    gl_Position = a_position;
+    gl_Position = vec4(a_position.x+shiftX, a_position.y, a_position.z, a_position.w);
     v_color = a_color;
   }
 `;

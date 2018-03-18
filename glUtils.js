@@ -23,7 +23,7 @@ function setColors(gl) {
   let b = Math.random()
 
   let colors = [];
-  for (var i = 0; i < 96; i+=4) {
+  for (var i = 0; i < 96*2; i+=4) {
     colors[i] = r
     colors[i+1] = g
     colors[i+2] = b

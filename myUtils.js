@@ -21,7 +21,7 @@ function randomFloat() {
 
   return (Math.random() * (max - min) + min);
 }
-
+// TODO: add source
 function setEventListner() {
   // works
   // https://caniuse.com/#feat=keyboardevent-key
@@ -32,17 +32,25 @@ function setEventListner() {
   }
 
   switch (event.key) {
+    case "+":
+      break;
+    case "-":
+
+      break;
     case "ArrowDown":
-    // console.log(1);
       // Do something for "down arrow" key press.
       break;
     case "ArrowUp":
       // Do something for "up arrow" key press.
       break;
     case "ArrowLeft":
+    xxxx -= glManager.size.width/10
+    drawScene(glManager)
       // Do something for "left arrow" key press.
       break;
     case "ArrowRight":
+    xxxx += glManager.size.width/10
+    drawScene(glManager)
       // Do something for "right arrow" key press.
       break;
     case "Enter":
