@@ -5,6 +5,8 @@
 // Taking out "Shader creating" and "Program creating" is a good way to have a clean code.
 
 var gl;
+let width = 0.1
+let height = 0.1
 
 function createShader(type, source) {
   var shader = gl.createShader(type);   // create shader
@@ -76,11 +78,12 @@ function main() {
   // getting attr reference (index)
   var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
   var colorAttributeLocation = gl.getAttribLocation(program, "a_color");
-  // var colorUnformLocation = gl.getUniformLocation(program, "u_color")
 
   var positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
-  setRectangle(gl)
+  set2x2PrimitiveVerticies()
+  // set1x4PrimitiveVerticies()
+
 
   var colorBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer)
@@ -157,7 +160,7 @@ function main() {
       stride,
       offset)
 
-    let verticiesCounter = 6;
+    let verticiesCounter = 24;
     var drawingOffset = 0;
 
     gl.drawArrays(gl.TRIANGLES, drawingOffset , verticiesCounter)
@@ -171,23 +174,21 @@ function checkGlError() {
   }
 }
 function setColors(gl) {
-  var r1 = Math.random();
-  var b1 = Math.random();
-  var g1 = Math.random();
+  let r = Math.random()
+  let g = Math.random()
+  let b = Math.random()
 
-  var r2 = Math.random();
-  var b2 = Math.random();
-  var g2 = Math.random();
+  let colors = [];
+  for (var i = 0; i < 96; i+=4) {
+    colors[i] = r
+    colors[i+1] = g
+    colors[i+2] = b
+    colors[i+3] = 1
+  }
 
   gl.bufferData(
       gl.ARRAY_BUFFER,
-      new Float32Array(
-        [ r1, b1, g1, 1,
-          r1, b1, g1, 1,
-          r1, b1, g1, 1,
-          r1, b1, g1, 1,
-          r1, b1, g1, 1,
-          r2, b2, g2, 1]),
+      new Float32Array(colors),
       gl.STATIC_DRAW);
 }
 
@@ -197,32 +198,66 @@ function randomFloat() {
 
   return (Math.random() * (max - min) + min);
 }
-function setRectangle(gl) {
 
-  let x = randomFloat()
-  let y = randomFloat()
-  let width = randomFloat()
-  let height = randomFloat()
-  let x1 = x;
-  let x2 = x + width;
-  let y1 = y;
-  let y2 = y + height;
+// function set2x2Primitive(gl) {
+//   let x1 = -0.9
+//   let y1 = 0.9
+//   let
+// }
+
+function set1x4PrimitiveVerticies() {
+
+
+  var x = randomFloat()
+  var y = x + height
+  if ((x + 0.5) < -1.0 || (x + 0.5) > 1.0 || (y + 0.5) < -1.0 || (y + 0.5) > 1.0) {
+    x = 0;
+    y = 0.2;
+  }
+
+  var positions = [];
+  positions = unitBlock(x,y)
+  positions = positions.concat(unitBlock(x+width,y))
+  positions = positions.concat(unitBlock(x+0.2,y))
+  positions = positions.concat(unitBlock(x+0.3,y))
+
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+}
+function set2x2PrimitiveVerticies() {
+  var x = randomFloat()
+  var y = x + height
+
+  var positions = [];
+  positions = unitBlock(x,y)
+  positions = positions.concat(unitBlock(x,y+width))
+  positions = positions.concat(unitBlock(x+width,y))
+  positions = positions.concat(unitBlock(x+width,y+width))
+
 
   // NOTE: gl.bufferData(gl.ARRAY_BUFFER, ...) will affect
   // whatever buffer is bound to the `ARRAY_BUFFER` bind point
-  // but so far we only have one buffer. If we had more than one
-  // buffer we'd want to bind that buffer to `ARRAY_BUFFER` first.
 
-  let positions = [
-    x1, y1,
-    x2, y1,
-    x1, y2,
-    x1, y2,
-    x2, y1,
-    x2, y2
-  ]
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
 }
+
+function unitBlock(x, y) {
+  var x1 = x;
+  var x2 = x1 + width;
+  let y1 = y;
+  let y2 = y1 + height;
+
+  return [
+      x1, y1,
+      x1, y2,
+      x2, y1,
+
+      x1, y2,
+      x2, y2,
+      x2, y1,
+  ]
+}
+
+
 function setEventListner() {
   // works
   // https://caniuse.com/#feat=keyboardevent-key
