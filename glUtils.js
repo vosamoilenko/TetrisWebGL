@@ -17,7 +17,8 @@ function checkGlError(gl) {
   }
 }
 
-function setColors(gl) {
+function setColors() {
+  var gl = glManager.gl
   let r = Math.random()
   let g = Math.random()
   let b = Math.random()

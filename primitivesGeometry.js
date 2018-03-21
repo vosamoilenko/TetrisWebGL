@@ -1,8 +1,8 @@
 // set a 1x4 block
-function set1x4PrimitiveVerticies(glManager) {
+function set1x4PrimitiveVerticies(unitStep) {
 
   var gl = glManager.gl
-  var step = glManager.size.width
+  var step = unitStep
   var x = -0.8
   var y = 0
 
@@ -12,7 +12,7 @@ function set1x4PrimitiveVerticies(glManager) {
   }
 
   var positions = [];
-  positions = unitBlock(x, y)
+  positions = unitBlock(x, y, step)
   positions = positions.concat(unitBlock(x + step, y, step))
   positions = positions.concat(unitBlock(x + (step + step), y, step))
   positions = positions.concat(unitBlock(x + (step + step + step), y, step))
@@ -21,11 +21,10 @@ function set1x4PrimitiveVerticies(glManager) {
 }
 
 // set a 2x2 block
-function set2x2PrimitiveVerticies(glManager) {
+function set2x2PrimitiveVerticies(unitStep) {
   var gl = glManager.gl
-  var step = glManager.size.width
+  var step = unitStep
   var x = 0.2
-  // randomFloat()
   var y = 0
 
   var positions = [];
@@ -33,9 +32,6 @@ function set2x2PrimitiveVerticies(glManager) {
   positions = positions.concat(unitBlock(x, y + step, step))
   positions = positions.concat(unitBlock(x + step, y, step))
   positions = positions.concat(unitBlock(x + step, y + step, step))
-
-  // NOTE: gl.bufferData(gl.ARRAY_BUFFER, ...) will affect
-  // whatever buffer is bound to the `ARRAY_BUFFER` bind point
 
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
 }

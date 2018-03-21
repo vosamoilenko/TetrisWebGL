@@ -1,29 +1,25 @@
 // If applied, this commit will
 'use strict'
 var glManager = {
-  size: {
-    width: 0.1,
-    height: 0.1
-  },
-  translation: [0,0],
+  shapes : [],
+  unitSize: 0.1,
+  transformation: {
+    translation: function(tx, ty) {
+      return [
+        1, 0, 0,
+        0, 1, 0,
+        tx, ty, 1
+      ];
+    }
+  }
 }
 
-glManager.unitSize = prompt("Set unit block [0...10]")
-glManager.size.width *= glManager.unitSize/10
-glManager.size.height *= glManager.unitSize/10
-
-var xxxx = 0.0
-
-let width = 0.1
-let height = 0.1
-
 function main() {
-  // get contex from html canvas, if browser doesn't support html - return
-  initScene(glManager)
-  drawScene(glManager)
+  initScene()
+  drawScene()
 };
 
-function initScene(glManager) {
+function initScene() {
   setEventListner()
   const canvas = document.querySelector('#glCanvas');
   glManager.gl = canvas.getContext('webgl');
@@ -33,8 +29,7 @@ function initScene(glManager) {
     alert("Unable to initialize WebGL. Your browser or machine may not support it.");
     return;
   }
-
-  //                         gl, type,            shader source
+  // TODO: fix
   const vShader = createShader(gl, gl.VERTEX_SHADER, vsSource)
   const fShader = createShader(gl, gl.FRAGMENT_SHADER, fsSource)
 
@@ -54,90 +49,93 @@ function initScene(glManager) {
   // getting attr reference (index)
   glManager.positionAttributeLocation = gl.getAttribLocation(program, "a_position");
   glManager.colorAttributeLocation = gl.getAttribLocation(program, "a_color");
-  glManager.shiftUniformLocation = gl.getUniformLocation(program, "shiftX")
+  glManager.matrixUniformLocation = gl.getUniformLocation(program, "u_matrix")
 
 
-  glManager.positionBuffer = gl.createBuffer()
-  gl.bindBuffer(gl.ARRAY_BUFFER, glManager.positionBuffer)
+  var u1x4 = new Shape(0.1)
+  var u2x2 = new Shape(0.1)
 
-  glManager.colorBuffer = gl.createBuffer()
-  glManager.gl.bindBuffer(gl.ARRAY_BUFFER, glManager.colorBuffer)
+  u1x4.positionBuffer = gl.createBuffer()
+  gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.positionBuffer)
+  set1x4PrimitiveVerticies(u1x4.unitStep)
 
-  drawScene(glManager)
+  u1x4.colorBuffer = gl.createBuffer()
+  glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.colorBuffer)
+  setColors()
+
+  u2x2.positionBuffer = gl.createBuffer()
+  gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.positionBuffer)
+  set2x2PrimitiveVerticies(u2x2.unitStep)
+
+  u2x2.colorBuffer = gl.createBuffer()
+  glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.colorBuffer)
+  setColors()
+
+  glManager.shapes.push(u1x4)
+  glManager.shapes.push(u2x2)
+
+  drawScene()
 }
 
-function drawScene(glManager) {
+function drawScene(now) {
   var gl = glManager.gl
   var program = glManager.program
   var positionAttributeLocation = glManager.positionAttributeLocation
-  var positionBuffer = glManager.positionBuffer
   var colorAttributeLocation = glManager.colorAttributeLocation
-  var colorBuffer = glManager.colorBuffer
 
   gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
 
   gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
-  gl.clear(gl.COLOR_BUFFER_BIT)
+  gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
 
   gl.useProgram(program)
-  gl.uniform1f(glManager.shiftUniformLocation, xxxx)
 
-  // turns on the generic vertex attribute array
-  // at the specified index into the list of attribute arrays.
+  for (let shape of glManager.shapes) {
 
-  gl.enableVertexAttribArray(positionAttributeLocation)
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
+    let translationMatrix = glManager.transformation.translation(
+      shape.translation[0],shape.translation[1]
+    )
+    gl.uniformMatrix3fv(glManager.matrixUniformLocation, false, translationMatrix)
 
-  var size = 2
-  var type = gl.FLOAT
-  var normalize = false
-  var stride = 0
-  var offset = 0
+    gl.enableVertexAttribArray(positionAttributeLocation)
+    gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
 
-  gl.vertexAttribPointer(
-    positionAttributeLocation,
-    size,
-    type,
-    normalize,
-    stride,
-    offset)
+    var size = 2
+    var type = gl.FLOAT
+    var normalize = false
+    var stride = 0
+    var offset = 0
 
-  gl.enableVertexAttribArray(colorAttributeLocation)
-  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer)
+    gl.vertexAttribPointer(
+      positionAttributeLocation,
+      size,
+      type,
+      normalize,
+      stride,
+      offset
+    )
 
-  var size = 4
-  var type = gl.FLOAT
-  var normalize = false
-  var stride = 0
-  var offset = 0
+    gl.enableVertexAttribArray(colorAttributeLocation)
+    gl.bindBuffer(gl.ARRAY_BUFFER, shape.colorBuffer)
 
-  gl.vertexAttribPointer(
-    colorAttributeLocation,
-    size,
-    type,
-    normalize,
-    stride,
-    offset)
+    var size = 4
+    var type = gl.FLOAT
+    var normalize = false
+    var stride = 0
+    var offset = 0
 
+    gl.vertexAttribPointer(
+      colorAttributeLocation,
+      size,
+      type,
+      normalize,
+      stride,
+      offset
+    )
 
-  // draw 1x4
-  gl.bindBuffer(gl.ARRAY_BUFFER, glManager.positionBuffer)
-  set1x4PrimitiveVerticies(glManager)
+    let verticiesCounter = 24
+    var drawingOffset = 0
+    gl.drawArrays(gl.TRIANGLES, drawingOffset , verticiesCounter)
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, glManager.colorBuffer)
-  setColors(gl)
-
-  let verticiesCounter = 24;
-  var drawingOffset = 0;
-  gl.drawArrays(gl.TRIANGLES, drawingOffset , verticiesCounter)
-
-  // draw 2x2
-  gl.bindBuffer(gl.ARRAY_BUFFER, glManager.positionBuffer)
-  set2x2PrimitiveVerticies(glManager)
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, glManager.colorBuffer)
-  setColors(gl)
-
-  gl.drawArrays(gl.TRIANGLES, drawingOffset , verticiesCounter)
-
+  }
 }
