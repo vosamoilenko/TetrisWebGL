@@ -1,6 +1,6 @@
 // If applied, this commit will
 'use strict'
-var dps = 100
+var dps = 300
 var glManager = {
   then: 0,
   shapes : [],
@@ -29,11 +29,9 @@ var glManager = {
   }
 }
 
-
-
 function main() {
   initScene()
-  drawScene(0)
+  requestAnimationFrame(drawScene)
 };
 
 function initScene() {
@@ -83,7 +81,7 @@ function initScene() {
 
   u2x2.positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.positionBuffer)
-  set2x2PrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
+  set1x4PrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
 
   u2x2.colorBuffer = gl.createBuffer()
   glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.colorBuffer)
@@ -107,13 +105,10 @@ function drawScene(now) {
   gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
 
   gl.useProgram(program)
-  // console.log('delta = ' + (now - glManager.then));
-  // console.log('delta1 = ' + (now - glManager.then));
+
   let delta = (now - glManager.then) * 0.001
   let dAngle = delta * dps
   glManager.then = now
-
-  // console.log([delta, dAngle]);
 
   for (let shape of glManager.shapes) {
 
@@ -121,12 +116,20 @@ function drawScene(now) {
       shape.translation[0],shape.translation[1]
     )
 
-    let angle = (shape.degrees+dAngle)%360
+    var angle = shape.degrees;
+    var rotationAnimationFlags = shape.animationFlags.rotation
+    if (!rotationAnimationFlags.inverse) {
+      if (angle < rotationAnimationFlags.to) {
+          angle = (angle+dAngle)
+      }
+    } else {
+      if (angle > rotationAnimationFlags.to) {
+          angle = (angle-dAngle)
+      }
+    }
+
     let rotationMatrix = glManager.transformation.rotation(angle)
     shape.degrees = angle
-
-
-
 
     var matrix = [];
     mat3.multiply(matrix, translationMatrix, rotationMatrix)
@@ -171,7 +174,6 @@ function drawScene(now) {
     let verticiesCounter = 24
     var drawingOffset = 0
     gl.drawArrays(gl.TRIANGLES, drawingOffset , verticiesCounter)
-
   }
 
   requestAnimationFrame(drawScene)

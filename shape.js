@@ -9,7 +9,17 @@ class Shape {
     }
     this.translation = [0,0]
     this.rotation = [0,1]
-    this.degrees = 0
+    this.degrees = 0.0
+    this.animationFlags = {
+      rotation: {
+        inverse: false,
+        to: this.degrees,
+      },
+      translation: {
+        inverse: false,
+        to: this.degrees,
+      }
+    }
   }
   // get degrees() {return this._degrees}
   // set degrees(value) {

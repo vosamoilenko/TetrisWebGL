@@ -36,33 +36,31 @@ function setEventListner() {
 
   switch (event.key) {
     case "1":
-    shape.degrees = shape.degrees + 1
-    // shape1.degrees = shape1.degrees + 1
-    // console.log(shape.degrees);
-    drawScene(glManager)
+      shape.animationFlags.rotation.to = (shape.degrees + 90)
+      shape.animationFlags.rotation.inverse = false
+      console.log(123);
       break;
     case "3":
-      shape.degrees = shape.degrees - 1
-      // shape1.degrees = shape1.degrees - 1
-      // console.log(shape.degrees);
-      drawScene(glManager)
+      shape.animationFlags.rotation.to = (shape.degrees - 90)
+      shape.animationFlags.rotation.inverse = true
+      console.log(123);
       break;
     case "ArrowDown":
       // shape.translation[1] -= 0.1
-      drawScene(glManager)
+      // drawScene(glManager)
       // Do something for "down arrow" key press.
       break;
     case "ArrowUp":
-      drawScene(glManager)
+      // drawScene(glManager)
       break;
     case "ArrowLeft":
-      shape.translation[0] -= 0.1
-      drawScene(glManager)
+      // shape.translation[0] -= 0.1
+      // drawScene(glManager)
       // Do something for "left arrow" key press.
       break;
     case "ArrowRight":
-      shape.translation[0] += 0.1
-      drawScene(glManager)
+      // shape.translation[0] += 0.1
+      // drawScene(glManager)
       // Do something for "right arrow" key press.
       break;
     case "Enter":
