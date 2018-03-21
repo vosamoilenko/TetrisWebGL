@@ -14,9 +14,11 @@ const vsSource = `
     vec2 position = (u_matrix * vec3(a_position, 1)).xy;
 
     gl_Position = vec4(position,0,1);
-    v_color = a_color;
+    v_color = gl_Position * 0.5 + 0.5;
   }
 `;
+
+// https://webglfundamentals.org/webgl/lessons/webgl-how-it-works.html
 
 // fShader hasn't precision
 // we need to define it
