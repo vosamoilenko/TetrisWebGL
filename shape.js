@@ -17,7 +17,7 @@ class Shape {
       },
       translation: {
         inverse: false,
-        to: this.degrees,
+        to: this.translation,
       }
     }
   }

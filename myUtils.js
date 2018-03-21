@@ -38,39 +38,33 @@ function setEventListner() {
     case "1":
       shape.animationFlags.rotation.to = (shape.degrees + 90)
       shape.animationFlags.rotation.inverse = false
-      console.log(123);
       break;
     case "3":
       shape.animationFlags.rotation.to = (shape.degrees - 90)
       shape.animationFlags.rotation.inverse = true
-      console.log(123);
       break;
     case "ArrowDown":
-      // shape.translation[1] -= 0.1
-      // drawScene(glManager)
-      // Do something for "down arrow" key press.
+      shape.animationFlags.translation.to = [shape.translation[0], shape.translation[1] - 0.1]
+      shape.animationFlags.translation.inverse = true
       break;
     case "ArrowUp":
-      // drawScene(glManager)
+      shape.animationFlags.translation.to = [shape.translation[0], shape.translation[1] + 0.1]
+      shape.animationFlags.translation.inverse = false
       break;
     case "ArrowLeft":
-      // shape.translation[0] -= 0.1
-      // drawScene(glManager)
-      // Do something for "left arrow" key press.
+    shape.animationFlags.translation.to = [shape.translation[0] - 0.1, shape.translation[1]]
+    shape.animationFlags.translation.inverse = true
       break;
     case "ArrowRight":
-      // shape.translation[0] += 0.1
-      // drawScene(glManager)
-      // Do something for "right arrow" key press.
+    shape.animationFlags.translation.to = [shape.translation[0] + 0.1, shape.translation[1]]
+    shape.animationFlags.translation.inverse = false
       break;
     case "Enter":
-      // Do something for "enter" or "return" key press.
       break;
     case "Escape":
-      // Do something for "esc" key press.
       break;
     default:
-      return; // Quit when this doesn't handle the key event.
+      return;
   }
 
   // Cancel the default action to avoid it being handled twice

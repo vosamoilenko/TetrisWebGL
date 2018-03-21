@@ -17,8 +17,6 @@ var glManager = {
       let radians = degrees * Math.PI / 180.0
       let sin = Math.sin(radians)
       let cos = Math.cos(radians)
-      // console.log('sin = ' + sin);
-      // console.log('cos = ' + cos);
 
       return [
         cos, -sin, 0,
@@ -89,8 +87,6 @@ function initScene() {
 
   // glManager.shapes.push(u1x4)
   glManager.shapes.push(u2x2)
-
-
 }
 
 function drawScene(now) {
@@ -108,14 +104,34 @@ function drawScene(now) {
 
   let delta = (now - glManager.then) * 0.001
   let dAngle = delta * dps
+  let distance = 0.5 * delta
   glManager.then = now
 
+  // console.log([dAngle, distance]);
+
   for (let shape of glManager.shapes) {
+    ///////////////////////////// Translation
+
+    var translationAnimationFlags = shape.animationFlags.translation
+    if (!translationAnimationFlags.inverse) {
+      if (shape.translation[0] < translationAnimationFlags.to[0]) {
+          shape.translation[0] = shape.translation[0] + distance
+      } else if (shape.translation[1] < translationAnimationFlags.to[1]){
+          shape.translation[1] = shape.translation[1] + distance
+      }
+    } else {
+      if (shape.translation[0] > translationAnimationFlags.to[0]) {
+          shape.translation[0] = shape.translation[0] - distance
+      } else if (shape.translation[1] > translationAnimationFlags.to[1]){
+          shape.translation[1] = shape.translation[1] - distance
+      }
+    }
 
     let translationMatrix = glManager.transformation.translation(
       shape.translation[0],shape.translation[1]
     )
 
+    //////////////////////////// Rotation
     var angle = shape.degrees;
     var rotationAnimationFlags = shape.animationFlags.rotation
     if (!rotationAnimationFlags.inverse) {
@@ -130,6 +146,8 @@ function drawScene(now) {
 
     let rotationMatrix = glManager.transformation.rotation(angle)
     shape.degrees = angle
+
+    ////////////////////////////// Else
 
     var matrix = [];
     mat3.multiply(matrix, translationMatrix, rotationMatrix)
