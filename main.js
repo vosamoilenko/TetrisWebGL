@@ -1,26 +1,44 @@
 // If applied, this commit will
 'use strict'
+var dps = 100
 var glManager = {
+  then: 0,
   shapes : [],
   unitSize: 0.1,
   transformation: {
-    translation: function(tx, ty) {
+    translation: (tx, ty) => {
       return [
         1, 0, 0,
         0, 1, 0,
         tx, ty, 1
       ];
-    }
+    },
+    rotation: (degrees) => {
+      let radians = degrees * Math.PI / 180.0
+      let sin = Math.sin(radians)
+      let cos = Math.cos(radians)
+      // console.log('sin = ' + sin);
+      // console.log('cos = ' + cos);
+
+      return [
+        cos, -sin, 0,
+        sin,  cos, 0,
+        0  ,   0,  1,
+      ];
+    },
   }
 }
 
+
+
 function main() {
   initScene()
-  drawScene()
+  drawScene(0)
 };
 
 function initScene() {
   setEventListner()
+  glManager.transformation.rotation()
   const canvas = document.querySelector('#glCanvas');
   glManager.gl = canvas.getContext('webgl');
   var gl = glManager.gl
@@ -52,29 +70,29 @@ function initScene() {
   glManager.matrixUniformLocation = gl.getUniformLocation(program, "u_matrix")
 
 
-  var u1x4 = new Shape(0.1)
-  var u2x2 = new Shape(0.1)
+  // var u1x4 = new Shape(0.1)
+  var u2x2 = new Shape(0, 0, glManager.unitSize)
 
-  u1x4.positionBuffer = gl.createBuffer()
-  gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.positionBuffer)
-  set1x4PrimitiveVerticies(u1x4.unitStep)
-
-  u1x4.colorBuffer = gl.createBuffer()
-  glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.colorBuffer)
-  setColors()
+  // u1x4.positionBuffer = gl.createBuffer()
+  // gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.positionBuffer)
+  // set1x4PrimitiveVerticies(u1x4.unitStep)
+  //
+  // u1x4.colorBuffer = gl.createBuffer()
+  // glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.colorBuffer)
+  // setColors()
 
   u2x2.positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.positionBuffer)
-  set2x2PrimitiveVerticies(u2x2.unitStep)
+  set2x2PrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
 
   u2x2.colorBuffer = gl.createBuffer()
   glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.colorBuffer)
   setColors()
 
-  glManager.shapes.push(u1x4)
+  // glManager.shapes.push(u1x4)
   glManager.shapes.push(u2x2)
 
-  drawScene()
+
 }
 
 function drawScene(now) {
@@ -89,13 +107,30 @@ function drawScene(now) {
   gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
 
   gl.useProgram(program)
+  // console.log('delta = ' + (now - glManager.then));
+  // console.log('delta1 = ' + (now - glManager.then));
+  let delta = (now - glManager.then) * 0.001
+  let dAngle = delta * dps
+  glManager.then = now
+
+  // console.log([delta, dAngle]);
 
   for (let shape of glManager.shapes) {
 
     let translationMatrix = glManager.transformation.translation(
       shape.translation[0],shape.translation[1]
     )
-    gl.uniformMatrix3fv(glManager.matrixUniformLocation, false, translationMatrix)
+
+    let angle = (shape.degrees+dAngle)%360
+    let rotationMatrix = glManager.transformation.rotation(angle)
+    shape.degrees = angle
+
+
+
+
+    var matrix = [];
+    mat3.multiply(matrix, translationMatrix, rotationMatrix)
+    gl.uniformMatrix3fv(glManager.matrixUniformLocation, false, matrix)
 
     gl.enableVertexAttribArray(positionAttributeLocation)
     gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
@@ -138,4 +173,6 @@ function drawScene(now) {
     gl.drawArrays(gl.TRIANGLES, drawingOffset , verticiesCounter)
 
   }
+
+  requestAnimationFrame(drawScene)
 }

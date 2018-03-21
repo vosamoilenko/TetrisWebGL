@@ -1,11 +1,11 @@
 class Shape {
-  constructor(unitStep) {
+  constructor(x, y, unitStep) {
     this.unitStep = unitStep
     this.positionBuffer = []
     this.colorBuffer = []
-    this.size = {
-      width: this.unitStep,
-      height: this.unitStep
+    this.origin = {
+      x: x,
+      y: y
     }
     this.translation = [0,0]
     this.rotation = [0,1]

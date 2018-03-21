@@ -31,29 +31,28 @@ function setEventListner() {
     return; // Do nothing if the event was already processed
   }
 
-  var shape = glManager.shapes[1]
-  var shape1 = glManager.shapes[0]
+  var shape = glManager.shapes[0]
+  // var shape1 = glManager.shapes[0]
 
   switch (event.key) {
     case "1":
     shape.degrees = shape.degrees + 1
-    shape1.degrees = shape1.degrees + 1
-    console.log(shape.degrees);
+    // shape1.degrees = shape1.degrees + 1
+    // console.log(shape.degrees);
     drawScene(glManager)
       break;
     case "3":
       shape.degrees = shape.degrees - 1
-      shape1.degrees = shape1.degrees - 1
-      console.log(shape.degrees);
+      // shape1.degrees = shape1.degrees - 1
+      // console.log(shape.degrees);
       drawScene(glManager)
       break;
     case "ArrowDown":
-      shape.translation[1] -= 0.1
+      // shape.translation[1] -= 0.1
       drawScene(glManager)
       // Do something for "down arrow" key press.
       break;
     case "ArrowUp":
-      shape.translation[1] += 0.1
       drawScene(glManager)
       break;
     case "ArrowLeft":
