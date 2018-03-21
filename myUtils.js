@@ -15,6 +15,22 @@ function unitBlock(x, y, step) {
   ]
 }
 
+function getRandom() {
+  var minus = Math.random()*10000
+
+  var x = Math.random()
+
+  if (x < 0) {x *= -1}
+  if (x > 0.5) {x = 0.5}
+
+
+  if (parseInt(minus)%2==0) {
+    x *= -1
+  }
+
+  return x
+}
+
 function randomFloat() {
   let max = 1.0
   let min = -1.0

@@ -1,6 +1,5 @@
 // set a 1x4 block
 function set1x4PrimitiveVerticies(_x ,_y, unitStep) {
-  console.log([_x ,_y, unitStep]);
   var gl = glManager.gl
   var step = unitStep
   var x = _x

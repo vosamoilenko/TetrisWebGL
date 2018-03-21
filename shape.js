@@ -7,7 +7,7 @@ class Shape {
       x: x,
       y: y
     }
-    this.translation = [0,0]
+    this.translation = [getRandom(),getRandom()]
     this.rotation = [0,1]
     this.scaling = [1,1]
     this.degrees = 0.0

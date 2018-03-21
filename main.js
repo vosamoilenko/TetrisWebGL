@@ -1,40 +1,10 @@
 // If applied, this commit will
 'use strict'
 var dps = 300
-var glManager = {
-  then: 0,
-  shapes : [],
-  unitSize: 0.1,
-  transformation: {
-    translation: (tx, ty) => {
-      return [
-        1, 0, 0,
-        0, 1, 0,
-        tx, ty, 1
-      ];
-    },
-    rotation: (degrees) => {
-      let radians = degrees * Math.PI / 180.0
-      let sin = Math.sin(radians)
-      let cos = Math.cos(radians)
-
-      return [
-        cos, -sin, 0,
-        sin,  cos, 0,
-        0  ,   0,  1,
-      ];
-    },
-    scaling: (sx, sy) => {
-      return [
-        sx, 0, 0,
-        0, sy, 0,
-        0, 0, 1,
-      ];
-    }
-  }
-}
+let glManager;
 
 function main() {
+  glManager = new GLManager()
   initScene()
   requestAnimationFrame(drawScene)
 };
@@ -62,7 +32,7 @@ function initScene() {
   gl.attachShader(program, fShader);
   gl.linkProgram(program); // link them all together
 
-  if ( !gl.getProgramParameter(program, gl.LINK_STATUS) ) {
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
     var info = gl.getProgramInfoLog(program);
     throw 'Could not compile WebGL program. \n\n' + info;
   }
@@ -73,7 +43,7 @@ function initScene() {
   glManager.matrixUniformLocation = gl.getUniformLocation(program, "u_matrix")
 
 
-  var u1x4 = new Shape(0.0, 0, glManager.unitSize)
+  var u1x4 = new Shape(0, 0, glManager.unitSize)
   var u2x2 = new Shape(0, 0, glManager.unitSize)
 
   u1x4.positionBuffer = gl.createBuffer()
@@ -92,7 +62,7 @@ function initScene() {
   glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.colorBuffer)
   setColors()
 
-  // glManager.shapes.push(u2x2)
+  glManager.shapes.push(u2x2)
   glManager.shapes.push(u1x4)
 }
 
@@ -174,8 +144,6 @@ function drawScene(now) {
     }
 
     var scalingMatrix = glManager.transformation.scaling(shape.scaling[0],shape.scaling[1])
-
-
 
     var matrix = [];
     mat3.multiply(matrix, translationMatrix, scalingMatrix)
