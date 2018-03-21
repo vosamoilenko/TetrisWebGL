@@ -35,27 +35,45 @@ function setEventListner() {
   // var shape1 = glManager.shapes[0]
 
   switch (event.key) {
-    case "1":
+    case "+":
+      shape.animationFlags.scaling.to = [shape.scaling[0]+0.5, shape.scaling[1]+0.5]
+      shape.animationFlags.scaling.inverse = false
+      break;
+    case "-":
+      shape.animationFlags.scaling.to = [shape.scaling[0]-0.5, shape.scaling[1]-0.5]
+      shape.animationFlags.scaling.inverse = true
+      break;
+    case "3":
+    case "0":
       shape.animationFlags.rotation.to = (shape.degrees + 90)
       shape.animationFlags.rotation.inverse = false
       break;
-    case "3":
+    case "1":
+    case "8":
       shape.animationFlags.rotation.to = (shape.degrees - 90)
       shape.animationFlags.rotation.inverse = true
       break;
     case "ArrowDown":
+    case "s":
+    case "S":
       shape.animationFlags.translation.to = [shape.translation[0], shape.translation[1] - 0.1]
       shape.animationFlags.translation.inverse = true
       break;
     case "ArrowUp":
+    case "w":
+    case "W":
       shape.animationFlags.translation.to = [shape.translation[0], shape.translation[1] + 0.1]
       shape.animationFlags.translation.inverse = false
       break;
     case "ArrowLeft":
+    case "a":
+    case "A":
     shape.animationFlags.translation.to = [shape.translation[0] - 0.1, shape.translation[1]]
     shape.animationFlags.translation.inverse = true
       break;
     case "ArrowRight":
+    case "d":
+    case "D":
     shape.animationFlags.translation.to = [shape.translation[0] + 0.1, shape.translation[1]]
     shape.animationFlags.translation.inverse = false
       break;

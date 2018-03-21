@@ -24,6 +24,13 @@ var glManager = {
         0  ,   0,  1,
       ];
     },
+    scaling: (sx, sy) => {
+      return [
+        sx, 0, 0,
+        0, sy, 0,
+        0, 0, 1,
+      ];
+    }
   }
 }
 
@@ -66,27 +73,27 @@ function initScene() {
   glManager.matrixUniformLocation = gl.getUniformLocation(program, "u_matrix")
 
 
-  // var u1x4 = new Shape(0.1)
+  var u1x4 = new Shape(0.0, 0, glManager.unitSize)
   var u2x2 = new Shape(0, 0, glManager.unitSize)
 
-  // u1x4.positionBuffer = gl.createBuffer()
-  // gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.positionBuffer)
-  // set1x4PrimitiveVerticies(u1x4.unitStep)
-  //
-  // u1x4.colorBuffer = gl.createBuffer()
-  // glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.colorBuffer)
-  // setColors()
+  u1x4.positionBuffer = gl.createBuffer()
+  gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.positionBuffer)
+  set1x4PrimitiveVerticies(u1x4.origin.x, u1x4.origin.y,u1x4.unitStep)
+
+  u1x4.colorBuffer = gl.createBuffer()
+  glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.colorBuffer)
+  setColors()
 
   u2x2.positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.positionBuffer)
-  set1x4PrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
+  set2x2PrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
 
   u2x2.colorBuffer = gl.createBuffer()
   glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.colorBuffer)
   setColors()
 
-  // glManager.shapes.push(u1x4)
-  glManager.shapes.push(u2x2)
+  // glManager.shapes.push(u2x2)
+  glManager.shapes.push(u1x4)
 }
 
 function drawScene(now) {
@@ -111,7 +118,7 @@ function drawScene(now) {
 
   for (let shape of glManager.shapes) {
     ///////////////////////////// Translation
-
+    // refactor
     var translationAnimationFlags = shape.animationFlags.translation
     if (!translationAnimationFlags.inverse) {
       if (shape.translation[0] < translationAnimationFlags.to[0]) {
@@ -147,10 +154,32 @@ function drawScene(now) {
     let rotationMatrix = glManager.transformation.rotation(angle)
     shape.degrees = angle
 
-    ////////////////////////////// Else
+    ////////////////////////////// Scaling
+    var sps = 2.0 * delta
+    var scalingAnimationFlags = shape.animationFlags.scaling
+    if (!scalingAnimationFlags.inverse) {
+      if (shape.scaling[0] < scalingAnimationFlags.to[0]) {
+          shape.scaling[0] = shape.scaling[0] + sps
+      }
+      if (shape.scaling[1] < scalingAnimationFlags.to[1]){
+          shape.scaling[1] = shape.scaling[1] + sps
+      }
+    } else {
+      if (shape.scaling[0] > scalingAnimationFlags.to[0]) {
+          shape.scaling[0] = shape.scaling[0] - sps
+      }
+      if (shape.scaling[1] > scalingAnimationFlags.to[1]){
+          shape.scaling[1] = shape.scaling[1] - sps
+      }
+    }
+
+    var scalingMatrix = glManager.transformation.scaling(shape.scaling[0],shape.scaling[1])
+
+
 
     var matrix = [];
-    mat3.multiply(matrix, translationMatrix, rotationMatrix)
+    mat3.multiply(matrix, translationMatrix, scalingMatrix)
+    mat3.multiply(matrix, matrix, rotationMatrix)
     gl.uniformMatrix3fv(glManager.matrixUniformLocation, false, matrix)
 
     gl.enableVertexAttribArray(positionAttributeLocation)
