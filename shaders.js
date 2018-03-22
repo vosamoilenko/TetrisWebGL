@@ -3,16 +3,16 @@
 // gl_Position - special vertix shaders var responses
 // for position setting
 const vsSource = `
-  attribute vec2 a_position;
-  varying vec4 v_color;
+  attribute vec2 aposition;
+  varying vec4 vcolor;
 
-  uniform mat3 u_matrix;
+  uniform mat3 umatrix;
 
   void main() {
-    vec2 position = (u_matrix * vec3(a_position, 1)).xy;
+    vec2 position = (umatrix * vec3(aposition, 1)).xy;
 
     gl_Position = vec4(position,0,1);
-    v_color = gl_Position * 0.5 + 0.5;
+    vcolor = gl_Position * 0.5 + 0.5;
   }
 `;
 
@@ -23,10 +23,10 @@ const vsSource = `
 // Resonse for setting color
 const fsSource = `
   precision mediump float;
-  varying vec4 v_color;
+  varying vec4 vcolor;
 
   void main() {
-    gl_FragColor = v_color;
+    gl_FragColor = vcolor;
   }
 `;
 
