@@ -48,7 +48,6 @@ function setEventListner() {
   }
 
   var shape = glManager.shapes[0]
-  // var shape1 = glManager.shapes[0]
 
   switch (event.key) {
     case "+":

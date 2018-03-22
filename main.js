@@ -1,5 +1,5 @@
-// If applied, this commit will
 'use strict'
+
 var dps = 300
 let glManager;
 
@@ -39,7 +39,6 @@ function initScene() {
 
   // getting attr reference (index)
   glManager.positionAttributeLocation = gl.getAttribLocation(program, "a_position");
-  glManager.colorAttributeLocation = gl.getAttribLocation(program, "a_color");
   glManager.matrixUniformLocation = gl.getUniformLocation(program, "u_matrix")
 
 
@@ -50,17 +49,9 @@ function initScene() {
   gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.positionBuffer)
   set1x4PrimitiveVerticies(u1x4.origin.x, u1x4.origin.y,u1x4.unitStep)
 
-  u1x4.colorBuffer = gl.createBuffer()
-  glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.colorBuffer)
-  setColors()
-
   u2x2.positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.positionBuffer)
   set2x2PrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
-
-  u2x2.colorBuffer = gl.createBuffer()
-  glManager.gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.colorBuffer)
-  setColors()
 
   glManager.shapes.push(u2x2)
   glManager.shapes.push(u1x4)
@@ -70,7 +61,6 @@ function drawScene(now) {
   var gl = glManager.gl
   var program = glManager.program
   var positionAttributeLocation = glManager.positionAttributeLocation
-  var colorAttributeLocation = glManager.colorAttributeLocation
 
   gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
 
@@ -83,8 +73,6 @@ function drawScene(now) {
   let dAngle = delta * dps
   let distance = 0.5 * delta
   glManager.then = now
-
-  // console.log([dAngle, distance]);
 
   for (let shape of glManager.shapes) {
     ///////////////////////////// Translation
@@ -161,24 +149,6 @@ function drawScene(now) {
 
     gl.vertexAttribPointer(
       positionAttributeLocation,
-      size,
-      type,
-      normalize,
-      stride,
-      offset
-    )
-
-    gl.enableVertexAttribArray(colorAttributeLocation)
-    gl.bindBuffer(gl.ARRAY_BUFFER, shape.colorBuffer)
-
-    var size = 4
-    var type = gl.FLOAT
-    var normalize = false
-    var stride = 0
-    var offset = 0
-
-    gl.vertexAttribPointer(
-      colorAttributeLocation,
       size,
       type,
       normalize,
