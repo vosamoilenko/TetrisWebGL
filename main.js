@@ -11,7 +11,6 @@ function main() {
 
 function initScene() {
   setEventListner()
-  glManager.transformation.rotation()
   const canvas = document.querySelector('#glCanvas');
   glManager.gl = canvas.getContext('webgl');
   var gl = glManager.gl
@@ -21,26 +20,45 @@ function initScene() {
     return;
   }
   // TODO: fix
+
   const vShader = createShader(gl, gl.VERTEX_SHADER, vsSource)
   const fShader = createShader(gl, gl.FRAGMENT_SHADER, fsSource)
+  const vBShader = createShader(gl, gl.VERTEX_SHADER, vsBSource)
+  const fBShader = createShader(gl, gl.FRAGMENT_SHADER, fsBSource)
 
-  glManager.program = gl.createProgram();
-  var program = glManager.program
+  glManager.programs[0] = gl.createProgram(); // bacgkround program
   checkGlError(gl)
 
-  gl.attachShader(program, vShader); // bind shader
-  gl.attachShader(program, fShader);
-  gl.linkProgram(program); // link them all together
+  gl.attachShader(glManager.programs[0], vBShader); // bind shader
+  gl.attachShader(glManager.programs[0], fBShader);
+  gl.linkProgram(glManager.programs[0]); // link them all togethe
 
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+  if (!gl.getProgramParameter(glManager.programs[0], gl.LINK_STATUS)) {
     var info = gl.getProgramInfoLog(program);
     throw 'Could not compile WebGL program. \n\n' + info;
   }
 
-  // getting attr reference (index)
-  glManager.positionAttributeLocation = gl.getAttribLocation(program, "a_position");
-  glManager.matrixUniformLocation = gl.getUniformLocation(program, "u_matrix")
+  glManager.positionBAttributeLocation = gl.getAttribLocation(glManager.programs[0], "aposition");
 
+  var background = new Shape(-1, -1, 2.0)
+  background.positionBuffer = gl.createBuffer()
+  gl.bindBuffer(gl.ARRAY_BUFFER, background.positionBuffer)
+  setBackgroundVerticies(background.origin.x,background.origin.y)
+
+  glManager.background = background
+
+  //////////////////////////////////////////////////////////////
+
+  glManager.programs[1] = gl.createProgram(); // components program
+  checkGlError(gl)
+
+  gl.attachShader(glManager.programs[1], vShader); // bind shader
+  gl.attachShader(glManager.programs[1], fShader);
+  gl.linkProgram(glManager.programs[1]); // link them all together
+
+  // getting attr reference (index)
+  glManager.positionAttributeLocation = gl.getAttribLocation(glManager.programs[1], "a_position");
+  glManager.matrixUniformLocation = gl.getUniformLocation(glManager.programs[1], "u_matrix")
 
   var u1x4 = new Shape(0, 0, glManager.unitSize)
   var u2x2 = new Shape(0, 0, glManager.unitSize)
@@ -55,24 +73,37 @@ function initScene() {
 
   glManager.shapes.push(u2x2)
   glManager.shapes.push(u1x4)
+
 }
 
 function drawScene(now) {
-  var gl = glManager.gl
-  var program = glManager.program
-  var positionAttributeLocation = glManager.positionAttributeLocation
-
-  gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
-
-  gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
-  gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
-
-  gl.useProgram(program)
-
+  // get delta
   let delta = (now - glManager.then) * 0.001
   let dAngle = delta * dps
   let distance = 0.5 * delta
   glManager.then = now
+
+  var gl = glManager.gl
+  var positionAttributeLocation = glManager.positionAttributeLocation
+
+  gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
+  gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
+  gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
+
+
+  // drawing background
+  gl.useProgram(glManager.programs[0])
+
+  gl.enableVertexAttribArray(glManager.positionBAttributeLocation)
+  gl.bindBuffer(gl.ARRAY_BUFFER, glManager.background.positionBuffer)
+
+  gl.vertexAttribPointer(
+    glManager.positionBAttributeLocation, 2,
+    gl.FLOAT, false, 0, 0
+  );
+  gl.drawArrays(gl.TRIANGLES, 0, 6)
+
+  gl.useProgram(glManager.programs[1])
 
   for (let shape of glManager.shapes) {
     ///////////////////////////// Translation

@@ -5,8 +5,7 @@ function set1x4PrimitiveVerticies(_x ,_y, unitStep) {
   var x = _x
   var y = _y
 
-
-  var positions = [];
+  var positions = []
   positions = unitBlock(x, y, step)
   positions = positions.concat(unitBlock(x + step, y, step))
   positions = positions.concat(unitBlock(x + (step + step), y, step))
@@ -14,7 +13,6 @@ function set1x4PrimitiveVerticies(_x ,_y, unitStep) {
 
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
 }
-
 // set a 2x2 block
 function set2x2PrimitiveVerticies(_x, _y, unitStep) {
   var gl = glManager.gl
@@ -22,11 +20,23 @@ function set2x2PrimitiveVerticies(_x, _y, unitStep) {
   var x = _x
   var y = _y
 
-  var positions = [];
+  var positions = []
   positions = unitBlock(x ,y, step)
   positions = positions.concat(unitBlock(x, y + step, step))
   positions = positions.concat(unitBlock(x + step, y, step))
   positions = positions.concat(unitBlock(x + step, y + step, step))
+
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+}
+
+function setBackgroundVerticies(_x, _y) {
+  var gl = glManager.gl
+  var step = 2.0
+  var x = _x
+  var y = _y
+
+  var positions = []
+  positions = unitBlock(x ,y, step)
 
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
 }

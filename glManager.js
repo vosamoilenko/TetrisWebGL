@@ -2,6 +2,7 @@ class GLManager {
   constructor() {
     this.then = 0
     this.shapes = []
+    this.programs = []
     this.unitSize = 0.1;
     this.transformation = {
       translation: (tx, ty) => {
