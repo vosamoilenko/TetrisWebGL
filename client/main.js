@@ -5,15 +5,10 @@ let glManager;
 var image;
 
 function main() {
-
   glManager = new GLManager()
-  // image = new Image();
-  // image.src = "file:///Users/vladimir/Developer/JavaScript/TetrisWebGL/res/background.jpg";  // MUST BE SAME  DOMAIN!!!
-  // image.onload = function() {
-    initScene()
-    requestAnimationFrame(drawScene)
-  };
-// };
+  initScene()
+  requestAnimationFrame(drawScene)
+};
 
 function initScene() {
   setEventListner()
@@ -26,14 +21,6 @@ function initScene() {
     return;
   }
 
-  /////////////////////// Texture setting
-
-
-
-
-
-  //////////////////////////////////////
-
   const vShader = createShader(gl, gl.VERTEX_SHADER, vsSource)
   const fShader = createShader(gl, gl.FRAGMENT_SHADER, fsSource)
   const vBShader = createShader(gl, gl.VERTEX_SHADER, vsBSource)
@@ -42,26 +29,19 @@ function initScene() {
   glManager.programs[0] = createProgram(gl, [vBShader, fBShader])
 
   glManager.positionBAttributeLocation = gl.getAttribLocation(glManager.programs[0], "aposition");
+  glManager.textBAttributeLocation = gl.getAttribLocation(glManager.programs[0], "atexCoord");
 
   var background = new Shape(-1, -1, 2.0)
   background.positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, background.positionBuffer)
-  setBackgroundVerticies(background.origin.x,background.origin.y)
+  setBackgroundVerticies(background.origin.x,background.origin.y, 2.0)
 
-  // background.texture = gl.createTexture();
-  // gl.bindTexture(gl.TEXTURE_2D, background.texture);
-  //
-  // // Set the parameters so we can render any size image.
-  // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-  // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-  // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-  // gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-  //
-  // // Upload the image into the texture.
-  // gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-
-  let url = "file:///Users/vladimir/Developer/JavaScript/TetrisWebGL/res/background.jpg"
+  let url = "./res/background.jpg"
   background.texture = loadImageAndCreateTextureInfo(url)
+  background.texture.positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, background.texture.positionBuffer)
+
+  setBackgroundVerticies(background.origin.x,background.origin.y, 2.0)
 
   glManager.background = background
 
@@ -78,15 +58,18 @@ function initScene() {
 
   u1x4.positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.positionBuffer)
+  // For changing 1x4 shape to LShape uncomment next line, and comment set1x4PrimitiveVerticies
+  // setLShapePrimitiveVerticies(u1x4.origin.x, u1x4.origin.y,u1x4.unitStep)
   set1x4PrimitiveVerticies(u1x4.origin.x, u1x4.origin.y,u1x4.unitStep)
 
   u2x2.positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.positionBuffer)
+  // For changing 2x2 shape to TShape uncomment next line, and comment set2x2PrimitiveVerticies
+  // setTShapePrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
   set2x2PrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
 
   glManager.shapes.push(u2x2)
   glManager.shapes.push(u1x4)
-
 }
 
 function drawScene(now) {
@@ -115,6 +98,17 @@ function drawScene(now) {
     glManager.positionBAttributeLocation, 2,
     gl.FLOAT, false, 0, 0
   );
+
+  gl.enableVertexAttribArray(glManager.textBAttributeLocation)
+  gl.bindBuffer(gl.ARRAY_BUFFER, glManager.background.texture.positionBuffer)
+
+  gl.vertexAttribPointer(
+    glManager.textBAttributeLocation, 2,
+    gl.FLOAT, false, 0, 0
+  );
+
+
+
   gl.drawArrays(gl.TRIANGLES, 0, 6)
 
   gl.useProgram(glManager.programs[1])

@@ -33,10 +33,11 @@ const fsSource = `
 ///////////////// BG Shaders
 const vsBSource = `
   attribute vec2 aposition;
+  attribute vec2 atexCoord;
   varying vec2 vtextCoord;
   void main() {
     gl_Position = vec4(aposition,0,1);
-    vtextCoord = aposition;
+    vtextCoord = atexCoord * 0.5 + 0.5;
   }
 `;
 const fsBSource = `

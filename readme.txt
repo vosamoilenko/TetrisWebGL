@@ -1,6 +1,12 @@
 This is my code for a CG lab1a
 
-Some parts of the code were taken from tutorials, but not just copied. They were read, analyzed and rewritten by me.
+
+Need to run node.js because used the server for using textures.
+Other ways to fetch image into WebGL I haven't found.
+I'm using express, for returning index.html from the server.
+For running my project, call "npm start" command.
+
+Some parts of the code were taken from tutorials, but not just copied. They were read, analysed and rewritten by me.
 
 Tasks:
 1. Set up a drawing window and draw a simple box - done
@@ -25,10 +31,11 @@ Tasks:
   3.5 "1" or "8": rotate the object drawn 90 degrees counterclockwise
   3.6 "3" or "0": rotate the object drawn 90 degrees clockwise
 Extra tasks:
-  1. Background image
+  1. Background image - done
   2. Multiple colours - done
   I have already implemented this in 2.3.
-  3. Tetris shapes
+  3. Tetris shapes - done
+  Added two functions setLShapePrimitiveVerticies and setTShapePrimitiveVerticies for creating tetris shapes.
 
 
   // If applied, this commit will
