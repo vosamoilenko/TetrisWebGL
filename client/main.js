@@ -23,12 +23,12 @@ function initScene() {
     return;
   }
 
-  const vShader = createShader(gl, gl.VERTEX_SHADER, vsSource)
-  const fShader = createShader(gl, gl.FRAGMENT_SHADER, fsSource)
-  const vBShader = createShader(gl, gl.VERTEX_SHADER, vsBSource)
-  const fBShader = createShader(gl, gl.FRAGMENT_SHADER, fsBSource)
+  const vShader = glManager.createShader(gl, gl.VERTEX_SHADER, vsSource)
+  const fShader = glManager.createShader(gl, gl.FRAGMENT_SHADER, fsSource)
+  const vBShader = glManager.createShader(gl, gl.VERTEX_SHADER, vsBSource)
+  const fBShader = glManager.createShader(gl, gl.FRAGMENT_SHADER, fsBSource)
 
-  glManager.programs[0] = createProgram(gl, [vBShader, fBShader])
+  glManager.programs[0] = glManager.createProgram(gl, [vBShader, fBShader])
 
   glManager.positionBAttributeLocation = gl.getAttribLocation(glManager.programs[0], "aposition");
   glManager.textBAttributeLocation = gl.getAttribLocation(glManager.programs[0], "atexCoord");
@@ -38,16 +38,13 @@ function initScene() {
   gl.bindBuffer(gl.ARRAY_BUFFER, background.positionBuffer)
   background.setVerticiesAndBufferData(gl)
 
-
   background.texture = GLManager.loadImageAndCreateTextureInfo(IMG_URL)
   background.texture.positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, background.texture.positionBuffer)
   background.setVerticiesAndBufferData(gl)
   glManager.background = background
 
-  //////////////////////////////////////////////////////////////
-
-  glManager.programs[1] = createProgram(gl, [vShader, fShader]);
+  glManager.programs[1] = glManager.createProgram(gl, [vShader, fShader]);
 
   // getting attr reference (index)
   glManager.positionAttributeLocation = gl.getAttribLocation(glManager.programs[1], "aposition");
@@ -70,9 +67,18 @@ function drawScene(now) {
   let delta = (now - glManager.then) * 0.001
   glManager.then = now
 
-  let angle = delta * ROTATION_PER_SECOND
-  let distance = delta * TRANSLATION_PER_SECOND
-  var scale = 2.0 * SCALE_PER_SECOND
+  var update = {
+    rotation: () => {
+      return delta * ROTATION_PER_SECOND;
+    },
+    translation: () => {
+      return delta * TRANSLATION_PER_SECOND;
+    },
+    scale: () => {
+      return delta * SCALE_PER_SECOND;
+    },
+  }
+
 
   gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
   gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
@@ -98,36 +104,15 @@ function drawScene(now) {
   );
   gl.drawArrays(gl.TRIANGLES, 0, 6)
 
-
+  // draw game elements
   gl.useProgram(glManager.programs[1])
   for (let shape of glManager.shapes) {
 
-    //////////////////////////// Rotation
-
-    // rotate(shape, dAngle)
-
-    newRotationValues(shape, angle)
-    let rotationMatrix = glManager.transformation.rotation(shape.degrees)
-
-    // ///////////////////////////// Translation
-    newTranslationValues(shape, distance)
-    let translationMatrix = glManager.transformation.translation(
-      shape.translation[0],shape.translation[1]
+    gl.uniformMatrix3fv(
+      glManager.matrixUniformLocation,
+      false,
+      shape.updateMatrix(update)
     )
-    //
-    //
-    // ////////////////////////////// Scaling
-    newScalingValues(shape, scale)
-    var scalingMatrix = glManager.transformation.scaling(shape.scaling[0],shape.scaling[1])
-
-    var matrix = [];
-    // mat3.multiply(matrix, )
-
-
-    mat3.multiply(matrix, translationMatrix, scalingMatrix)
-    mat3.multiply(matrix, matrix, rotationMatrix)
-    gl.uniformMatrix3fv(glManager.matrixUniformLocation, false, matrix)
-
     gl.enableVertexAttribArray(glManager.positionAttributeLocation)
     gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
 

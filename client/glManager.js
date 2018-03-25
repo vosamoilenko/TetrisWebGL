@@ -1,3 +1,5 @@
+// This class managed gl routine work and setups
+// Matrix's was taken from lecture slides
 class GLManager {
   constructor() {
     this.then = 0
@@ -31,6 +33,32 @@ class GLManager {
         ];
       }
     }
+  }
+  createProgram(gl, shaders) {
+    let program = gl.createProgram()
+
+    for (let shader of shaders) {
+      if (shader != undefined) {
+        gl.attachShader(program, shader)
+      }
+    }
+    gl.linkProgram(program)
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      var info = gl.getProgramInfoLog(program);
+      throw 'Could not compile WebGL program. \n\n' + info;
+    }
+    return program
+  }
+  createShader(gl,type, source) {
+    var shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    var success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+    if (success) {
+      return shader;
+    }
+    console.log(gl.getShaderInfoLog(shader));
+    gl.deleteShader(shader);
   }
 
   static loadImageAndCreateTextureInfo(url) {
@@ -66,12 +94,10 @@ class GLManager {
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
 
       });
+      // crossOrigin is used for avoiding gl warning
       img.crossOrigin = "null";
       img.src = url;
 
       return textureInfo;
     }
-
-
-
 }

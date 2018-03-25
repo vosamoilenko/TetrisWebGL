@@ -7,14 +7,12 @@ class Line extends Shape {
     }
     this.updateFrame()
     this.setVerticiesAndBufferData = function(gl) {
-      // fill verticies
       var values = [1,2,3,4];
       var positions = []
       positions = unitBlock(x, y, step)
       for (var i of values) {
           positions = positions.concat(unitBlock(x + (step * i), y, step))
       }
-
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
     }
   }

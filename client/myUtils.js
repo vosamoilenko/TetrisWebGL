@@ -30,13 +30,6 @@ function getRandom() {
 
   return x
 }
-
-function randomFloat() {
-  let max = 1.0
-  let min = -1.0
-
-  return (Math.random() * (max - min) + min);
-}
 // TODO: add source
 function setEventListner() {
   // works
@@ -47,7 +40,7 @@ function setEventListner() {
     return; // Do nothing if the event was already processed
   }
 
-  var shape = glManager.shapes[1]
+  var shape = glManager.shapes[0]
 
   switch (event.key) {
     case "+":

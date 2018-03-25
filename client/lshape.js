@@ -7,7 +7,6 @@ class LShape extends Shape {
     }
     this.updateFrame()
     this.setVerticiesAndBufferData = function(gl) {
-      // fill verticies
       var positions = []
       positions = unitBlock(x, y, step)
       positions = positions.concat(unitBlock(x, y + step, step))

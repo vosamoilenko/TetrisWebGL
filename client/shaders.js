@@ -50,4 +50,3 @@ const fsBSource = `
     gl_FragColor = texture2D(uimage, vtextCoord);
   }
 `;
-// vec4(131.0/255.0,31.0/255.0,99.0/255.0,1.0);
