@@ -1,3 +1,8 @@
+/*
+a01468749
+Volodymyr Samoilenko
+*/
+
 'use strict'
 
 let TRANSLATION_PER_SECOND = 0.5;

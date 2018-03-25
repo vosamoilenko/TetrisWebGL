@@ -1,3 +1,8 @@
+/*
+a01468749
+Volodymyr Samoilenko
+*/
+
 class Shape {
   constructor(x,y,unitStep) {
     this.positionBuffer = []

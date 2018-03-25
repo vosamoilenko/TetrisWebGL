@@ -1,3 +1,8 @@
+/*
+a01468749
+Volodymyr Samoilenko
+*/
+
 class LShape extends Shape {
   constructor(x, y, step) {
     super(x, y, step)

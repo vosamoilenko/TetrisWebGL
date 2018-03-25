@@ -1,3 +1,8 @@
+/*
+a01468749
+Volodymyr Samoilenko
+*/
+
 function unitBlock(x, y, step) {
   var x1 = x;
   var x2 = x1 + step;

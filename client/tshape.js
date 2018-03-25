@@ -1,3 +1,8 @@
+/*
+a01468749
+Volodymyr Samoilenko
+*/
+
 class TShape extends Shape {
   constructor(x, y, step) {
     super(x, y, step)
@@ -17,6 +22,4 @@ class TShape extends Shape {
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
     }
   }
-
-
 };

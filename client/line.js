@@ -1,3 +1,8 @@
+/*
+a01468749
+Volodymyr Samoilenko
+*/
+
 class Line extends Shape {
   constructor(x, y, step) {
     super(x, y, step)

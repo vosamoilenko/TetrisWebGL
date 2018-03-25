@@ -1,3 +1,8 @@
+/*
+a01468749
+Volodymyr Samoilenko
+*/
+
 // This class managed gl routine work and setups
 // Matrix's was taken from lecture slides
 class GLManager {

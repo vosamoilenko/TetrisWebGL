@@ -1,3 +1,8 @@
+/*
+a01468749
+Volodymyr Samoilenko
+*/
+
 // attr wil get data from buffer
 // shader progt must have main function
 // gl_Position - special vertix shaders var responses

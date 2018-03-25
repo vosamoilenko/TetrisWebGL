@@ -1,5 +1,7 @@
-This is my code for a CG lab1a
+a01468749
+Volodymyr Samoilenko
 
+This is my code for a CG lab1a
 
 Need to run node.js because used the server for using textures.
 Other ways to fetch image into WebGL I haven't found.
@@ -20,7 +22,7 @@ Tasks:
   I'm using a material from this tutorial
   https://webglfundamentals.org/webgl/lessons/webgl-how-it-works.html
   There is an explanation about using varying for sharing data between shaders.
-  From vertex shader to fragment shader. Also, this helps us to define colour based on a position of vertices.
+  From vertex shader to fragment shader. Also, this helps me to define colours, based on the position of vertices.
   2.4 Make the size of a block (also called 'unit') a user-defined variable - done
   I have implemented this with user interaction by pressing "+" and "-"
 3. Add simple user interaction and animations  - done
@@ -35,7 +37,5 @@ Extra tasks:
   2. Multiple colours - done
   I have already implemented this in 2.3.
   3. Tetris shapes - done
-  Added two functions setLShapePrimitiveVerticies and setTShapePrimitiveVerticies for creating tetris shapes.
-
-
-  // If applied, this commit will
+  There are 4 defined classes for shapes:
+  Line, Square, LShape, TShape that extends from Shape
