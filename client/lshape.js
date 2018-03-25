@@ -5,6 +5,7 @@ class LShape extends Shape {
       width: this.unitStep * 2,
       height: this.unitStep * 3,
     }
+    this.updateFrame()
     this.setVerticiesAndBufferData = function(gl) {
       // fill verticies
       var positions = []

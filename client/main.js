@@ -3,8 +3,8 @@
 let TRANSLATION_PER_SECOND = 0.5;
 let ROTATION_PER_SECOND = 300;
 let SCALE_PER_SECOND = 2.0;
+let IMG_URL = "./res/background.jpg";
 let glManager;
-var image;
 
 function main() {
   glManager = new GLManager()
@@ -36,10 +36,10 @@ function initScene() {
   var background = new Square(-1, -1, 2.0)
   background.positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, background.positionBuffer)
-  setBackgroundVerticies(background.origin.x,background.origin.y, 2.0)
+  background.setVerticiesAndBufferData(gl)
 
-  let url = "./res/background.jpg"
-  background.texture = loadImageAndCreateTextureInfo(url)
+
+  background.texture = GLManager.loadImageAndCreateTextureInfo(IMG_URL)
   background.texture.positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, background.texture.positionBuffer)
   background.setVerticiesAndBufferData(gl)
@@ -106,7 +106,7 @@ function drawScene(now) {
 
     // rotate(shape, dAngle)
 
-    newRotationValues(shape, dAngle)
+    newRotationValues(shape, angle)
     let rotationMatrix = glManager.transformation.rotation(shape.degrees)
 
     // ///////////////////////////// Translation
@@ -117,7 +117,7 @@ function drawScene(now) {
     //
     //
     // ////////////////////////////// Scaling
-    newScalingValues(shape, sps)
+    newScalingValues(shape, scale)
     var scalingMatrix = glManager.transformation.scaling(shape.scaling[0],shape.scaling[1])
 
     var matrix = [];

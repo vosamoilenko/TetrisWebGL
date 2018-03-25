@@ -31,6 +31,7 @@ class Shape {
         x: this.origin.x + (this.size.width/2.0),
         y: this.origin.y + (this.size.height/2.0),
       }
+      console.log(this.center);
     }
   }
 
