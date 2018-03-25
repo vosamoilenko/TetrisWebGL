@@ -1,6 +1,8 @@
 'use strict'
 
-var dps = 300
+let TRANSLATION_PER_SECOND = 0.5;
+let ROTATION_PER_SECOND = 300;
+let SCALE_PER_SECOND = 2.0;
 let glManager;
 var image;
 
@@ -31,7 +33,7 @@ function initScene() {
   glManager.positionBAttributeLocation = gl.getAttribLocation(glManager.programs[0], "aposition");
   glManager.textBAttributeLocation = gl.getAttribLocation(glManager.programs[0], "atexCoord");
 
-  var background = new Shape(-1, -1, 2.0)
+  var background = new Square(-1, -1, 2.0)
   background.positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, background.positionBuffer)
   setBackgroundVerticies(background.origin.x,background.origin.y, 2.0)
@@ -40,9 +42,7 @@ function initScene() {
   background.texture = loadImageAndCreateTextureInfo(url)
   background.texture.positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, background.texture.positionBuffer)
-
-  setBackgroundVerticies(background.origin.x,background.origin.y, 2.0)
-
+  background.setVerticiesAndBufferData(gl)
   glManager.background = background
 
   //////////////////////////////////////////////////////////////
@@ -53,40 +53,30 @@ function initScene() {
   glManager.positionAttributeLocation = gl.getAttribLocation(glManager.programs[1], "aposition");
   glManager.matrixUniformLocation = gl.getUniformLocation(glManager.programs[1], "umatrix")
 
-  var u1x4 = new Shape(0, 0, glManager.unitSize)
-  var u2x2 = new Shape(0, 0, glManager.unitSize)
+  glManager.shapes.push(new TShape(0, 0, glManager.unitSize))
+  glManager.shapes.push(new LShape(0, 0, glManager.unitSize))
 
-  u1x4.positionBuffer = gl.createBuffer()
-  gl.bindBuffer(gl.ARRAY_BUFFER, u1x4.positionBuffer)
-  // For changing 1x4 shape to LShape uncomment next line, and comment set1x4PrimitiveVerticies
-  // setLShapePrimitiveVerticies(u1x4.origin.x, u1x4.origin.y,u1x4.unitStep)
-  set1x4PrimitiveVerticies(u1x4.origin.x, u1x4.origin.y,u1x4.unitStep)
-
-  u2x2.positionBuffer = gl.createBuffer()
-  gl.bindBuffer(gl.ARRAY_BUFFER, u2x2.positionBuffer)
-  // For changing 2x2 shape to TShape uncomment next line, and comment set2x2PrimitiveVerticies
-  // setTShapePrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
-  set2x2PrimitiveVerticies(u2x2.origin.x, u2x2.origin.y, u2x2.unitStep)
-
-  glManager.shapes.push(u2x2)
-  glManager.shapes.push(u1x4)
+  for (let shape of glManager.shapes) {
+    shape.positionBuffer = gl.createBuffer()
+    gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
+    shape.setVerticiesAndBufferData(gl)
+  }
 }
 
 function drawScene(now) {
+  var gl = glManager.gl
+
   // get delta
   let delta = (now - glManager.then) * 0.001
   glManager.then = now
 
-  let dAngle = delta * dps
-  let distance = 0.5 * delta
-  var sps = 2.0 * delta
-
-  var gl = glManager.gl
+  let angle = delta * ROTATION_PER_SECOND
+  let distance = delta * TRANSLATION_PER_SECOND
+  var scale = 2.0 * SCALE_PER_SECOND
 
   gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
   gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
   gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
-
 
   // drawing background
   gl.useProgram(glManager.programs[0])
@@ -106,32 +96,34 @@ function drawScene(now) {
     glManager.textBAttributeLocation, 2,
     gl.FLOAT, false, 0, 0
   );
-
-
-
   gl.drawArrays(gl.TRIANGLES, 0, 6)
 
+
   gl.useProgram(glManager.programs[1])
-
   for (let shape of glManager.shapes) {
-    ///////////////////////////// Translation
-
-    newTranslationValues(shape, distance)
-
-    let translationMatrix = glManager.transformation.translation(
-      shape.translation[0],shape.translation[1]
-    )
 
     //////////////////////////// Rotation
+
+    // rotate(shape, dAngle)
+
     newRotationValues(shape, dAngle)
     let rotationMatrix = glManager.transformation.rotation(shape.degrees)
 
-
-    ////////////////////////////// Scaling
+    // ///////////////////////////// Translation
+    newTranslationValues(shape, distance)
+    let translationMatrix = glManager.transformation.translation(
+      shape.translation[0],shape.translation[1]
+    )
+    //
+    //
+    // ////////////////////////////// Scaling
     newScalingValues(shape, sps)
     var scalingMatrix = glManager.transformation.scaling(shape.scaling[0],shape.scaling[1])
 
     var matrix = [];
+    // mat3.multiply(matrix, )
+
+
     mat3.multiply(matrix, translationMatrix, scalingMatrix)
     mat3.multiply(matrix, matrix, rotationMatrix)
     gl.uniformMatrix3fv(glManager.matrixUniformLocation, false, matrix)

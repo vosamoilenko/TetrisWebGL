@@ -37,11 +37,6 @@ function loadImageAndCreateTextureInfo(url) {
     return textureInfo;
   }
 
-  function requestCORSIfNotSameOrigin(img, url) {
-  if ((new URL(url)).origin !== window.location.origin) {
-    img.crossOrigin = "";
-  }
-}
 
 function newRotationValues(shape, deltaValue) {
   var rotationAnimationFlags = shape.animationFlags.rotation

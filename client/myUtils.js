@@ -47,7 +47,7 @@ function setEventListner() {
     return; // Do nothing if the event was already processed
   }
 
-  var shape = glManager.shapes[0]
+  var shape = glManager.shapes[1]
 
   switch (event.key) {
     case "+":
