@@ -13,10 +13,10 @@ class LShape extends Shape {
     this.updateFrame()
     this.setVerticiesAndBufferData = function(gl) {
       var positions = []
-      positions = unitBlock(x, y, step)
-      positions = positions.concat(unitBlock(x, y + step, step))
-      positions = positions.concat(unitBlock(x, y + step * 2, step))
-      positions = positions.concat(unitBlock(x + step, y, step))
+      positions = unitBlock3d(x, y, step)
+      positions = positions.concat(unitBlock3d(x, y + step, step))
+      positions = positions.concat(unitBlock3d(x, y + step * 2, step))
+      positions = positions.concat(unitBlock3d(x + step, y, step))
 
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
     }

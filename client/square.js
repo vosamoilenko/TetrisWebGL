@@ -4,22 +4,23 @@ Volodymyr Samoilenko
 */
 
 class Square extends Shape {
-  constructor(x, y, step) {
-    super(x, y, step)
+  constructor(x, y, z, step) {
+    super(x, y, z, step)
     this.size = {
       width: this.unitStep * 2,
       height: this.unitStep * 2,
     }
     this.updateFrame()
     this.setVerticiesAndBufferData = function(gl) {
-      // fill verticies
-      var positions = []
-      positions = unitBlock(x ,y, step)
-      positions = positions.concat(unitBlock(x, y + step, step))
-      positions = positions.concat(unitBlock(x + step, y, step))
-      positions = positions.concat(unitBlock(x + step, y + step, step))
+      let step = glManager.unitSize
+      console.log(this);
+      var positions = unitBlock3d(this.origin.x, this.origin.y, this.origin.z, this.unitStep)
+      positions = positions.concat(unitBlock3d(this.origin.x+step, this.origin.y, this.origin.z, this.unitStep))
+      positions = positions.concat(unitBlock3d(this.origin.x, this.origin.y+step, this.origin.z, this.unitStep))
+      positions = positions.concat(unitBlock3d(this.origin.x+step, this.origin.y+step, this.origin.z, this.unitStep))
+      gl.bufferData(
+        gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
 
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
     }
   }
 

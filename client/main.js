@@ -10,6 +10,7 @@ let ROTATION_PER_SECOND = 300;
 let SCALE_PER_SECOND = 2.0;
 let IMG_URL = "./res/background.jpg";
 let glManager;
+var ctx
 
 function main() {
   glManager = new GLManager()
@@ -20,8 +21,11 @@ function main() {
 function initScene() {
   setEventListner()
   const canvas = document.querySelector('#glCanvas');
+  const text = document.querySelector('#glCanvas');
+  // ctx = text.getContext('2d');
   glManager.gl = canvas.getContext('webgl');
   var gl = glManager.gl
+   // gl.enable(gl.CULL_FACE);
 
   if (!gl) {
     alert("Unable to initialize WebGL. Your browser or machine may not support it.");
@@ -38,35 +42,37 @@ function initScene() {
   glManager.positionBAttributeLocation = gl.getAttribLocation(glManager.programs[0], "aposition");
   glManager.textBAttributeLocation = gl.getAttribLocation(glManager.programs[0], "atexCoord");
 
-  var background = new Square(-1, -1, 2.0)
-  background.positionBuffer = gl.createBuffer()
-  gl.bindBuffer(gl.ARRAY_BUFFER, background.positionBuffer)
-  background.setVerticiesAndBufferData(gl)
-
-  background.texture = GLManager.loadImageAndCreateTextureInfo(IMG_URL)
-  background.texture.positionBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, background.texture.positionBuffer)
-  background.setVerticiesAndBufferData(gl)
-  glManager.background = background
+  // var background = new Background(-1, -1, 2.0)
+  // background.positionBuffer = gl.createBuffer()
+  // gl.bindBuffer(gl.ARRAY_BUFFER, background.positionBuffer)
+  // background.setVerticiesAndBufferData(gl)
+  //
+  // background.texture = GLManager.loadImageAndCreateTextureInfo(IMG_URL)
+  // background.texture.positionBuffer = gl.createBuffer();
+  // gl.bindBuffer(gl.ARRAY_BUFFER, background.texture.positionBuffer)
+  // background.setVerticiesAndBufferData(gl)
+  // glManager.background = background
 
   glManager.programs[1] = glManager.createProgram(gl, [vShader, fShader]);
 
   // getting attr reference (index)
   glManager.positionAttributeLocation = gl.getAttribLocation(glManager.programs[1], "aposition");
   glManager.matrixUniformLocation = gl.getUniformLocation(glManager.programs[1], "umatrix")
-
-  glManager.shapes.push(new TShape(0, 0, glManager.unitSize))
-  glManager.shapes.push(new LShape(0, 0, glManager.unitSize))
+  glManager.shapes.push(new Square(0, 0, 0, glManager.unitSize))
+  // glManager.shapes.push(new TShape(0, 0, glManager.unitSize))
+  // glManager.shapes.push(new LShape(0, 0, glManager.unitSize))
 
   for (let shape of glManager.shapes) {
     shape.positionBuffer = gl.createBuffer()
     gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
     shape.setVerticiesAndBufferData(gl)
+
+
   }
 }
 
 function drawScene(now) {
-  var gl = glManager.gl
+  var gl = glManager.gl;
 
   // get delta
   let delta = (now - glManager.then) * 0.001
@@ -82,51 +88,53 @@ function drawScene(now) {
     scale: () => {
       return delta * SCALE_PER_SECOND;
     },
-  }
+  };
+
+  // ctx.clearRect()
 
 
   gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
   gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
   gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
-
-  // drawing background
-  gl.useProgram(glManager.programs[0])
-
-  gl.enableVertexAttribArray(glManager.positionBAttributeLocation)
-  gl.bindBuffer(gl.ARRAY_BUFFER, glManager.background.positionBuffer)
-
-  gl.vertexAttribPointer(
-    glManager.positionBAttributeLocation, 2,
-    gl.FLOAT, false, 0, 0
-  );
-
-  gl.enableVertexAttribArray(glManager.textBAttributeLocation)
-  gl.bindBuffer(gl.ARRAY_BUFFER, glManager.background.texture.positionBuffer)
-
-  gl.vertexAttribPointer(
-    glManager.textBAttributeLocation, 2,
-    gl.FLOAT, false, 0, 0
-  );
-  gl.drawArrays(gl.TRIANGLES, 0, 6)
+  //
+  // // drawing background
+  // gl.useProgram(glManager.programs[0])
+  //
+  // gl.enableVertexAttribArray(glManager.positionBAttributeLocation)
+  // gl.bindBuffer(gl.ARRAY_BUFFER, glManager.background.positionBuffer)
+  //
+  // gl.vertexAttribPointer(
+  //   glManager.positionBAttributeLocation, 3,
+  //   gl.FLOAT, false, 0, 0
+  // );
+  //
+  // gl.enableVertexAttribArray(glManager.textBAttributeLocation)
+  // gl.bindBuffer(gl.ARRAY_BUFFER, glManager.background.texture.positionBuffer)
+  //
+  // gl.vertexAttribPointer(
+  //   glManager.textBAttributeLocation, 3,
+  //   gl.FLOAT, false, 0, 0
+  // );
+  // gl.drawArrays(gl.TRIANGLES, 0, 6)
 
   // draw game elements
   gl.useProgram(glManager.programs[1])
   for (let shape of glManager.shapes) {
 
-    gl.uniformMatrix3fv(
+    gl.uniformMatrix4fv(
       glManager.matrixUniformLocation,
       false,
       shape.updateMatrix(update)
     )
-    gl.enableVertexAttribArray(glManager.positionAttributeLocation)
-    gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
 
-    var size = 2
+    {
+    var size = 3
     var type = gl.FLOAT
     var normalize = false
     var stride = 0
     var offset = 0
 
+    gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
     gl.vertexAttribPointer(
       glManager.positionAttributeLocation,
       size,
@@ -135,10 +143,15 @@ function drawScene(now) {
       stride,
       offset
     )
+    gl.enableVertexAttribArray(glManager.positionAttributeLocation)
+  }
 
-    let verticiesCounter = 24
+    // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, shape.indexBuffer)
+
+    let verticiesCounter = 6 * 6 * 4
     var drawingOffset = 0
-    gl.drawArrays(gl.TRIANGLES, drawingOffset , verticiesCounter)
+    gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
+    // gl.drawElements(gl.TRIANGLES, verticiesCounter, gl.UNSIGNED_BYTE, drawingOffset)
   }
 
   requestAnimationFrame(drawScene)

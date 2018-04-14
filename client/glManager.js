@@ -10,31 +10,55 @@ class GLManager {
     this.then = 0
     this.shapes = []
     this.programs = []
-    this.unitSize = 0.1;
+    this.unitSize = 0.1
+
     this.transformation = {
-      translation: (tx, ty) => {
+      translation: (tx, ty, tz) => {
         return [
-          1, 0, 0,
-          0, 1, 0,
-          tx, ty, 1
+          1,  0,  0,  0,
+          0,  1,  0,  0,
+          0,  0,  1,  0,
+          tx, ty, tz, 1,
         ];
       },
-      rotation: (degrees) => {
+      // 0 == x axes
+      // 1 == y axes
+      // 2 == z axes
+      rotation: (degrees, axes) => {
         let radians = degrees * Math.PI / 180.0
         let sin = Math.sin(radians)
         let cos = Math.cos(radians)
 
-        return [
-          cos, -sin, 0,
-          sin,  cos, 0,
-          0  ,   0,  1,
-        ];
+        switch (axes) {
+          case 0:
+          return [
+            1, 0, 0, 0,
+            0, cos, sin, 0,
+            0, -sin, cos, 0,
+            0, 0, 0, 1,
+            ];
+          case 1:
+          return [
+            cos, 0, -sin, 0,
+            0, 1, 0, 0,
+            sin, 0, cos, 0,
+            0, 0, 0, 1,
+            ];
+          default:
+          return [
+              cos, sin, 0, 0,
+             -sin, cos, 0, 0,
+              0, 0, 1, 0,
+              0, 0, 0, 1,
+           ];
+        }
       },
-      scaling: (sx, sy) => {
+      scaling: (sx, sy, sz) => {
         return [
-          sx, 0, 0,
-          0, sy, 0,
-          0, 0, 1,
+          sx, 0,  0,  0,
+          0, sy,  0,  0,
+          0,  0, sz,  0,
+          0,  0,  0,  1,
         ];
       }
     }
