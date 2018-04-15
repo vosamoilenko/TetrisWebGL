@@ -13,11 +13,10 @@ class Square extends Shape {
     this.updateFrame()
     this.setVerticiesAndBufferData = function(gl) {
       let step = glManager.unitSize
-      console.log(this);
-      var positions = unitBlock3d(this.origin.x, this.origin.y, this.origin.z, this.unitStep)
-      positions = positions.concat(unitBlock3d(this.origin.x+step, this.origin.y, this.origin.z, this.unitStep))
-      positions = positions.concat(unitBlock3d(this.origin.x, this.origin.y+step, this.origin.z, this.unitStep))
-      positions = positions.concat(unitBlock3d(this.origin.x+step, this.origin.y+step, this.origin.z, this.unitStep))
+      var positions = unitBlock3d(this.origin.x, this.origin.y, this.origin.z, step)
+      positions = positions.concat(unitBlock3d(this.origin.x+step, this.origin.y, this.origin.z, step))
+      positions = positions.concat(unitBlock3d(this.origin.x, this.origin.y+step, this.origin.z, step))
+      positions = positions.concat(unitBlock3d(this.origin.x+step, this.origin.y+step, this.origin.z, step))
       gl.bufferData(
         gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
 

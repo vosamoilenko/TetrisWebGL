@@ -4,8 +4,8 @@ Volodymyr Samoilenko
 */
 
 class TShape extends Shape {
-  constructor(x, y, step) {
-    super(x, y, step)
+  constructor(x, y, z, step) {
+    super(x, y, z, step)
     this.size = {
       width: this.unitStep * 3,
       height: this.unitStep * 2,
@@ -13,11 +13,12 @@ class TShape extends Shape {
     this.updateFrame()
     this.setVerticiesAndBufferData = function(gl) {
       // fill verticies
+      let step = glManager.unitSize
       var positions = []
-      positions = unitBlock3d(x, y, step)
-      positions = positions.concat(unitBlock3d(x + step, y, step))
-      positions = positions.concat(unitBlock3d(x + (step * 2), y, step))
-      positions = positions.concat(unitBlock3d(x + step, y + step, step))
+      positions = unitBlock3d(x, y, z, step)
+      positions = positions.concat(unitBlock3d(x + step, y, z, step))
+      positions = positions.concat(unitBlock3d(x + (step * 2), y, z, step))
+      positions = positions.concat(unitBlock3d(x + step, y + step, z, step))
 
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
     }

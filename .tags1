@@ -4,10 +4,7 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^\/\/ function unitBlock3d(x, y, z, step) {$/;"	function	line:6
-unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z) {$/;"	function	line:23
-unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z) {$/;"	function	line:23
-getRandom	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function getRandom() {$/;"	function	line:63
-setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner() {$/;"	function	line:79
-switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:91
-function.setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner() {$/;"	function	line:79
+main	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function main() {$/;"	function	line:14
+initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function initScene() {$/;"	function	line:20
+drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function drawScene(now) {$/;"	function	line:72
+initScene.drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function drawScene(now) {$/;"	function	line:72

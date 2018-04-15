@@ -4,8 +4,8 @@ Volodymyr Samoilenko
 */
 
 class Line extends Shape {
-  constructor(x, y, step) {
-    super(x, y, step)
+  constructor(x, y, z, step) {
+    super(x, y, z, step)
     this.size = {
       width: this.unitStep * 4,
       height: this.unitStep * 1,
@@ -13,10 +13,10 @@ class Line extends Shape {
     this.updateFrame()
     this.setVerticiesAndBufferData = function(gl) {
       var values = [1,2,3,4];
+      let step = glManager.unitSize
       var positions = []
-      positions = unitBlock3d(x, y, step)
       for (var i of values) {
-          positions = positions.concat(unitBlock3d(x + (step * i), y, step))
+          positions = positions.concat(unitBlock3d(x + (step * i), y, z, step))
       }
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
     }

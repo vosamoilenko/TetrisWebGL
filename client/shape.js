@@ -44,15 +44,22 @@ class Shape {
     let rotationMatrix = this.rotate(value.rotation())
     let translationMatrix = this.translate(value.translation())
     let scalingMatrix = this.scale(value.scale())
+    // console.log(translationMatrix);
 
     var matrix = [];
+    matrix = mat4.identity(matrix);
+    // console.log(matrix);
+    // return;
+    matrix = mat4.multiply(matrix, matrix, translationMatrix);
+
+
     // this.degrees += 1;
 
     mat4.multiply(matrix, translationMatrix, scalingMatrix)
     mat4.multiply(matrix, matrix, rotationMatrix)
-
-
     return matrix;
+
+    // return translationMatrix;
   }
 
   scale(value) {
@@ -92,7 +99,7 @@ class Shape {
       if (this.translation[1] < translationAnimationFlags.to[1]){
           this.translation[1] = this.translation[1] + value
       }
-      if (this.translation[2] < translationAnimationFlags.to[1]){
+      if (this.translation[2] < translationAnimationFlags.to[2]){
           this.translation[2] = this.translation[2] + value
       }
     } else {
@@ -113,7 +120,6 @@ class Shape {
   }
 
   rotate(value) {
-
     var rotationAnimationFlags = this.animationFlags.rotation
 
     if (!rotationAnimationFlags.inverse) {
@@ -129,6 +135,7 @@ class Shape {
   }
 
   getRotationMatrix() {
+    // TODO
 
     let toCenter = glManager.transformation.translation(
       -(this.origin.x + (glManager.unitStep / 2.0)),

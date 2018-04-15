@@ -4,8 +4,8 @@ Volodymyr Samoilenko
 */
 
 class Background extends Shape {
-  constructor(x, y, step) {
-    super(x, y, step)
+  constructor(x, y, z, step) {
+    super(x, y, z, step)
     this.size = {
       width: this.unitStep * 2,
       height: this.unitStep * 2,
@@ -14,10 +14,11 @@ class Background extends Shape {
     this.setVerticiesAndBufferData = function(gl) {
       // fill verticies
       var positions = []
-      positions = unitBlock3d(x ,y, step)
-      positions = positions.concat(unitBlock3d(x, y + step, step))
-      positions = positions.concat(unitBlock3d(x + step, y, step))
-      positions = positions.concat(unitBlock3d(x + step, y + step, step))
+      var positions = unitBlock3d(this.origin.x, this.origin.y, this.origin.z, 2)
+      positions = positions.concat(unitBlock3d(this.origin.x+step, this.origin.y, this.origin.z, 2))
+      positions = positions.concat(unitBlock3d(this.origin.x, this.origin.y+step, this.origin.z, 2))
+      positions = positions.concat(unitBlock3d(this.origin.x+step, this.origin.y+step, this.origin.z, 2))
+
 
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
     }

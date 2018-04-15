@@ -3,33 +3,14 @@ a01468749
 Volodymyr Samoilenko
 */
 
-// function unitBlock3d(x, y, z, step) {
-//   var x1 = x;
-//   var x2 = x1 + step;
-//   let y1 = y;
-//   let y2 = y1 + step;
-//
-//   return [
-//       x1, y1, z,
-//       x1, y2, z,
-//       x2, y1, z,
-//
-//       x1, y2, z,
-//       x2, y2, z,
-//       x2, y1, z
-//   ]
-// }
+function unitBlock3d(x,y,z, step) {
 
-function unitBlock3d(x,y,z) {
-  let step = glManager.unitSize
   let x1 = x;
   let x2 = x + step;
   let y1 = y;
   let y2 = y + step;
   let z1 = z;
   let z2 = z + step * 2;
-
-  console.log([step]);
 
   let positions = [
     // front
@@ -67,7 +48,6 @@ function getRandom() {
 
   if (x < 0) {x *= -1}
   if (x > 0.5) {x = 0.5}
-
 
   if (parseInt(minus)%2==0) {
     x *= -1
@@ -114,16 +94,25 @@ function setEventListner() {
     case "s":
     case "S":
     console.log("x");
-    console.log(shape);
-      // shape.animationFlags.translation.to = [shape.translation[0], shape.translation[1] - 1, shape.translation[2]]
-      // shape.animationFlags.translation.inverse = true
+
+    shape.animationFlags.translation.to = shape.translation
+    // shape.animationFlags.translation.to[0] -= 0.1
+    shape.animationFlags.translation.to[1] -= 0.1
+    // shape.animationFlags.translation.to[2] -= 0.1
+      // shape.animationFlags.translation.to = [
+      //   shape.translation[0],
+      //   shape.translation[1],
+      //   shape.translation[2],
+      // ]
+      shape.animationFlags.translation.inverse = true
       break;
-    // case "ArrowUp":
-    // case "w":
-    // case "W":
-    //   shape.animationFlags.translation.to = [shape.translation[0], shape.translation[1] + 0.1, shape.translation[2] + 0.1]
-    //   shape.animationFlags.translation.inverse = false
-    //   break;
+    case "ArrowUp":
+    case "w":
+    case "W":
+    shape.animationFlags.translation.to = shape.translation
+    shape.animationFlags.translation.to[1] += 0.1
+      shape.animationFlags.translation.inverse = false
+      break;
     // case "ArrowLeft":
     // case "a":
     // case "A":
