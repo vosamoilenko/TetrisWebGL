@@ -22,12 +22,6 @@ constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/background.j
 class.size.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/background.js	/^    this.size = {$/;"	property	line:9
 setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/background.js	/^    this.setVerticiesAndBufferData = function(gl) {$/;"	function	line:14
 updateFrame.setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/background.js	/^    this.updateFrame()$/;"	function	line:13
-unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
-unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
-getRandom	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function getRandom() {$/;"	function	line:44
-setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner() {$/;"	function	line:59
-switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:71
-function.setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner() {$/;"	function	line:59
 constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/line.js	/^  constructor(x, y, z, step) {$/;"	function	line:7
 class.size.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/line.js	/^    this.size = {$/;"	property	line:9
 setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/line.js	/^    this.setVerticiesAndBufferData = function(gl) {$/;"	function	line:14
@@ -44,3 +38,9 @@ main	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function 
 initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function initScene() {$/;"	function	line:20
 drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function drawScene(now) {$/;"	function	line:72
 initScene.drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function drawScene(now) {$/;"	function	line:72
+unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
+unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
+getRandom	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function getRandom() {$/;"	function	line:44
+setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner() {$/;"	function	line:59
+switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:71
+function.setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner() {$/;"	function	line:59

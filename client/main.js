@@ -55,7 +55,7 @@ function initScene() {
   // getting attr reference (index)
   glManager.positionAttributeLocation = gl.getAttribLocation(glManager.programs[1], "aposition");
   glManager.matrixUniformLocation = gl.getUniformLocation(glManager.programs[1], "umatrix")
-  glManager.shapes.push(new TShape(0, 0, 0, glManager.unitSize))
+  // glManager.shapes.push(new TShape(0, 0, 0, glManager.unitSize))
   glManager.shapes.push(new Square(0, 0, 0, glManager.unitSize))
   // glManager.shapes.push(new TShape(0, 0, glManager.unitSize))
   // glManager.shapes.push(new LShape(0, 0, glManager.unitSize))

@@ -69,21 +69,26 @@ function setEventListner() {
 
 
   switch (event.key) {
-    // case "+":
-    //   shape.animationFlags.scaling.to = [
-    //     shape.scaling[0]+0.5, shape.scaling[1]+0.5, shape.scaling[2]+0.5
-    //   ]
-    //   shape.animationFlags.scaling.inverse = false
-    //   break;
-    // case "-":
-    //   shape.animationFlags.scaling.to = [shape.scaling[0]-0.5, shape.scaling[1]-0.5, shape.scaling[2]-0.5]
-    //   shape.animationFlags.scaling.inverse = true
-    //   break;
-    // case "3":
-    // case "0":
-    //   shape.animationFlags.rotation.to = (shape.degrees + 90)
-    //   shape.animationFlags.rotation.inverse = false
-    //   break;
+    case "+":
+      shape.animationFlags.scaling.to = [
+        shape.scaling[0]+0.1,
+        shape.scaling[1]+0.1,
+        shape.scaling[2]+0.1
+      ]
+      shape.animationFlags.scaling.inverse = false
+      break;
+    case "-":
+      shape.animationFlags.scaling.to = [
+        shape.scaling[0]-0.1, 
+        shape.scaling[1]-0.1, 
+        shape.scaling[2]-0.1]
+      shape.animationFlags.scaling.inverse = true
+      break;
+    case "3":
+    case "0":
+      shape.animationFlags.rotation.to = (shape.degrees + 90)
+      shape.animationFlags.rotation.inverse = false
+      break;
     case "1":
     case "8":
     console.log(1);
@@ -93,18 +98,9 @@ function setEventListner() {
     case "ArrowDown":
     case "s":
     case "S":
-    console.log("x");
-
     shape.animationFlags.translation.to = shape.translation
-    // shape.animationFlags.translation.to[0] -= 0.1
     shape.animationFlags.translation.to[1] -= 0.1
-    // shape.animationFlags.translation.to[2] -= 0.1
-      // shape.animationFlags.translation.to = [
-      //   shape.translation[0],
-      //   shape.translation[1],
-      //   shape.translation[2],
-      // ]
-      shape.animationFlags.translation.inverse = true
+    shape.animationFlags.translation.inverse = true
       break;
     case "ArrowUp":
     case "w":
@@ -113,18 +109,20 @@ function setEventListner() {
     shape.animationFlags.translation.to[1] += 0.1
       shape.animationFlags.translation.inverse = false
       break;
-    // case "ArrowLeft":
-    // case "a":
-    // case "A":
-    // shape.animationFlags.translation.to = [shape.translation[0] - 0.1, shape.translation[1], shape.translation[2]]
-    // shape.animationFlags.translation.inverse = true
-    //   break;
-    // case "ArrowRight":
-    // case "d":
-    // case "D":
-    // shape.animationFlags.translation.to = [shape.translation[0] + 0.1, shape.translation[1]]
-    // shape.animationFlags.translation.inverse = false
-    //   break;
+    case "ArrowLeft":
+    case "a":
+    case "A":
+    shape.animationFlags.translation.to = shape.translation
+    shape.animationFlags.translation.to[0] -= 0.1
+    shape.animationFlags.translation.inverse = true
+      break;
+    case "ArrowRight":
+    case "d":
+    case "D":
+    shape.animationFlags.translation.to = shape.translation
+    shape.animationFlags.translation.to[0] += 0.1
+    shape.animationFlags.translation.inverse = false
+      break;
     case "Enter":
       break;
     case "Escape":
