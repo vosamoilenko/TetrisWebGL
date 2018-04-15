@@ -4,11 +4,13 @@ Volodymyr Samoilenko
 */
 'use strict'
 
-let TRANSLATION_PER_SECOND = 0.5;
+var TRANSLATION_PER_SECOND = 0.5
 let ROTATION_PER_SECOND = 300;
 let SCALE_PER_SECOND = 2.0;
 let IMG_URL = "./res/background.jpg";
-let glManager;
+var glManager;
+var game = new Game();
+
 
 function main() {
   glManager = new GLManager()
@@ -19,6 +21,16 @@ function main() {
 function initScene() {
   setEventListner()
   const canvas = document.querySelector('#glCanvas');
+
+  // game.props.screen.size = {
+  //   width: canvas.width,
+  //   height: canvas.height
+  // }
+  // game.props.shape.size = {
+  //   // width: ,
+  //   // height: canvas.height
+  // }
+
 
   glManager.gl = canvas.getContext('webgl');
   var gl = glManager.gl
@@ -32,6 +44,8 @@ function initScene() {
   const fShader = glManager.createShader(gl, gl.FRAGMENT_SHADER, fsSource)
   const vBShader = glManager.createShader(gl, gl.VERTEX_SHADER, vsBSource)
   const fBShader = glManager.createShader(gl, gl.FRAGMENT_SHADER, fsBSource)
+  // const vPrShader = glManager.createShader(gl, gl.FRAGMENT_SHADER, vsPreviewSource)
+  // const fPrShader = glManager.createShader(gl, gl.FRAGMENT_SHADER, fsPreviewSource)
 
   glManager.programs[0] = glManager.createProgram(gl, [vBShader, fBShader])
 
@@ -55,15 +69,19 @@ function initScene() {
   glManager.positionAttributeLocation = gl.getAttribLocation(glManager.programs[1], "aposition");
   glManager.matrixUniformLocation = gl.getUniformLocation(glManager.programs[1], "umatrix")
 
-  glManager.shapes.push(new Square(0, 1-0.2, 0, glManager.unitSize))
+  game.shapes.push(new Square(0, 1-0.2, 0, glManager.unitSize))
 
-  for (let shape of glManager.shapes) {
+  for (let shape of game.shapes) {
     shape.positionBuffer = gl.createBuffer()
     gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
     shape.setVerticiesAndBufferData(gl)
-
-
   }
+
+  // glManager.programs[2] = glManager.createProgram(gl, [vPrShader, fPrShader])
+  // glManager.positionPrAttributeLocation = gl.getAttribLocation(glManager.programs[2], "aposition");
+
+  // var preview =
+
 }
 
 function drawScene(now) {
@@ -112,7 +130,7 @@ function drawScene(now) {
 
   // draw game elements
   gl.useProgram(glManager.programs[1])
-  for (let shape of glManager.shapes) {
+  for (let shape of game.shapes) {
 
     gl.uniformMatrix4fv(
       glManager.matrixUniformLocation,
@@ -139,12 +157,10 @@ function drawScene(now) {
     gl.enableVertexAttribArray(glManager.positionAttributeLocation)
   }
 
-    // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, shape.indexBuffer)
-
     let verticiesCounter = 6 * 6 * 4
     var drawingOffset = 0
     gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
-    // gl.drawElements(gl.TRIANGLES, verticiesCounter, gl.UNSIGNED_BYTE, drawingOffset)
+
   }
 
   requestAnimationFrame(drawScene)

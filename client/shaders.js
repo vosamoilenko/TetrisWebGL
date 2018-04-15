@@ -8,12 +8,7 @@ Volodymyr Samoilenko
 // gl_Position - special vertix shaders var responses
 // for position setting
 
-// vec2 position = (umatrix * vec3(aposition, 1)).xy;
-// vec2 position = (umatrix * vec3(aposition, 1)).xy;
-// gl_Position = vec4(position,0,1);
-// gl_Position = vec4(umatrix * vec3(aposition, 1)).xy, 0, 1);
 const vsSource = `
-
   attribute vec4 aposition;
   uniform mat4 umatrix;
   varying vec4 vcolor;
@@ -25,12 +20,6 @@ const vsSource = `
   }
 `;
 
-// fShader hasn't precision
-// we need to define it
-// highp || mediump || ..
-// gl_FragColor - spec fragment shader var
-// Resonse for setting color
-// vec4(1.0/255.0,1.0,1.0,1.0);
 const fsSource = `
   precision mediump float;
   varying vec4 vcolor;
@@ -40,6 +29,19 @@ const fsSource = `
   }
 `;
 
+
+// const vsPreviewSource = `
+//   attribute vec4 aposition;
+//
+//   void main() {
+//     gl_Position = aposition;
+//   }
+// `;
+// const fsPreviewSource = `
+//   void main() {
+//     gl_FragColor = vec4(0,0,0,1);
+//   }
+// `;
 
 
 

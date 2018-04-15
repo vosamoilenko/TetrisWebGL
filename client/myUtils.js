@@ -65,69 +65,67 @@ function setEventListner() {
     return; // Do nothing if the event was already processed
   }
 
-  var shape = glManager.shapes[0]
+  var shape = game.shapes[0]
 
 
   switch (event.key) {
-    case "+":
-      shape.animationFlags.scaling.to = [
-        shape.scaling[0]+0.1,
-        shape.scaling[1]+0.1,
-        shape.scaling[2]+0.1
-      ]
-      shape.animationFlags.scaling.inverse = false
-      break;
-    case "-":
-      shape.animationFlags.scaling.to = [
-        shape.scaling[0]-0.1,
-        shape.scaling[1]-0.1,
-        shape.scaling[2]-0.1]
-      shape.animationFlags.scaling.inverse = true
-      break;
+    // case "+":
+    //   shape.animProps.scaling.to = [
+    //     shape.scaling[0]+0.1,
+    //     shape.scaling[1]+0.1,
+    //     shape.scaling[2]+0.1
+    //   ]
+    //   shape.animProps.scaling.inverse = false
+    //   break;
+    // case "-":
+    //   shape.animProps.scaling.to = [
+    //     shape.scaling[0]-0.1,
+    //     shape.scaling[1]-0.1,
+    //     shape.scaling[2]-0.1]
+    //   shape.animProps.scaling.inverse = true
+    //   break;
     case "3":
     case "0":
-      shape.animationFlags.rotation.to = (shape.degrees + 90)
-      shape.animationFlags.rotation.inverse = false
+      shape.animProps.rotation.to = (shape.degrees + 90)
+      shape.animProps.rotation.inverse = false
       break;
     case "1":
     case "8":
     console.log(1);
-      shape.animationFlags.rotation.to = (shape.degrees - 90)
-      shape.animationFlags.rotation.inverse = true
+      shape.animProps.rotation.to = (shape.degrees - 90)
+      shape.animProps.rotation.inverse = true
       break;
     case "ArrowDown":
     case "s":
     case "S":
-    shape.animationFlags.translation.to = shape.translation
-    shape.animationFlags.translation.to[1] -= 0.1
-    shape.animationFlags.translation.inverse = true
-    shape.animationFlags.translation.animate = true;
+
+    if (shape.animProps.translation.animate) {
+      shape.translation[1] = -1.8
+    } else {
+      shape.animProps.translation.animate = true;
+    }
       break;
     case "ArrowUp":
     case "w":
     case "W":
-    shape.animationFlags.translation.to = shape.translation
-    // shape.animationFlags.translation.to[1] += 0.1
-      // shape.animationFlags.translation.inverse = false
-    shape.animationFlags.translation.animate = false;
+    shape.animProps.translation.animate = false;
       break;
     case "ArrowLeft":
     case "a":
     case "A":
-    shape.animationFlags.translation.to = shape.translation
-    shape.animationFlags.translation.to[0] -= 0.1
-    shape.animationFlags.translation.inverse = true
+    shape.animProps.translation.left()
+    shape.animProps.translation.inverse = true
       break;
     case "ArrowRight":
     case "d":
     case "D":
-    shape.animationFlags.translation.to = shape.translation
-    shape.animationFlags.translation.to[0] += 0.1
-    shape.animationFlags.translation.inverse = false
+    shape.animProps.translation.right()
+    shape.animProps.translation.inverse = false
       break;
     case "Enter":
       break;
     case "Escape":
+
       break;
     default:
       return;

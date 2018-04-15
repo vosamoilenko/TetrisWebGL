@@ -4,11 +4,4 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  constructor(x,y,z,step) {$/;"	function	line:7
-updateFrame	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateFrame() {$/;"	function	line:36
-updateFrame.center.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^    this.center = {$/;"	property	line:37
-updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateMatrix(value) {$/;"	function	line:44
-scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  scale(value) {$/;"	function	line:66
-translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  translate(value) {$/;"	function	line:94
-rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  rotate(value) {$/;"	function	line:131
-getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  getRotationMatrix() {$/;"	function	line:146
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  constructor() {$/;"	function	line:2

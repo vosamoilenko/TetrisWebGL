@@ -21,6 +21,4 @@ class Square extends Shape {
         gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
     }
   }
-
-
 };
