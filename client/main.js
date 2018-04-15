@@ -2,7 +2,6 @@
 a01468749
 Volodymyr Samoilenko
 */
-
 'use strict'
 
 let TRANSLATION_PER_SECOND = 0.5;
@@ -55,10 +54,8 @@ function initScene() {
   // getting attr reference (index)
   glManager.positionAttributeLocation = gl.getAttribLocation(glManager.programs[1], "aposition");
   glManager.matrixUniformLocation = gl.getUniformLocation(glManager.programs[1], "umatrix")
-  // glManager.shapes.push(new TShape(0, 0, 0, glManager.unitSize))
-  glManager.shapes.push(new Square(0, 0, 0, glManager.unitSize))
-  // glManager.shapes.push(new TShape(0, 0, glManager.unitSize))
-  // glManager.shapes.push(new LShape(0, 0, glManager.unitSize))
+
+  glManager.shapes.push(new Square(0, 1-0.2, 0, glManager.unitSize))
 
   for (let shape of glManager.shapes) {
     shape.positionBuffer = gl.createBuffer()

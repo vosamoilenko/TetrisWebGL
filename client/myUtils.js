@@ -79,8 +79,8 @@ function setEventListner() {
       break;
     case "-":
       shape.animationFlags.scaling.to = [
-        shape.scaling[0]-0.1, 
-        shape.scaling[1]-0.1, 
+        shape.scaling[0]-0.1,
+        shape.scaling[1]-0.1,
         shape.scaling[2]-0.1]
       shape.animationFlags.scaling.inverse = true
       break;
@@ -101,13 +101,15 @@ function setEventListner() {
     shape.animationFlags.translation.to = shape.translation
     shape.animationFlags.translation.to[1] -= 0.1
     shape.animationFlags.translation.inverse = true
+    shape.animationFlags.translation.animate = true;
       break;
     case "ArrowUp":
     case "w":
     case "W":
     shape.animationFlags.translation.to = shape.translation
-    shape.animationFlags.translation.to[1] += 0.1
-      shape.animationFlags.translation.inverse = false
+    // shape.animationFlags.translation.to[1] += 0.1
+      // shape.animationFlags.translation.inverse = false
+    shape.animationFlags.translation.animate = false;
       break;
     case "ArrowLeft":
     case "a":

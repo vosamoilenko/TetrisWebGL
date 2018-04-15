@@ -6,18 +6,6 @@ success	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^ 
 textureInfo.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^      var textureInfo = {$/;"	property	line:111
 textureInfo.height	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        width: 1,   \/\/ we don't know the size until it loads$/;"	property	line:112
 textureInfo.texture	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        height: 1,$/;"	property	line:113
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  constructor(x,y,z,step) {$/;"	function	line:7
-updateFrame	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateFrame() {$/;"	function	line:35
-updateFrame.center.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^    this.center = {$/;"	property	line:36
-updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateMatrix(value) {$/;"	function	line:43
-scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  scale(value) {$/;"	function	line:65
-translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  translate(value) {$/;"	function	line:93
-rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  rotate(value) {$/;"	function	line:122
-getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  getRotationMatrix() {$/;"	function	line:137
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/square.js	/^  constructor(x, y, z, step) {$/;"	function	line:7
-class.size.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/square.js	/^    this.size = {$/;"	property	line:9
-setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/square.js	/^    this.setVerticiesAndBufferData = function(gl) {$/;"	function	line:14
-updateFrame.setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/square.js	/^    this.updateFrame()$/;"	function	line:13
 constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/background.js	/^  constructor(x, y, z, step) {$/;"	function	line:7
 class.size.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/background.js	/^    this.size = {$/;"	property	line:9
 setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/background.js	/^    this.setVerticiesAndBufferData = function(gl) {$/;"	function	line:14
@@ -34,13 +22,25 @@ constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/tshape.js	/^
 class.size.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/tshape.js	/^    this.size = {$/;"	property	line:9
 setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/tshape.js	/^    this.setVerticiesAndBufferData = function(gl) {$/;"	function	line:14
 updateFrame.setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/tshape.js	/^    this.updateFrame()$/;"	function	line:13
-main	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function main() {$/;"	function	line:14
-initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function initScene() {$/;"	function	line:20
-drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function drawScene(now) {$/;"	function	line:72
-initScene.drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function drawScene(now) {$/;"	function	line:72
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/square.js	/^  constructor(x, y, z, step) {$/;"	function	line:7
+class.size.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/square.js	/^    this.size = {$/;"	property	line:9
+setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/square.js	/^    this.setVerticiesAndBufferData = function(gl) {$/;"	function	line:14
+updateFrame.setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/square.js	/^    this.updateFrame()$/;"	function	line:13
+main	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function main() {$/;"	function	line:13
+initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function initScene() {$/;"	function	line:19
+drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function drawScene(now) {$/;"	function	line:69
+initScene.drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function drawScene(now) {$/;"	function	line:69
 unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
 unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
 getRandom	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function getRandom() {$/;"	function	line:44
 setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner() {$/;"	function	line:59
 switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:71
 function.setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner() {$/;"	function	line:59
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  constructor(x,y,z,step) {$/;"	function	line:7
+updateFrame	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateFrame() {$/;"	function	line:36
+updateFrame.center.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^    this.center = {$/;"	property	line:37
+updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateMatrix(value) {$/;"	function	line:44
+scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  scale(value) {$/;"	function	line:66
+translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  translate(value) {$/;"	function	line:94
+rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  rotate(value) {$/;"	function	line:131
+getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  getRotationMatrix() {$/;"	function	line:146

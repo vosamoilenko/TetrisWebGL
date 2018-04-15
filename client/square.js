@@ -19,7 +19,6 @@ class Square extends Shape {
       positions = positions.concat(unitBlock3d(this.origin.x+step, this.origin.y+step, this.origin.z, step))
       gl.bufferData(
         gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
-
     }
   }
 

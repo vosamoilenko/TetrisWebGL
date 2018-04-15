@@ -25,6 +25,7 @@ class Shape {
       translation: {
         inverse: false,
         to: this.translation,
+        animate: true
       },
       scaling: {
         inverse: false,
@@ -99,20 +100,28 @@ class Shape {
       if (this.translation[1] < translationAnimationFlags.to[1]){
           this.translation[1] = this.translation[1] + value
       }
-      if (this.translation[2] < translationAnimationFlags.to[2]){
-          this.translation[2] = this.translation[2] + value
-      }
+      // if (this.translation[2] < translationAnimationFlags.to[2]){
+      //     this.translation[2] = this.translation[2] + value
+      // }
     } else {
       if (this.translation[0] > translationAnimationFlags.to[0]) {
           this.translation[0] = this.translation[0] - value
       }
        if (this.translation[1] > translationAnimationFlags.to[1]){
           this.translation[1] = this.translation[1] - value
+      } else if (this.translation[1] < -1.8){
+        this.translation[1] = -1.8
       }
-      if (this.translation[2] > translationAnimationFlags.to[1]){
-         this.translation[2] = this.translation[2] - value
-     }
+     //  if (this.translation[2] > translationAnimationFlags.to[1]){
+     //     this.translation[2] = this.translation[2] - value
+     // }
     }
+
+    if (this.translation[1] - 0.2 > -2 && translationAnimationFlags.animate) {
+      this.translation[1] -= 0.01
+
+    }
+    console.log(this.translation);
 
     return glManager.transformation.translation(
       this.translation[0],this.translation[1], this.translation[2]
