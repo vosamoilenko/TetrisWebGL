@@ -10,7 +10,12 @@ class GLManager {
     this.then = 0
     this.shapes = []
     this.programs = []
-    this.unitSize = 0.125
+    this.screen = {
+      size: {w:600 ,h:600},
+      playebleArea: {w:375, h: 600 },
+      unitSize: 0.1,
+    }
+    // this.gl = undefined;
 
     this.transformation = {
       translation: (tx, ty, tz) => {
@@ -62,7 +67,174 @@ class GLManager {
         ];
       }
     }
+    this.initScene();
   }
+
+  initScene() {
+
+    setEventListner()
+    const canvas = document.querySelector('#glCanvas');
+
+    this.gl = canvas.getContext('webgl');
+    var gl = this.gl;
+
+    if (!gl) {
+      alert("Unable to initialize WebGL. Your browser or machine may not support it.");
+      return;
+    }
+
+    const vShader = this.createShader(gl, gl.VERTEX_SHADER, vsSource)
+    const fShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsSource)
+    const vBShader = this.createShader(gl, gl.VERTEX_SHADER, vsBSource)
+    const fBShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsBSource)
+    // const vPrShader = this.createShader(gl, gl.FRAGMENT_SHADER, vsPreviewSource)
+    // const fPrShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsPreviewSource)
+
+    this.programs[0] = this.createProgram(gl, [vBShader, fBShader])
+
+    this.positionBAttributeLocation = gl.getAttribLocation(this.programs[0], "aposition");
+    this.textBAttributeLocation = gl.getAttribLocation(this.programs[0], "atexCoord");
+
+    var background = new Background(-1, -1, 0, 2.0)
+    background.positionBuffer = gl.createBuffer()
+    gl.bindBuffer(gl.ARRAY_BUFFER, background.positionBuffer)
+    background.setVerticiesAndBufferData(gl)
+
+    background.texture = this.loadImageAndCreateTextureInfo(IMG_URL)
+    background.texture.positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, background.texture.positionBuffer)
+    background.setVerticiesAndBufferData(gl)
+    this.background = background
+
+    this.programs[1] = this.createProgram(gl, [vShader, fShader]);
+
+    // getting attr reference (index)
+    this.positionAttributeLocation = gl.getAttribLocation(this.programs[1], "aposition");
+    this.matrixUniformLocation = gl.getUniformLocation(this.programs[1], "umatrix")
+  }
+
+
+  drawScene(now, player) {
+
+    var gl = this.gl;
+
+    // return;
+
+    game.player.activeShape.forEach( (row, y) => {
+      row.forEach( (value, x) => {
+        if (value !== 0) {
+
+          let _x = (x + game.player.position.x) * glManager.screen.unitSize
+          let _y = (y + game.player.position.y) * glManager.screen.unitSize
+          // console.log(_x, _y);
+          // debugger;
+          let shape = new Unit(
+            _x,
+            _y,
+            0, glManager.screen.unitSize)
+          game.shapes.push(shape);
+          shape.positionBuffer = gl.createBuffer()
+          gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
+          shape.setVerticiesAndBufferData(gl)
+        }
+      });
+    });
+
+    // game.landed.forEach( (row, y) => {
+    //   row.forEach( (value, x) => {
+    //     if (value !== 0) {
+    //       console.log(x, y);
+    //       let shape = new Unit(
+    //         x/10 * glManager.screen.unitSize,
+    //         y/10 * glManager.screen.unitSize,
+    //          0, glManager.screen.unitSize)
+    //       game.shapes.push(shape);
+    //       shape.positionBuffer = gl.createBuffer()
+    //       gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
+    //       shape.setVerticiesAndBufferData(gl)
+    //     }
+    //   });
+    // });
+
+    // get delta
+    // console.log(now);
+    // let delta = (now - this.then) * 0.001
+    this.then = now
+
+    var update = {
+      rotation: () => {
+        return now * ROTATION_PER_SECOND;
+      },
+      translation: () => {
+        return now * TRANSLATION_PER_SECOND;
+      },
+      scale: () => {
+        return now * SCALE_PER_SECOND;
+      },
+    };
+
+
+    gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
+    gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
+    gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
+    //
+    // // drawing background
+    gl.useProgram(this.programs[0])
+
+    gl.enableVertexAttribArray(this.positionBAttributeLocation)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.background.positionBuffer)
+
+    gl.vertexAttribPointer(
+      this.positionBAttributeLocation, 3,
+      gl.FLOAT, false, 0, 0
+    );
+
+    gl.enableVertexAttribArray(this.textBAttributeLocation)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.background.texture.positionBuffer)
+
+    gl.vertexAttribPointer(
+      this.textBAttributeLocation, 3,
+      gl.FLOAT, false, 0, 0
+    );
+    gl.drawArrays(gl.TRIANGLES, 0, 6 * 6)
+
+    // draw game elements
+    gl.useProgram(this.programs[1])
+    for (let shape of game.shapes) {
+
+      gl.uniformMatrix4fv(
+        this.matrixUniformLocation,
+        false,
+        shape.updateMatrix(update)
+      )
+
+      {
+      var size = 3
+      var type = gl.FLOAT
+      var normalize = false
+      var stride = 0
+      var offset = 0
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
+      gl.vertexAttribPointer(
+        this.positionAttributeLocation,
+        size,
+        type,
+        normalize,
+        stride,
+        offset
+      )
+      gl.enableVertexAttribArray(this.positionAttributeLocation)
+    }
+      let verticiesCounter = 6 * 6
+      var drawingOffset = 0
+      gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
+
+    }
+    game.shapes = [];
+  }
+
+
   createProgram(gl, shaders) {
     let program = gl.createProgram()
 
@@ -90,8 +262,9 @@ class GLManager {
     gl.deleteShader(shader);
   }
 
-  static loadImageAndCreateTextureInfo(url) {
-      var gl = glManager.gl
+  loadImageAndCreateTextureInfo(url) {
+      var gl = this.gl
+      // console.log(gl);
       var tex = gl.createTexture();
       gl.bindTexture(gl.TEXTURE_2D, tex);
 

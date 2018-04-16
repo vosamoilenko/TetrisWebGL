@@ -64,14 +64,9 @@ class Shape {
     var matrix = [];
     matrix = mat4.identity(matrix);
 
-    // return;
-    matrix = mat4.multiply(matrix, matrix, translationMatrix);
-
-
-    // this.degrees += 1;
-
-    mat4.multiply(matrix, translationMatrix, scalingMatrix)
-    mat4.multiply(matrix, matrix, rotationMatrix)
+    // mat4.multiply(matrix, matrix, translationMatrix);
+    // mat4.multiply(matrix, translationMatrix, scalingMatrix)
+    // mat4.multiply(matrix, matrix, rotationMatrix)
     return matrix;
 
     // return translationMatrix;
@@ -129,9 +124,9 @@ class Shape {
     }
 
     // FIX
-    if (this.translation[1] - 0.2 > -2 && translationAnimationFlags.animate) {
-      this.translation[1] -= 0.01
-    }
+    // if (this.translation[1] - 0.2 > -2 && translationAnimationFlags.animate) {
+    //   this.translation[1] -= 0.01
+    // }
 
 
     return glManager.transformation.translation(

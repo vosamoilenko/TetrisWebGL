@@ -37,6 +37,7 @@ function unitBlock3d(x,y,z, step) {
     x2,y1,z1,   x2,y1,z2,   x2,y2,z2,
     x2,y1,z1,   x2,y2,z2,   x2,y2,z1,
   ];
+
   return positions;
 }
 
@@ -91,7 +92,6 @@ function setEventListner() {
       break;
     case "1":
     case "8":
-    console.log(1);
       shape.animProps.rotation.to = (shape.degrees - 90)
       shape.animProps.rotation.inverse = true
       break;
