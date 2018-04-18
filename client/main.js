@@ -20,6 +20,7 @@ var game;
 function main() {
   glManager = new GLManager();
   game = new Game(glManager);
+  setEventListner(game);
   game.start()
 
 };

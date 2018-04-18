@@ -13,7 +13,7 @@ class GLManager {
     this.screen = {
       size: {w:600 ,h:600},
       playebleArea: {w:375, h: 600 },
-      unitSize: 0.1,
+      unitSize: 2.0 / 16,
     }
     // this.gl = undefined;
 
@@ -72,7 +72,7 @@ class GLManager {
 
   initScene() {
 
-    setEventListner()
+    // setEventListner()
     const canvas = document.querySelector('#glCanvas');
 
     this.gl = canvas.getContext('webgl');
@@ -126,6 +126,7 @@ class GLManager {
 
           let _x = (x + game.player.position.x) * glManager.screen.unitSize
           let _y = (y + game.player.position.y) * glManager.screen.unitSize
+          // console.log(_x,_y);debugger;
           // console.log(_x, _y);
           // debugger;
           let shape = new Unit(
@@ -188,6 +189,7 @@ class GLManager {
       this.positionBAttributeLocation, 3,
       gl.FLOAT, false, 0, 0
     );
+
 
     gl.enableVertexAttribArray(this.textBAttributeLocation)
     gl.bindBuffer(gl.ARRAY_BUFFER, this.background.texture.positionBuffer)

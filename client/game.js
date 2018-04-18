@@ -6,12 +6,13 @@ class Game {
       activeShape: [[1,0,0],[0,1,0],[0,0,1]],
     }
     this.props = {
-      size: {w: 10, h: 10},
+      size: {w: 10, h: 16},
       moveIntervall: 1.0,
       moveCounter: 0,
       delta: 0,
       then: 0,
     }
+    this.counter = 0
     this.shapes = [];
     this.landed = this.createMatrix(
       this.props.size.w, this.props.size.h
@@ -31,18 +32,81 @@ class Game {
     }
     return false;
   }
+
+  playerMoveH(dir) {
+    this.player.position.x += dir;
+    if (this.collide(this.landed, this.player)) {
+      this.player.position.x -= dir;
+    }
+  }
+
+
+
+  playerRotate(dir) {
+      const pos = this.player.position.x;
+      let offset = 1;
+      this.rotate(this.player.activeShape, dir);
+      while (this.collide(this.landed, this.player)) {
+          this.player.position.x += offset;
+          offset = -(offset + (offset > 0 ? 1 : -1));
+          if (offset > this.player.activeShape[0].length) {
+              this.rotate(this.player.activeShape, -dir);
+              this.player.position.x = pos;
+              return;
+          }
+      }
+  }
+
+  rotate(matrix, dir) {
+    for (let y = 0; y < matrix.length; ++y) {
+      for (let x = 0; x < y; ++x) {
+        [
+          matrix[x][y],
+          matrix[y][x],
+        ] = [
+          matrix[y][x],
+          matrix[x][y],
+        ];
+      }
+    }
+
+    if (dir > 0) {
+      matrix.forEach(row => row.reverse());
+    } else {
+      matrix.reverse();
+    }
+  }
+
+
   playerMove() {
+
+    // if (this.counter % 15 === 0) {
+      // this.merge(this.landed, this.player);
+
+    // }
+    // this.counter++;
+
+
     this.player.position.y += 1;
 
     if (this.collide(this.landed, this.player)) {
       this.player.position.y--;
       this.merge(this.landed, this.player);
       this.playerReset();
+      console.table(this.landed); debugger;
       if (this.collide(this.landed, this.player)) {
         this.landed.forEach(row => row.fill(0))
+
       }
+
+
+        // console.table(this.landed); debugger;
     }
+
+
+
     this.props.moveCounter = 0;
+    // this.landed.forEach(row => row.fill(0));
   }
   playerReset() {
     const pieces = "ILJOTSZ";

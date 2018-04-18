@@ -57,7 +57,7 @@ function getRandom() {
   return x
 }
 // TODO: add source
-function setEventListner() {
+function setEventListner(game) {
   // works
   // https://caniuse.com/#feat=keyboardevent-key
   // supported browsers
@@ -66,12 +66,12 @@ function setEventListner() {
     return; // Do nothing if the event was already processed
   }
 
-  var shape = game.shapes[0]
+  // var shape = game.shapes[0]
 
 
   switch (event.key) {
     // case "+":
-    //   shape.animProps.scaling.to = [
+      // shape.animProps.scaling.to = [
     //     shape.scaling[0]+0.1,
     //     shape.scaling[1]+0.1,
     //     shape.scaling[2]+0.1
@@ -87,40 +87,45 @@ function setEventListner() {
     //   break;
     case "3":
     case "0":
-      shape.animProps.rotation.to = (shape.degrees + 90)
-      shape.animProps.rotation.inverse = false
+      // shape.animProps.rotation.to = (shape.degrees + 90)
+      // shape.animProps.rotation.inverse = false
       break;
     case "1":
     case "8":
-      shape.animProps.rotation.to = (shape.degrees - 90)
-      shape.animProps.rotation.inverse = true
+      game.playerRotate(-1);
+      // shape.animProps.rotation.to = (shape.degrees - 90)
+      // shape.animProps.rotation.inverse = true
       break;
     case "ArrowDown":
     case "s":
     case "S":
 
-    if (shape.animProps.translation.animate) {
-      shape.translation[1] = -1.8
-    } else {
-      shape.animProps.translation.animate = true;
-    }
+    // if (shape.animProps.translation.animate) {
+      // shape.translation[1] = -1.8
+    // } else {
+      // shape.animProps.translation.animate = true;
+    // }
       break;
     case "ArrowUp":
     case "w":
     case "W":
-    shape.animProps.translation.animate = false;
+    // shape.animProps.translation.animate = false;
       break;
     case "ArrowLeft":
     case "a":
     case "A":
-    shape.animProps.translation.left()
-    shape.animProps.translation.inverse = true
+    // game.player.position.x -= 1;
+    game.playerMoveH(-1);
+    // shape.animProps.translation.left()
+    // shape.animProps.translation.inverse = true
       break;
     case "ArrowRight":
+    game.playerMoveH(1);
+    // game.player.position.x += 1;
     case "d":
     case "D":
-    shape.animProps.translation.right()
-    shape.animProps.translation.inverse = false
+    // shape.animProps.translation.right()
+    // shape.animProps.translation.inverse = false
       break;
     case "Enter":
       break;

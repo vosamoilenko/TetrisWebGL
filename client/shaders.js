@@ -30,29 +30,6 @@ const fsSource = `
 `;
 
 
-// const vsPreviewSource = `
-//   attribute vec4 aposition;
-//
-//   void main() {
-//     gl_Position = aposition;
-//   }
-// `;
-// const fsPreviewSource = `
-//   void main() {
-//     gl_FragColor = vec4(0,0,0,1);
-//   }
-// `;
-
-
-
-
-
-
-
-
-
-
-
 
 ///////////////// BG Shaders
 const vsBSource = `
