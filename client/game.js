@@ -107,14 +107,20 @@ class Game {
   playerMove() {
     this.player.position.y += 1;
 
+    glManager.shape.translation = [
+      glManager.shape.translation[0],
+      0,
+      0
+    ];
+
     if (this.collide(this.landed, this.player)) {
+
       this.player.position.y--;
       this.merge(this.landed, this.player);
       this.playerReset();
-      console.table(this.landed); debugger;
+      // console.table(this.landed); debugger;
       if (this.collide(this.landed, this.player)) {
         this.landed.forEach(row => row.fill(0))
-
       }
     }
     this.props.moveCounter = 0;
@@ -190,6 +196,15 @@ class Game {
   }
 
   update(now = 0) {
+    glManager.shape.animProps.translation.down = true
+    this.player.position.y += 1;
+    if (this.collide(this.landed, this.player)) {
+      // this.player.position.y -= 1;
+      glManager.shape.animProps.translation.down = false
+    }
+    this.player.position.y -= 1;
+
+
 
     this.props.delta = (now - this.props.then) * 0.001;
 

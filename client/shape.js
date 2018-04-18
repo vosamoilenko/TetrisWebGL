@@ -30,6 +30,8 @@ class Shape {
         inverse: false,
         to: this.translation.slice(),
         animate: true,
+        direction: 0,
+        down: true
       },
       scaling: {
         inverse: false,
@@ -46,18 +48,18 @@ class Shape {
   }
 
   updateMatrix(value) {
-    if (!glManager.shape.isAnimated) {
-      glManager.shape.translation = [
+    if (this.animProps.translation.direction === 0) {
+      this.translation = [
         0,
-        glManager.shape.translation[1],
+        this.translation[1],
         0]
-      glManager.shape.animProps.translation.to = [0,0,0]
+      this.animProps.translation.to = [0,0,0]
     }
     let matrix = [];
     matrix = mat4.identity(matrix);
-    if (!this.isAnimated) {
-        return matrix;
-    }
+    // if (this.animProps.translation.direction === 0) {
+        // return matrix;
+    // }
 
 
     // let rotationMatrix = this.rotate(v)
@@ -70,6 +72,38 @@ class Shape {
     // mat4.multiply(matrix, matrix, rotationMatrix)
     return matrix;
 
+  }
+
+  translate(value) {
+
+    var translationAnimationFlags = this.animProps.translation
+
+        if (!translationAnimationFlags.inverse) {
+          if (this.translation[0] < translationAnimationFlags.to[0] ) {
+              this.translation[0] += (value*5) * (translationAnimationFlags.direction);
+
+            } else {
+              game.player.position.x += translationAnimationFlags.direction;
+              translationAnimationFlags.direction = 0
+            }
+        } else {
+          if (this.translation[0] > translationAnimationFlags.to[0] ) {
+              this.translation[0] += (value*5) * (translationAnimationFlags.direction);
+            } else {
+              game.player.position.x += translationAnimationFlags.direction;
+              translationAnimationFlags.direction = 0
+            }
+        }
+        if (translationAnimationFlags.down) {
+          this.translation[1] -= value
+        } else {
+          this.translation[1] = 0;
+        }
+
+
+    return glManager.transformation.translation(
+      this.translation[0],this.translation[1], this.translation[2]
+    )
   }
 
   scale(value) {
@@ -100,33 +134,7 @@ class Shape {
     )
   }
 
-  translate(value) {
 
-    var translationAnimationFlags = this.animProps.translation
-
-        if (!translationAnimationFlags.inverse) {
-          if (this.translation[0] < translationAnimationFlags.to[0] ) {
-              this.translation[0] += (value*2) * (translationAnimationFlags.direction);
-            } else {
-              this.isAnimated = false
-              game.player.position.x += translationAnimationFlags.direction;
-              translationAnimationFlags.direction = 0
-            }
-        } else {
-          if (this.translation[0] > translationAnimationFlags.to[0] ) {
-              this.translation[0] += (value*2) * (translationAnimationFlags.direction);
-            } else {
-              this.isAnimated = false
-              game.player.position.x += translationAnimationFlags.direction;
-              translationAnimationFlags.direction = 0
-
-            }
-        }
-
-    return glManager.transformation.translation(
-      this.translation[0],this.translation[1], this.translation[2]
-    )
-  }
 
   rotate(value) {
 
