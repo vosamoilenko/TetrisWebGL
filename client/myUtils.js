@@ -118,7 +118,7 @@ function setEventListner(game) {
     case "ArrowDown":
     case "s":
     case "S":
-
+    game.player.position.y = 13;
     // if (shape.animProps.translation.animate) {
       // shape.translation[1] = -1.8
     // } else {

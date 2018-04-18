@@ -9,6 +9,7 @@ class Shape {
     this.colorBuffer = []
     this.indexBuffer = []
 
+
     this.origin = {
       x:x,
       y:y,

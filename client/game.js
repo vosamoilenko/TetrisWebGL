@@ -3,8 +3,6 @@ class Game {
   constructor(glManager) {
     this.glManager = glManager
     this.player = new Player(this.createPiece("L"))
-    this.shapes = [];
-    this.landedShapes = [];
 
     this.props = {
       // size of array (2d array for saving tetris shapes like 1 or 0)
@@ -102,7 +100,6 @@ class Game {
       }
     }
     this.props.moveCounter = 0;
-    // this.landed.forEach(row => row.fill(0));
   }
   playerReset() {
     const pieces = "ILJOTSZ";

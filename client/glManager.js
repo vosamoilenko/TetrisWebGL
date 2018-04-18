@@ -70,9 +70,11 @@ class GLManager {
     this.initScene();
   }
 
+  // First program for background
+  // Second program for active shape
+  // Third program for landed shapes
   initScene() {
 
-    // setEventListner()
     const canvas = document.querySelector('#glCanvas');
 
     this.gl = canvas.getContext('webgl');
@@ -87,11 +89,11 @@ class GLManager {
     const fShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsSource)
     const vBShader = this.createShader(gl, gl.VERTEX_SHADER, vsBSource)
     const fBShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsBSource)
-    // const vPrShader = this.createShader(gl, gl.FRAGMENT_SHADER, vsPreviewSource)
-    // const fPrShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsPreviewSource)
 
+    const vLShader = this.createShader(gl, gl.VERTEX_SHADER, vsLandedSource)
+    const fLShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsLandedSource)
+    // --------------------------------------------------
     this.programs[0] = this.createProgram(gl, [vBShader, fBShader])
-
     this.positionBAttributeLocation = gl.getAttribLocation(this.programs[0], "aposition");
     this.textBAttributeLocation = gl.getAttribLocation(this.programs[0], "atexCoord");
 
@@ -109,13 +111,15 @@ class GLManager {
     this.programs[1] = this.createProgram(gl, [vShader, fShader]);
     this.positionAttributeLocation = gl.getAttribLocation(this.programs[1], "aposition");
     this.matrixUniformLocation = gl.getUniformLocation(this.programs[1], "umatrix")
-    this.shape = new Square(0,0,0,this.screen.unitSize);
+    this.shape = new PlayerShape(0,0,0,this.screen.unitSize);
     this.shape.positionBuffer = gl.createBuffer()
     gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
-
-
-    // getting attr reference (index)
-
+    // --------------------------------------------------
+    this.programs[2] = this.createProgram(gl, [vLShader, fLShader]);
+    this.positionLAttributeLocation = gl.getAttribLocation(this.programs[2], "aposition");
+    this.landed = new LandedShape(0,0,0,this.screen.unitSize);
+    this.landed.positionBuffer = gl.createBuffer()
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.positionBuffer)
   }
 
 
@@ -123,29 +127,6 @@ class GLManager {
 
     var gl = this.gl;
     this.array = [];
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
-    this.array = this.shape.setVerticiesAndBufferData(gl);
-    this.array = this.array.concat(mapVerticies(game.landed))
-    gl.bufferData(
-      gl.ARRAY_BUFFER, new Float32Array(this.array), gl.STATIC_DRAW)
-  // }
-
-    // let arr = [];
-    // game.landed.forEach( (row, y) => {
-    //   row.forEach( (value, x) => {
-    //     if (value !== 0) {
-    //       console.log(x, y);
-    //       let shape = new Unit(
-    //         x * glManager.screen.unitSize,
-    //         y * glManager.screen.unitSize,
-    //          0, glManager.screen.unitSize)
-    //       game.landedShapes.push(shape);
-    //       shape.positionBuffer = gl.createBuffer()
-    //       gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
-    //       shape.setVerticiesAndBufferData(gl)
-    //     }
-    //   });
-    // });
 
     this.then = now
 
@@ -161,12 +142,12 @@ class GLManager {
       },
     };
 
-
+    // CLEAN SCENE
     gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
     gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
     gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
-    //
-    // // drawing background
+
+    // ---------------------------------------------------------
     gl.useProgram(this.programs[0])
 
     gl.enableVertexAttribArray(this.positionBAttributeLocation)
@@ -177,7 +158,6 @@ class GLManager {
       gl.FLOAT, false, 0, 0
     );
 
-
     gl.enableVertexAttribArray(this.textBAttributeLocation)
     gl.bindBuffer(gl.ARRAY_BUFFER, this.background.texture.positionBuffer)
 
@@ -186,27 +166,60 @@ class GLManager {
       gl.FLOAT, false, 0, 0
     );
     gl.drawArrays(gl.TRIANGLES, 0, 6 * 6)
-
+    // -----------------------------------------------------
     // draw game elements
+
     gl.useProgram(this.programs[1])
-    // for (let shape of game.shapes) {
-      let matrix = this.shape.updateMatrix(update)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
+    this.shape.array = this.shape.setVerticiesAndBufferData(gl);
 
-      // console.table(matrix); debugger;
-      gl.uniformMatrix4fv(
-        this.matrixUniformLocation,
-        false,
-        matrix
-      )
+    gl.bufferData(
+      gl.ARRAY_BUFFER, new Float32Array(this.shape.array), gl.STATIC_DRAW
+    );
+    let matrix = this.shape.updateMatrix(update)
+    gl.uniformMatrix4fv(
+      this.matrixUniformLocation,
+      false,
+      matrix
+    )
+    let size = 3
+    let type = gl.FLOAT
+    let normalize = false
+    let stride = 0
+    let offset = 0
 
-      {
-      var size = 3
-      var type = gl.FLOAT
-      var normalize = false
-      var stride = 0
-      var offset = 0
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
+    gl.vertexAttribPointer(
+      this.positionAttributeLocation,
+      size,
+      type,
+      normalize,
+      stride,
+      offset
+    )
+    gl.enableVertexAttribArray(this.positionAttributeLocation)
 
-      gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
+    let verticiesCounter = 6 * 6 * (this.shape.array.length / 108)
+    let drawingOffset = 0
+    gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
+    // -----------------------------------------------------
+
+
+    this.landed.array = this.landed.setVerticiesAndBufferData(gl);
+
+    if (this.landed.array.length > 0) {
+      gl.useProgram(this.programs[2])
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.positionBuffer)
+      gl.bufferData(
+        gl.ARRAY_BUFFER, new Float32Array(this.landed.array), gl.STATIC_DRAW
+      );
+      size = 3
+      type = gl.FLOAT
+      normalize = false
+      stride = 0
+      offset = 0
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.positionBuffer)
       gl.vertexAttribPointer(
         this.positionAttributeLocation,
         size,
@@ -216,52 +229,16 @@ class GLManager {
         offset
       )
       gl.enableVertexAttribArray(this.positionAttributeLocation)
-    }
-    // console.log(this.array.length / 108); debugger;
-      let verticiesCounter = 6 * 6 * (this.array.length / 108)
-      var drawingOffset = 0
-      gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
 
-    // }
-    // for (let shape of game.landedShapes) {
-    //   let identity = []
-    //   mat4.identity(identity)
-    //   gl.uniformMatrix4fv(
-    //     this.matrixUniformLocation,
-    //     false,
-    //     identity
-    //   )
-    //
-    //   {
-    //   var size = 3
-    //   var type = gl.FLOAT
-    //   var normalize = false
-    //   var stride = 0
-    //   var offset = 0
-    //
-    //   gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
-    //   gl.vertexAttribPointer(
-    //     this.positionAttributeLocation,
-    //     size,
-    //     type,
-    //     normalize,
-    //     stride,
-    //     offset
-    //   )
-    //   gl.enableVertexAttribArray(this.positionAttributeLocation)
-    // }
-    //   let verticiesCounter = 6 * 6
-    //   var drawingOffset = 0
-    //   gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
-    //
-    // }
-    // game.animation.rotation.current = game.shapes[0].degrees
-    // console.log(game.animation.rotation);
-    // debugger;
-    game.shapes = [];
-    game.landedShapes = [];
+      verticiesCounter = 6 * 6 * (this.landed.array.length / 108)
+      drawingOffset = 0
+      gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
+    }
+
+
+    // game.shapes = [];
+    // game.landedShapes = [];
   }
-// }
 
 
   createProgram(gl, shaders) {

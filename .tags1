@@ -7,12 +7,12 @@
 constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  constructor() {$/;"	function	line:9
 transformation.translation	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^    this.transformation = {$/;"	property	line:20
 switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        switch (axes) {$/;"	function	line:34
-initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  initScene() {$/;"	function	line:73
-drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  drawScene(now, player) {$/;"	function	line:122
-createProgram	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  createProgram(gl, shaders) {$/;"	function	line:267
-createShader	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  createShader(gl,type, source) {$/;"	function	line:282
-success	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^    var success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);$/;"	variable	line:286
-loadImageAndCreateTextureInfo	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  loadImageAndCreateTextureInfo(url) {$/;"	function	line:294
-textureInfo.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^      var textureInfo = {$/;"	property	line:313
-textureInfo.height	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        width: 1,   \/\/ we don't know the size until it loads$/;"	property	line:314
-textureInfo.texture	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        height: 1,$/;"	property	line:315
+initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  initScene() {$/;"	function	line:76
+drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  drawScene(now, player) {$/;"	function	line:126
+createProgram	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  createProgram(gl, shaders) {$/;"	function	line:244
+createShader	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  createShader(gl,type, source) {$/;"	function	line:259
+success	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^    var success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);$/;"	variable	line:263
+loadImageAndCreateTextureInfo	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  loadImageAndCreateTextureInfo(url) {$/;"	function	line:271
+textureInfo.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^      var textureInfo = {$/;"	property	line:290
+textureInfo.height	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        width: 1,   \/\/ we don't know the size until it loads$/;"	property	line:291
+textureInfo.texture	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        height: 1,$/;"	property	line:292

@@ -3,7 +3,7 @@ a01468749
 Volodymyr Samoilenko
 */
 let cccc = 0
-class Square extends Shape {
+class PlayerShape extends Shape {
   constructor(x, y, z, step) {
     super(x, y, z, step)
     this.updateFrame()
