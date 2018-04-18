@@ -9,7 +9,6 @@ class Shape {
     this.colorBuffer = []
     this.indexBuffer = []
 
-
     this.origin = {
       x:x,
       y:y,
@@ -19,7 +18,8 @@ class Shape {
     this.translation = [0,0,0]
     this.rotation = [0,1,0]
     this.scaling = [1,1,1]
-    this.degrees = 25.0
+    this.degrees = 0.0
+    this.isAnimated = false
 
     this.animProps = {
       rotation: {
@@ -30,20 +30,6 @@ class Shape {
         inverse: false,
         to: this.translation.slice(),
         animate: true,
-        right: function() {
-          if (this.to[0] + glManager.unitSize > 0.8) {
-            this.to[0] = 0.8
-          } else {
-            this.to[0] += glManager.unitSize
-          }
-        },
-        left: function() {
-          if (this.to[0] - glManager.unitSize < -1.0) {
-            this.to[0] = -1.0
-          } else {
-            this.to[0] -= glManager.unitSize
-          }
-        },
       },
       scaling: {
         inverse: false,
@@ -60,17 +46,26 @@ class Shape {
   }
 
   updateMatrix(value) {
-    let v = value.rotation()
+    if (!glManager.shape.isAnimated) {
+      glManager.shape.translation = [
+        0,
+        glManager.shape.translation[1],
+        0]
+      glManager.shape.animProps.translation.to = [0,0,0]
+    }
+    let matrix = [];
+    matrix = mat4.identity(matrix);
+    if (!this.isAnimated) {
+        return matrix;
+    }
 
-    let rotationMatrix = this.rotate(v)
-    // let translationMatrix = this.translate(value.translation())
+
+    // let rotationMatrix = this.rotate(v)
+    let translationMatrix = this.translate(value.translation())
+
     // let scalingMatrix = this.scale(value.scale())
 
-
-    var matrix = [];
-    matrix = mat4.identity(matrix);
-
-    // mat4.multiply(matrix, matrix, translationMatrix);
+    mat4.multiply(matrix, matrix, translationMatrix);
     // mat4.multiply(matrix, translationMatrix, scalingMatrix)
     // mat4.multiply(matrix, matrix, rotationMatrix)
     return matrix;
@@ -108,31 +103,25 @@ class Shape {
   translate(value) {
 
     var translationAnimationFlags = this.animProps.translation
-    if (!translationAnimationFlags.inverse) {
 
-      if (this.translation[0] < translationAnimationFlags.to[0]) {
-          this.translation[0] = this.translation[0] + value * 3
+        if (!translationAnimationFlags.inverse) {
+          if (this.translation[0] < translationAnimationFlags.to[0] ) {
+              this.translation[0] += (value*2) * (translationAnimationFlags.direction);
+            } else {
+              this.isAnimated = false
+              game.player.position.x += translationAnimationFlags.direction;
+              translationAnimationFlags.direction = 0
+            }
+        } else {
+          if (this.translation[0] > translationAnimationFlags.to[0] ) {
+              this.translation[0] += (value*2) * (translationAnimationFlags.direction);
+            } else {
+              this.isAnimated = false
+              game.player.position.x += translationAnimationFlags.direction;
+              translationAnimationFlags.direction = 0
+
+            }
         }
-
-      // }
-    } else {
-      if (this.translation[0] > translationAnimationFlags.to[0]) {
-          this.translation[0] = this.translation[0] - value * 3
-      }
-
-
-      if (this.translation[1] > translationAnimationFlags.to[1]){
-        this.translation[1] = this.translation[1] - value
-      } else if (this.translation[1] < -1.8){
-        this.translation[1] = -1.8
-      }
-    }
-
-    // FIX
-    // if (this.translation[1] - 0.2 > -2 && translationAnimationFlags.animate) {
-    //   this.translation[1] -= 0.01
-    // }
-
 
     return glManager.transformation.translation(
       this.translation[0],this.translation[1], this.translation[2]

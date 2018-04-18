@@ -123,22 +123,20 @@ class GLManager {
   }
 
 
-  drawScene(now, player) {
+  drawScene(delta) {
 
     var gl = this.gl;
     this.array = [];
 
-    this.then = now
-
     var update = {
       rotation: () => {
-        return now * ROTATION_PER_SECOND;
+        return delta * ROTATION_PER_SECOND;
       },
       translation: () => {
-        return now * TRANSLATION_PER_SECOND;
+        return delta * TRANSLATION_PER_SECOND;
       },
       scale: () => {
-        return now * SCALE_PER_SECOND;
+        return delta * SCALE_PER_SECOND;
       },
     };
 
@@ -203,8 +201,6 @@ class GLManager {
     let drawingOffset = 0
     gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
     // -----------------------------------------------------
-
-
     this.landed.array = this.landed.setVerticiesAndBufferData(gl);
 
     if (this.landed.array.length > 0) {

@@ -4,15 +4,11 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  constructor() {$/;"	function	line:9
-transformation.translation	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^    this.transformation = {$/;"	property	line:20
-switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        switch (axes) {$/;"	function	line:34
-initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  initScene() {$/;"	function	line:76
-drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  drawScene(now, player) {$/;"	function	line:126
-createProgram	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  createProgram(gl, shaders) {$/;"	function	line:244
-createShader	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  createShader(gl,type, source) {$/;"	function	line:259
-success	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^    var success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);$/;"	variable	line:263
-loadImageAndCreateTextureInfo	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^  loadImageAndCreateTextureInfo(url) {$/;"	function	line:271
-textureInfo.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^      var textureInfo = {$/;"	property	line:290
-textureInfo.height	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        width: 1,   \/\/ we don't know the size until it loads$/;"	property	line:291
-textureInfo.texture	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        height: 1,$/;"	property	line:292
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  constructor(x,y,z,step, offset) {$/;"	function	line:7
+updateFrame	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateFrame() {$/;"	function	line:40
+updateFrame.center.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^    this.center = {$/;"	property	line:41
+updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateMatrix(value) {$/;"	function	line:48
+scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  scale(value) {$/;"	function	line:75
+translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  translate(value) {$/;"	function	line:103
+rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  rotate(value) {$/;"	function	line:131
+getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  getRotationMatrix() {$/;"	function	line:149
