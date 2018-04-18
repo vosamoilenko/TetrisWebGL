@@ -71,7 +71,7 @@ class Shape {
 
     // mat4.multiply(matrix, matrix, translationMatrix);
     // mat4.multiply(matrix, translationMatrix, scalingMatrix)
-    mat4.multiply(matrix, matrix, rotationMatrix)
+    // mat4.multiply(matrix, matrix, rotationMatrix)
     return matrix;
 
   }

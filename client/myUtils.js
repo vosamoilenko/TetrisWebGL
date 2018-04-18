@@ -40,6 +40,23 @@ function unitBlock3d(x,y,z, step) {
 
   return positions;
 }
+function mapVerticies(matrix, offset = {x: 0, y: 0}) {
+  let step = glManager.screen.unitSize;
+  let z = 0;
+  let box = [];
+  matrix.forEach( (row, y) => {
+    row.forEach( (value, x) => {
+      if (value !== 0) {
+        let _x = ((x + offset.x) * step) - 1;
+        let _y = -((y + offset.y) * step)  + 1 - (2/16)
+         box = box.concat(
+           unitBlock3d(_x, _y, z, step)
+         );
+      }
+    });
+  });
+  return box;
+}
 
 
 function getRandom() {

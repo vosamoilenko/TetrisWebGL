@@ -105,42 +105,32 @@ class GLManager {
     gl.bindBuffer(gl.ARRAY_BUFFER, background.texture.positionBuffer)
     background.setVerticiesAndBufferData(gl)
     this.background = background
-
+    // --------------------------------------------------
     this.programs[1] = this.createProgram(gl, [vShader, fShader]);
-
-    // getting attr reference (index)
     this.positionAttributeLocation = gl.getAttribLocation(this.programs[1], "aposition");
     this.matrixUniformLocation = gl.getUniformLocation(this.programs[1], "umatrix")
+    this.shape = new Square(0,0,0,this.screen.unitSize);
+    this.shape.positionBuffer = gl.createBuffer()
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
+
+
+    // getting attr reference (index)
+
   }
 
 
   drawScene(now, player) {
 
     var gl = this.gl;
+    this.array = [];
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
+    this.array = this.shape.setVerticiesAndBufferData(gl);
+    this.array = this.array.concat(mapVerticies(game.landed))
+    gl.bufferData(
+      gl.ARRAY_BUFFER, new Float32Array(this.array), gl.STATIC_DRAW)
+  // }
 
-    // return;
-
-    game.player.activeShape.forEach( (row, y) => {
-      row.forEach( (value, x) => {
-        if (value !== 0) {
-
-          let _x = ((x + game.player.position.x) * this.screen.unitSize) - 1;
-          let _y = -((y + game.player.position.y) * this.screen.unitSize)  + 1 - (2/16)
-          let shape = new Unit(
-            _x,
-            _y,
-            0, this.screen.unitSize)
-          shape.degrees = game.animation.rotation.current;
-          shape.animProps.rotation.to = game.animation.rotation.to;
-          // console.log(shape);debugger;
-          game.shapes.push(shape);
-          shape.positionBuffer = gl.createBuffer()
-          gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
-          shape.setVerticiesAndBufferData(gl)
-        }
-      });
-    });
-
+    // let arr = [];
     // game.landed.forEach( (row, y) => {
     //   row.forEach( (value, x) => {
     //     if (value !== 0) {
@@ -199,8 +189,8 @@ class GLManager {
 
     // draw game elements
     gl.useProgram(this.programs[1])
-    for (let shape of game.shapes) {
-      let matrix = shape.updateMatrix(update)
+    // for (let shape of game.shapes) {
+      let matrix = this.shape.updateMatrix(update)
 
       // console.table(matrix); debugger;
       gl.uniformMatrix4fv(
@@ -216,7 +206,7 @@ class GLManager {
       var stride = 0
       var offset = 0
 
-      gl.bindBuffer(gl.ARRAY_BUFFER, shape.positionBuffer)
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
       gl.vertexAttribPointer(
         this.positionAttributeLocation,
         size,
@@ -227,11 +217,12 @@ class GLManager {
       )
       gl.enableVertexAttribArray(this.positionAttributeLocation)
     }
-      let verticiesCounter = 6 * 6
+    // console.log(this.array.length / 108); debugger;
+      let verticiesCounter = 6 * 6 * (this.array.length / 108)
       var drawingOffset = 0
       gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
 
-    }
+    // }
     // for (let shape of game.landedShapes) {
     //   let identity = []
     //   mat4.identity(identity)
@@ -264,12 +255,13 @@ class GLManager {
     //   gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
     //
     // }
-    game.animation.rotation.current = game.shapes[0].degrees
+    // game.animation.rotation.current = game.shapes[0].degrees
     // console.log(game.animation.rotation);
     // debugger;
     game.shapes = [];
     game.landedShapes = [];
   }
+// }
 
 
   createProgram(gl, shaders) {
