@@ -87,6 +87,8 @@ function setEventListner(game) {
     //   break;
     case "3":
     case "0":
+        game.playerRotate(1);
+        // game.animation.rotation.to = game.animation.rotation.current + 90;
       // shape.animProps.rotation.to = (shape.degrees + 90)
       // shape.animProps.rotation.inverse = false
       break;

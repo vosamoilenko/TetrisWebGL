@@ -4,16 +4,13 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  constructor(glManager) {$/;"	function	line:2
-props.size	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^    this.props = {$/;"	property	line:8
-start	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  start() {$/;"	function	line:21
-collide	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  collide(landed, player) {$/;"	function	line:24
-playerMoveH	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerMoveH(dir) {$/;"	function	line:36
-playerRotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerRotate(dir) {$/;"	function	line:45
-rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  rotate(matrix, dir) {$/;"	function	line:60
-playerMove	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerMove() {$/;"	function	line:81
-playerReset	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerReset() {$/;"	function	line:111
-createPiece	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  createPiece(type) {$/;"	function	line:119
-createMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  createMatrix(w, h) {$/;"	function	line:164
-merge	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  merge(landed, player) {$/;"	function	line:171
-update	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  update(now = 0) {$/;"	function	line:181
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  constructor(x,y,z,step, offset) {$/;"	function	line:7
+right	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^        right: function() {$/;"	function	line:32
+left	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^        left: function() {$/;"	function	line:39
+updateFrame	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateFrame() {$/;"	function	line:53
+updateFrame.center.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^    this.center = {$/;"	property	line:54
+updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateMatrix(value) {$/;"	function	line:61
+scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  scale(value) {$/;"	function	line:79
+translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  translate(value) {$/;"	function	line:107
+rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  rotate(value) {$/;"	function	line:141
+getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  getRotationMatrix() {$/;"	function	line:159

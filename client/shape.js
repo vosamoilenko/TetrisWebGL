@@ -4,18 +4,21 @@ Volodymyr Samoilenko
 */
 
 class Shape {
-  constructor(x,y,z,step) {
+  constructor(x,y,z,step, offset) {
     this.positionBuffer = []
     this.colorBuffer = []
     this.indexBuffer = []
 
-    this.origin = {x:x, y:y, z:z}
+    this.origin = {
+      x:x,
+      y:y,
+      z:0}
     this.cetner = {}
     this.size = {}
     this.translation = [0,0,0]
     this.rotation = [0,1,0]
     this.scaling = [1,1,1]
-    this.degrees = 0.0
+    this.degrees = 25.0
 
     this.animProps = {
       rotation: {
@@ -56,9 +59,11 @@ class Shape {
   }
 
   updateMatrix(value) {
-    let rotationMatrix = this.rotate(value.rotation())
-    let translationMatrix = this.translate(value.translation())
-    let scalingMatrix = this.scale(value.scale())
+    let v = value.rotation()
+
+    let rotationMatrix = this.rotate(v)
+    // let translationMatrix = this.translate(value.translation())
+    // let scalingMatrix = this.scale(value.scale())
 
 
     var matrix = [];
@@ -66,10 +71,9 @@ class Shape {
 
     // mat4.multiply(matrix, matrix, translationMatrix);
     // mat4.multiply(matrix, translationMatrix, scalingMatrix)
-    // mat4.multiply(matrix, matrix, rotationMatrix)
+    mat4.multiply(matrix, matrix, rotationMatrix)
     return matrix;
 
-    // return translationMatrix;
   }
 
   scale(value) {
@@ -135,9 +139,12 @@ class Shape {
   }
 
   rotate(value) {
+
     var rotationAnimationFlags = this.animProps.rotation
 
     if (!rotationAnimationFlags.inverse) {
+
+      // console.log(this.degrees, rotationAnimationFlags.to); debugger;
       if (this.degrees < rotationAnimationFlags.to) {
           this.degrees = this.degrees + value
       }
@@ -153,27 +160,34 @@ class Shape {
     // TODO
 
     let toCenter = glManager.transformation.translation(
-      -(this.origin.x + (glManager.unitStep / 2.0)),
-      -(this.origin.y + (glManager.unitStep / 2.0)),
-      -(this.origin.z + (glManager.unitStep / 2.0)),)
+      1,
+      1,
+      -(this.origin.z + (glManager.screen.unitSize / 2.0)),)
+
     //
     let toOrigin = glManager.transformation.translation(
       this.origin.x,
       this.origin.y,
       this.origin.z)
 
-    // this.degrees += 0.5
+
 
     var matrix = []
-    var rotationMatrix = glManager.transformation.rotation(this.degrees,1)
+    var rotationMatrix = glManager.transformation.rotation(this.degrees,2)
     // mat4.multiply(rotationMatrix, rotationMatrix, glManager.transformation.rotation(this.degrees,1))
     // mat4.multiply(rotationMatrix, rotationMatrix, glManager.transformation.rotation(this.degrees,2))
     // mat4.multiply(rotationMatrix,rotationMatrix,glManager.transformation.rotation(this.degrees,1))
     // mat4.multiply(matrix, toOrigin, rotationMatrix)
-
+    // mat4.multiply(matrix, rotationMatrix, toCenter )
     // mat4.multiply(matrix, matrix, toCenter)
 
+
     matrix = rotationMatrix
+    // console.table(matrix);debugger;
+    // console.table(matrix);
+    // debugger;
+
+
 
 
     return matrix;

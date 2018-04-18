@@ -1,26 +1,36 @@
 class Game {
+
   constructor(glManager) {
     this.glManager = glManager
-    this.player = {
-      position: {x: 0, y: 0},
-      activeShape: [[1,0,0],[0,1,0],[0,0,1]],
-    }
+    this.player = new Player(this.createPiece("L"))
+    this.shapes = [];
+    this.landedShapes = [];
+
     this.props = {
+      // size of array (2d array for saving tetris shapes like 1 or 0)
       size: {w: 10, h: 16},
+      // drop to the next row
       moveIntervall: 1.0,
       moveCounter: 0,
       delta: 0,
       then: 0,
     }
-    this.counter = 0
-    this.shapes = [];
+
+    this.animation = {
+      rotation: {
+        current: 0,
+        to: 0,
+      }
+    }
     this.landed = this.createMatrix(
       this.props.size.w, this.props.size.h
     );
   }
+
   start() {
-    requestAnimationFrame( (now) => {this.update(now)});
+    requestAnimationFrame( now => this.update(now));
   }
+
   collide(landed, player) {
     const [m,o] = [player.activeShape, player.position];
     for (let y = 0; y < m.length; ++y) {
@@ -40,21 +50,21 @@ class Game {
     }
   }
 
-
-
   playerRotate(dir) {
+      this.animation.rotation.to += 90
+
       const pos = this.player.position.x;
       let offset = 1;
-      this.rotate(this.player.activeShape, dir);
-      while (this.collide(this.landed, this.player)) {
-          this.player.position.x += offset;
-          offset = -(offset + (offset > 0 ? 1 : -1));
-          if (offset > this.player.activeShape[0].length) {
-              this.rotate(this.player.activeShape, -dir);
-              this.player.position.x = pos;
-              return;
-          }
-      }
+      // this.rotate(this.player.activeShape, dir);
+      // while (this.collide(this.landed, this.player)) {
+      //     this.player.position.x += offset;
+      //     offset = -(offset + (offset > 0 ? 1 : -1));
+      //     if (offset > this.player.activeShape[0].length) {
+      //         // this.rotate(this.player.activeShape, -dir);
+      //         this.player.position.x = pos;
+      //         return;
+      //     }
+      // }
   }
 
   rotate(matrix, dir) {
@@ -79,14 +89,6 @@ class Game {
 
 
   playerMove() {
-
-    // if (this.counter % 15 === 0) {
-      // this.merge(this.landed, this.player);
-
-    // }
-    // this.counter++;
-
-
     this.player.position.y += 1;
 
     if (this.collide(this.landed, this.player)) {
@@ -98,13 +100,7 @@ class Game {
         this.landed.forEach(row => row.fill(0))
 
       }
-
-
-        // console.table(this.landed); debugger;
     }
-
-
-
     this.props.moveCounter = 0;
     // this.landed.forEach(row => row.fill(0));
   }
@@ -181,6 +177,7 @@ class Game {
   update(now = 0) {
 
     this.props.delta = (now - this.props.then) * 0.001;
+
     this.props.then = now;
     this.props.moveCounter += this.props.delta;
     if (this.props.moveCounter > this.props.moveIntervall) {

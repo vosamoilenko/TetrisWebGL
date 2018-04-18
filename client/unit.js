@@ -4,11 +4,9 @@ class Unit extends Shape {
 
     this.updateFrame()
     this.setVerticiesAndBufferData = function(gl) {
-      // let step = glManager.unitSize
-      // console.log(this.origin.y); debugger;
       var positions = unitBlock3d(
-        this.origin.x - 1,
-        -this.origin.y + 1 - (2/16),
+        this.origin.x,
+        this.origin.y,
         this.origin.z,
         step)
 
