@@ -52,12 +52,37 @@ function mapVerticies(matrix, offset = {x: 0, y: 0}) {
          box = box.concat(
            unitBlock3d(_x, _y, z, step)
          );
+         // console.log(box.length);debugger;
       }
     });
   });
   return box;
 }
+function mapColor(matrix) {
 
+  let colors = [
+    [243,   116,   171], // pink
+    [236,    76,    40], // red
+    [23,   79,    22], // orange
+    [234,   201,    27], // yellow
+     [98,   155,   201], // blue
+     [65,   107,   183], // blue + green
+    [128,   107,    83], // green
+  ];
+
+  let result = [];
+  matrix.forEach( (row, y) => {
+    row.forEach( (value, x) => {
+      if (value !== 0) {
+        let counter = 36;
+        while(counter--) {
+          result = result.concat(colors[value-1]);
+        }
+      }
+    });
+  });
+  return result;
+}
 
 function getRandom() {
   var minus = Math.random()*10000

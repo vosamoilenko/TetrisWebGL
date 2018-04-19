@@ -13,19 +13,6 @@ class Game {
       delta: 0,
       then: 0,
     }
-
-    this.animation = {
-      translation: {
-        current: [0, 0, 0],
-        to: [0, 0, 0],
-        isAnimated: false,
-        direction: 1
-      },
-      rotation: {
-        current: 0,
-        to: 0,
-      }
-    }
     this.landed = this.createMatrix(
       this.props.size.w, this.props.size.h
     );
@@ -49,6 +36,7 @@ class Game {
 
   playerMoveH(dir) {
     // if ()
+    console.log(this.player.activeShape);
     this.player.position.x += dir;
     if (this.collide(this.landed, this.player)) {
       this.player.position.x -= dir;
@@ -67,20 +55,20 @@ class Game {
   }
 
   playerRotate(dir) {
-      this.animation.rotation.to += 90
+      // this.animation.rotation.to += 90
 
       const pos = this.player.position.x;
       let offset = 1;
-      // this.rotate(this.player.activeShape, dir);
-      // while (this.collide(this.landed, this.player)) {
-      //     this.player.position.x += offset;
-      //     offset = -(offset + (offset > 0 ? 1 : -1));
-      //     if (offset > this.player.activeShape[0].length) {
-      //         // this.rotate(this.player.activeShape, -dir);
-      //         this.player.position.x = pos;
-      //         return;
-      //     }
-      // }
+      this.rotate(this.player.activeShape, dir);
+      while (this.collide(this.landed, this.player)) {
+          this.player.position.x += offset;
+          offset = -(offset + (offset > 0 ? 1 : -1));
+          if (offset > this.player.activeShape[0].length) {
+              // this.rotate(this.player.activeShape, -dir);
+              this.player.position.x = pos;
+              return;
+          }
+      }
   }
 
   rotate(matrix, dir) {
@@ -118,7 +106,6 @@ class Game {
       this.player.position.y--;
       this.merge(this.landed, this.player);
       this.playerReset();
-      // console.table(this.landed); debugger;
       if (this.collide(this.landed, this.player)) {
         this.landed.forEach(row => row.fill(0))
       }
@@ -204,10 +191,7 @@ class Game {
     }
     this.player.position.y -= 1;
 
-
-
     this.props.delta = (now - this.props.then) * 0.001;
-
     this.props.then = now;
     this.props.moveCounter += this.props.delta;
     if (this.props.moveCounter > this.props.moveIntervall) {

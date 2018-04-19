@@ -17,7 +17,9 @@ class LandedShape extends Shape {
       );
       return arr;
       gl.bufferData(
-        gl.ARRAY_BUFFER, new Float32Array(arr), gl.STATIC_DRAW)
+        gl.ARRAY_BUFFER, new Float32Array(arr), gl.STATIC_DRAW
+      );
     }
+
   }
 };

@@ -15,6 +15,7 @@ class GLManager {
       playebleArea: {w:375, h: 600 },
       unitSize: 2.0 / 16,
     }
+    this.colors = []
     // this.gl = undefined;
 
     this.transformation = {
@@ -110,16 +111,21 @@ class GLManager {
     // --------------------------------------------------
     this.programs[1] = this.createProgram(gl, [vShader, fShader]);
     this.positionAttributeLocation = gl.getAttribLocation(this.programs[1], "aposition");
-    this.matrixUniformLocation = gl.getUniformLocation(this.programs[1], "umatrix")
+    this.colorAttributeLocation = gl.getAttribLocation(this.programs[1], "acolor");
+    this.matrixUniformLocation = gl.getUniformLocation(this.programs[1], "umatrix");
+
     this.shape = new PlayerShape(0,0,0,this.screen.unitSize);
-    this.shape.positionBuffer = gl.createBuffer()
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
+
+    this.shape.positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer);
+    this.shape.colorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.colorBuffer);
     // --------------------------------------------------
     this.programs[2] = this.createProgram(gl, [vLShader, fLShader]);
     this.positionLAttributeLocation = gl.getAttribLocation(this.programs[2], "aposition");
     this.landed = new LandedShape(0,0,0,this.screen.unitSize);
-    this.landed.positionBuffer = gl.createBuffer()
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.positionBuffer)
+    this.landed.positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.positionBuffer);
   }
 
 
@@ -170,10 +176,16 @@ class GLManager {
     gl.useProgram(this.programs[1])
     gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.positionBuffer)
     this.shape.array = this.shape.setVerticiesAndBufferData(gl);
-
     gl.bufferData(
       gl.ARRAY_BUFFER, new Float32Array(this.shape.array), gl.STATIC_DRAW
     );
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.colorBuffer)
+    this.shape.arrayC = this.shape.setColorAndBufferData(gl);
+    gl.bufferData(
+      gl.ARRAY_BUFFER, new Uint8Array(this.shape.arrayC), gl.STATIC_DRAW
+    );
+
     let matrix = this.shape.updateMatrix(update)
     gl.uniformMatrix4fv(
       this.matrixUniformLocation,
@@ -196,6 +208,17 @@ class GLManager {
       offset
     )
     gl.enableVertexAttribArray(this.positionAttributeLocation)
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.colorBuffer)
+    gl.vertexAttribPointer(
+      this.colorAttributeLocation,
+      3,
+      gl.UNSIGNED_BYTE,
+      true,
+      stride,
+      offset
+    )
+    gl.enableVertexAttribArray(this.colorAttributeLocation)
 
     let verticiesCounter = 6 * 6 * (this.shape.array.length / 108)
     let drawingOffset = 0

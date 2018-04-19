@@ -4,7 +4,13 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-glManager	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^var glManager;$/;"	variable	line:11
-game	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^var game;$/;"	variable	line:12
-main	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function main() {$/;"	function	line:14
-main	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function main() {$/;"	function	line:14
+unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
+unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
+mapVerticies	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapVerticies(matrix, offset = {x: 0, y: 0}) {$/;"	function	line:43
+mapVerticies	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapVerticies(matrix, offset = {x: 0, y: 0}) {$/;"	function	line:43
+mapColor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapColor(matrix) {$/;"	function	line:61
+mapColor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapColor(matrix) {$/;"	function	line:61
+getRandom	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function getRandom() {$/;"	function	line:87
+setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:102
+switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:114
+function.setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:102

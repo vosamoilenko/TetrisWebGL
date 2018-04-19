@@ -5,12 +5,13 @@ Volodymyr Samoilenko
 
 const vsSource = `
   attribute vec4 aposition;
+  attribute vec4 acolor;
   uniform mat4 umatrix;
   varying vec4 vcolor;
 
   void main() {
     gl_Position = aposition * umatrix;
-    vcolor = gl_Position * 0.5 + 0.5;
+    vcolor = acolor;
   }
 `;
 

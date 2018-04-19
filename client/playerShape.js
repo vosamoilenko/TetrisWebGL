@@ -17,8 +17,16 @@ class PlayerShape extends Shape {
         game.player.position
       );
       return arr;
-      gl.bufferData(
-        gl.ARRAY_BUFFER, new Float32Array(arr), gl.STATIC_DRAW)
+    }
+    this.setColorAndBufferData = function(gl) {
+      let arr = [];
+      let shape = game.player.activeShape;
+
+      arr = mapColor(
+        shape
+      );
+      // debugger;
+      return arr;
     }
   }
 };

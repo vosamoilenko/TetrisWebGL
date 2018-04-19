@@ -5,7 +5,7 @@ Volodymyr Samoilenko
 'use strict'
 
 var TRANSLATION_PER_SECOND = 0.125
-let ROTATION_PER_SECOND = 90.0;
+let ROTATION_PER_SECOND = 180.0;
 let SCALE_PER_SECOND = 2.0;
 let IMG_URL = "./res/background.jpg";
 var glManager;
