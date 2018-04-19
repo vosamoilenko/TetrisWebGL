@@ -55,36 +55,6 @@ setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/clien
 constructor.updateFrame.setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/playerShape.js	/^class PlayerShape extends Shape {$/;"	function	line:6
 setColorAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/playerShape.js	/^    this.setColorAndBufferData = function(gl) {$/;"	function	line:21
 this.setColorAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/playerShape.js	/^    this.setColorAndBufferData = function(gl) {$/;"	method	line:21
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  constructor(x,y,z,step, offset) {$/;"	function	line:7
-updateFrame	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateFrame() {$/;"	function	line:42
-updateFrame.center.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^    this.center = {$/;"	property	line:43
-updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateMatrix(value) {$/;"	function	line:50
-translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  translate(value) {$/;"	function	line:78
-scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  scale(value) {$/;"	function	line:110
-rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  rotate(value) {$/;"	function	line:140
-getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  getRotationMatrix() {$/;"	function	line:158
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  constructor(glManager) {$/;"	function	line:3
-start	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  start() {$/;"	function	line:21
-collide	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  collide(landed, player) {$/;"	function	line:25
-playerMoveH	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerMoveH(dir) {$/;"	function	line:37
-playerRotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerRotate(dir) {$/;"	function	line:57
-rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  rotate(matrix, dir) {$/;"	function	line:74
-playerMove	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerMove() {$/;"	function	line:95
-playerReset	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerReset() {$/;"	function	line:115
-createPiece	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  createPiece(type) {$/;"	function	line:123
-createMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  createMatrix(w, h) {$/;"	function	line:168
-merge	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  merge(landed, player) {$/;"	function	line:175
-update	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  update(now = 0) {$/;"	function	line:185
-unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
-unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
-mapVerticies	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapVerticies(matrix, offset = {x: 0, y: 0}) {$/;"	function	line:43
-mapVerticies	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapVerticies(matrix, offset = {x: 0, y: 0}) {$/;"	function	line:43
-mapColor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapColor(matrix) {$/;"	function	line:61
-mapColor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapColor(matrix) {$/;"	function	line:61
-getRandom	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function getRandom() {$/;"	function	line:87
-setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:102
-switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:114
-function.setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:102
 constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/landedShape.js	/^  constructor(x, y, z, step) {$/;"	function	line:6
 setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/landedShape.js	/^    this.setVerticiesAndBufferData = function(gl) {$/;"	function	line:10
 class.updateFrame.setVerticiesAndBufferData	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/landedShape.js	/^\/*$/;"	function	line:0
@@ -102,3 +72,33 @@ loadImageAndCreateTextureInfo	/Users/vladimir/Developer/JavaScript/TetrisWebGL/c
 textureInfo.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^      var textureInfo = {$/;"	property	line:329
 textureInfo.height	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        width: 1,   \/\/ we don't know the size until it loads$/;"	property	line:330
 textureInfo.texture	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/glManager.js	/^        height: 1,$/;"	property	line:331
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  constructor(glManager) {$/;"	function	line:3
+start	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  start() {$/;"	function	line:22
+collide	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  collide(landed, player) {$/;"	function	line:26
+playerMoveH	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerMoveH(dir) {$/;"	function	line:38
+playerRotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerRotate(dir) {$/;"	function	line:58
+rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  rotate(matrix, dir) {$/;"	function	line:75
+playerMove	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerMove() {$/;"	function	line:96
+playerReset	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  playerReset() {$/;"	function	line:120
+createPiece	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  createPiece(type) {$/;"	function	line:128
+createMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  createMatrix(w, h) {$/;"	function	line:173
+merge	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  merge(landed, player) {$/;"	function	line:180
+update	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/game.js	/^  update(now = 0) {$/;"	function	line:190
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  constructor(x,y,z,step, offset) {$/;"	function	line:7
+updateFrame	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateFrame() {$/;"	function	line:42
+updateFrame.center.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^    this.center = {$/;"	property	line:43
+updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  updateMatrix(value) {$/;"	function	line:50
+translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  translate(value) {$/;"	function	line:78
+scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  scale(value) {$/;"	function	line:111
+rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  rotate(value) {$/;"	function	line:141
+getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/shape.js	/^  getRotationMatrix() {$/;"	function	line:159
+unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
+unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
+mapVerticies	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapVerticies(matrix, offset = {x: 0, y: 0}) {$/;"	function	line:43
+mapVerticies	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapVerticies(matrix, offset = {x: 0, y: 0}) {$/;"	function	line:43
+mapColor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapColor(matrix) {$/;"	function	line:61
+mapColor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapColor(matrix) {$/;"	function	line:61
+getRandom	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function getRandom() {$/;"	function	line:87
+setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:102
+switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:114
+function.setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:102

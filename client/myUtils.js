@@ -143,7 +143,15 @@ function setEventListner(game) {
     case "ArrowDown":
     case "s":
     case "S":
-    game.player.position.y = 13;
+    if (game.timerOff) {
+      game.timerOff = false;
+    } else {
+      let x = 0;
+      while(!game.collide(game.landed, game.player)) {
+        game.player.position.y += 1;
+      }
+      game.player.position.y -= 1;
+    }
     // if (shape.animProps.translation.animate) {
       // shape.translation[1] = -1.8
     // } else {
@@ -153,6 +161,7 @@ function setEventListner(game) {
     case "ArrowUp":
     case "w":
     case "W":
+    game.timerOff = true;
     // shape.animProps.translation.animate = false;
       break;
     case "ArrowLeft":
@@ -164,10 +173,11 @@ function setEventListner(game) {
     // shape.animProps.translation.inverse = true
       break;
     case "ArrowRight":
-    game.playerMoveH(1);
-    // game.player.position.x += 1;
     case "d":
     case "D":
+    game.playerMoveH(1);
+    // game.player.position.x += 1;
+
     // shape.animProps.translation.right()
     // shape.animProps.translation.inverse = false
       break;

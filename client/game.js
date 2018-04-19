@@ -13,6 +13,7 @@ class Game {
       delta: 0,
       then: 0,
     }
+    this.timerOff = false
     this.landed = this.createMatrix(
       this.props.size.w, this.props.size.h
     );
@@ -93,8 +94,11 @@ class Game {
 
 
   playerMove() {
-    this.player.position.y += 1;
 
+    if (this.timerOff) {
+      return;
+    }
+    this.player.position.y += 1;
     glManager.shape.translation = [
       glManager.shape.translation[0],
       0,
@@ -112,6 +116,7 @@ class Game {
     }
     this.props.moveCounter = 0;
   }
+
   playerReset() {
     const pieces = "ILJOTSZ";
 

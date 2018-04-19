@@ -95,7 +95,8 @@ class Shape {
               translationAnimationFlags.direction = 0
             }
         }
-        if (translationAnimationFlags.down) {
+
+        if (translationAnimationFlags.down && !game.timerOff) {
           this.translation[1] -= value
         } else {
           this.translation[1] = 0;
