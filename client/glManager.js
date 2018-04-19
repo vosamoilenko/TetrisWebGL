@@ -90,7 +90,6 @@ class GLManager {
     const fShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsSource)
     const vBShader = this.createShader(gl, gl.VERTEX_SHADER, vsBSource)
     const fBShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsBSource)
-
     const vLShader = this.createShader(gl, gl.VERTEX_SHADER, vsLandedSource)
     const fLShader = this.createShader(gl, gl.FRAGMENT_SHADER, fsLandedSource)
     // --------------------------------------------------
@@ -123,9 +122,12 @@ class GLManager {
     // --------------------------------------------------
     this.programs[2] = this.createProgram(gl, [vLShader, fLShader]);
     this.positionLAttributeLocation = gl.getAttribLocation(this.programs[2], "aposition");
+    this.colorLAttributeLocation = gl.getAttribLocation(this.programs[2], "acolor");
     this.landed = new LandedShape(0,0,0,this.screen.unitSize);
     this.landed.positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.positionBuffer);
+    this.landed.colorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.colorBuffer);
   }
 
 
@@ -232,6 +234,13 @@ class GLManager {
       gl.bufferData(
         gl.ARRAY_BUFFER, new Float32Array(this.landed.array), gl.STATIC_DRAW
       );
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.colorBuffer)
+      this.landed.arrayC = this.landed.setColorAndBufferData(gl);
+      gl.bufferData(
+        gl.ARRAY_BUFFER, new Uint8Array(this.landed.arrayC), gl.STATIC_DRAW
+      );
+
       size = 3
       type = gl.FLOAT
       normalize = false
@@ -248,6 +257,17 @@ class GLManager {
         offset
       )
       gl.enableVertexAttribArray(this.positionAttributeLocation)
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.colorBuffer)
+      gl.vertexAttribPointer(
+        this.colorLAttributeLocation,
+        3,
+        gl.UNSIGNED_BYTE,
+        true,
+        stride,
+        offset
+      )
+      gl.enableVertexAttribArray(this.colorLAttributeLocation)
 
       verticiesCounter = 6 * 6 * (this.landed.array.length / 108)
       drawingOffset = 0

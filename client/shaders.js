@@ -26,11 +26,12 @@ const fsSource = `
 
 const vsLandedSource = `
   attribute vec4 aposition;
+  attribute vec4 acolor;
   varying vec4 vcolor;
 
   void main() {
     gl_Position = aposition;
-    vcolor = gl_Position * 0.5 + 0.5;
+    vcolor = acolor;
   }
 `;
 
