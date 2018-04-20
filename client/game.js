@@ -23,6 +23,24 @@ class Game {
     requestAnimationFrame( now => this.update(now));
   }
 
+  arenaSweep() {
+    let rowCount = 1;
+    outer: for (let y = this.landed.length -1; y > 0; --y) {
+        for (let x = 0; x < this.landed[y].length; ++x) {
+            if (this.landed[y][x] === 0) {
+                continue outer;
+            }
+        }
+
+        const row = this.landed.splice(y, 1)[0].fill(0);
+        this.landed.unshift(row);
+        ++y;
+
+        // player.score += rowCount * 10;
+        // rowCount *= 2;
+    }
+}
+
   collide(landed, player) {
     const [m,o] = [player.activeShape, player.position];
     for (let y = 0; y < m.length; ++y) {
@@ -110,6 +128,7 @@ class Game {
       this.player.position.y--;
       this.merge(this.landed, this.player);
       this.playerReset();
+      this.arenaSweep();
       if (this.collide(this.landed, this.player)) {
         this.landed.forEach(row => row.fill(0))
       }
