@@ -69,16 +69,16 @@ class GLManager {
     this.shape.buffer.color = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.shape.buffer.color);
     // --------------------------------------------------
-    // this.programs[2] = createProgram(gl, [vLShader, fLShader]);
-    // this.positionLAttributeLocation = gl.getAttribLocation(this.programs[2], "aposition");
-    // this.colorLAttributeLocation = gl.getAttribLocation(this.programs[2], "acolor");
-    //
-    // this.landed = new LandedShape(0,0,0,this.screen.unitSize);
-    //
-    // this.landed.buffer.position = gl.createBuffer();
-    // gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.buffer.position);
-    // this.landed.buffer.color = gl.createBuffer();
-    // gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.buffer.color);
+    this.programs[2] = createProgram(gl, [vLShader, fLShader]);
+    this.positionLAttributeLocation = gl.getAttribLocation(this.programs[2], "aposition");
+    this.colorLAttributeLocation = gl.getAttribLocation(this.programs[2], "acolor");
+
+    this.landed = new LandedShape(0,0,0,this.screen.unitSize);
+
+    this.landed.buffer.position = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.buffer.position);
+    this.landed.buffer.color = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.buffer.color);
   }
 
 
@@ -93,25 +93,6 @@ class GLManager {
     gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
     gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
 
-    // ---------------------------------------------------------
-    // gl.useProgram(this.programs[0])
-    //
-    // gl.enableVertexAttribArray(this.positionBAttributeLocation)
-    // gl.bindBuffer(gl.ARRAY_BUFFER, this.background.positionBuffer)
-    //
-    // gl.vertexAttribPointer(
-    //   this.positionBAttributeLocation, 3,
-    //   gl.FLOAT, false, 0, 0
-    // );
-    //
-    // gl.enableVertexAttribArray(this.textBAttributeLocation)
-    // gl.bindBuffer(gl.ARRAY_BUFFER, this.background.texture.positionBuffer)
-    //
-    // gl.vertexAttribPointer(
-    //   this.textBAttributeLocation, 3,
-    //   gl.FLOAT, false, 0, 0
-    // );
-    // gl.drawArrays(gl.TRIANGLES, 0, 6 * 6)
     // -----------------------------------------------------
     // draw game elements
     let playerShapeAttributeLocations = {
@@ -119,14 +100,15 @@ class GLManager {
       position: this.positionAttributeLocation,
       color: this.colorAttributeLocation,
     };
-    setBuffersAndDraw(gl, this.programs[1], this.shape, playerShapeAttributeLocations);
+    setBuffersAndDraw(gl, this.programs[1], this.shape, playerShapeAttributeLocations, false);
 
 // -----------------------------------------------------
-    // let landedShapeAttributeLocations = {
-    //   position: this.positionLAttributeLocation,
-    //   color: this.colorLAttributeLocation,
-    // }
-    // setBuffersAndDraw(gl, this.programs[2], this.landed, landedShapeAttributeLocations);
+    let landedShapeAttributeLocations = {
+      position: this.positionLAttributeLocation,
+      color: this.colorLAttributeLocation,
+    }
+
+    setBuffersAndDraw(gl, this.programs[2], this.landed, landedShapeAttributeLocations, true);
 
     // this.landed.array = this.landed.setVerticiesAndBufferData(gl);
     //

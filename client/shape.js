@@ -84,7 +84,7 @@ class Shape {
   }
 
   clean() {
-    this.bufferCoordinates.position = [];
+    // this.bufferCoordinates.position = [];
     this.bufferCoordinates.color = [];
 
 

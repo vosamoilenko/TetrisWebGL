@@ -7,7 +7,7 @@ Volodymyr Samoilenko
 // for managing webgl routine tasks
 
 
-function setBuffersAndDraw(gl, program, shape, locations ){
+function setBuffersAndDraw(gl, program, shape, locations, flag ){
 
   // shape +
   //       |
@@ -23,7 +23,10 @@ function setBuffersAndDraw(gl, program, shape, locations ){
   gl.useProgram(program)
   bufferData(gl, shape);
 
-
+  // return if there is no vertecies for drawing
+  if (shape.bufferCoordinates.position.length === 0) {
+    return;
+  }
 
   if (locations.uniform !== undefined) {
     let transformationMatrix = shape.updateMatrix();
@@ -34,7 +37,6 @@ function setBuffersAndDraw(gl, program, shape, locations ){
     )
   }
 
-  // debugger;
 
   setAndEnableVertex(
     gl,
@@ -71,6 +73,7 @@ function setBuffersAndDraw(gl, program, shape, locations ){
 function bufferData(gl, shape) {
   gl.bindBuffer(gl.ARRAY_BUFFER, shape.buffer.position)
   shape.bufferCoordinates.position = shape.setVerticiesAndBufferData(gl);
+
   gl.bufferData(
     gl.ARRAY_BUFFER, new Float32Array(shape.bufferCoordinates.position), gl.STATIC_DRAW
   );
