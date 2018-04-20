@@ -78,7 +78,16 @@ class GLManager {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.buffer.color);
   }
 
-
+  startHorizontalTransltion(direction) {
+    this.shape.animProps.translation.inverse = direction < 0 ? true : false;
+    this.shape.animProps.translation.direction = direction
+    this.shape.animProps.translation.to = [
+      this.shape.translation[0] + (this.screen.unitSize * direction),
+      this.shape.translation[1],
+      this.shape.translation[2]
+    ]
+    this.shape.isAnimated = true;
+  }
   drawScene(delta) {
     let gl = this.gl;
     this.array = [];

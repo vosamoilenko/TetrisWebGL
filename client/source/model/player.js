@@ -52,24 +52,13 @@ class Player {
   }
   move(direction) {
     this.position.x += direction;
-    console.log(this.position.x);
     if (game.isCollide()) {
       this.position.x -= direction;
       return;
     }
 
     this.position.x -= direction;
-
-    glManager.shape.animProps.translation.inverse = direction < 0 ? true : false;
-    glManager.shape.animProps.translation.direction = direction
-    glManager.shape.animProps.translation.to = [
-      glManager.shape.translation[0] + (glManager.screen.unitSize * direction),
-      glManager.shape.translation[1],
-      glManager.shape.translation[2]
-    ]
-    glManager.shape.isAnimated = true;
-
-    console.log(this.position);
+    glManager.startHorizontalTransltion(direction);
 
   }
 

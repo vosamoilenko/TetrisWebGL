@@ -4,14 +4,10 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  constructor(x,y,z,step, offset) {$/;"	function	line:7
-bufferCoordinates.position	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^    this.bufferCoordinates = {$/;"	property	line:15
-origin.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^    this.origin = {$/;"	property	line:19
-origin.y	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^      x:x,$/;"	property	line:20
-origin.z	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^      y:y,$/;"	property	line:21
-updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  updateMatrix() {$/;"	function	line:50
-clean	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  clean() {$/;"	function	line:77
-translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  translate(value) {$/;"	function	line:84
-rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  rotate(value) {$/;"	function	line:120
-getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  getRotationMatrix() {$/;"	function	line:138
-scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  scale(value) {$/;"	function	line:164
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  constructor() {$/;"	function	line:2
+position.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^    this.position = {$/;"	property	line:5
+position.y	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^      x: 5,$/;"	property	line:6
+reset	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  reset() {$/;"	function	line:11
+drop	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  drop() {$/;"	function	line:16
+rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  rotate(direction) {$/;"	function	line:39
+move	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  move(direction) {$/;"	function	line:53
