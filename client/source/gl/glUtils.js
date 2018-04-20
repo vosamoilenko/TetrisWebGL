@@ -37,7 +37,6 @@ function setBuffersAndDraw(gl, program, shape, locations, flag ){
     )
   }
 
-
   setAndEnableVertex(
     gl,
     {

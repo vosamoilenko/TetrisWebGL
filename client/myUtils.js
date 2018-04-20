@@ -10,7 +10,7 @@ function unitBlock3d(x,y,z, step) {
   let y1 = y;
   let y2 = y + step;
   let z1 = z;
-  let z2 = z + step * 2;
+  let z2 = z + step;
 
   let positions = [
     // front

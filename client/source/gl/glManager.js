@@ -41,20 +41,20 @@ class GLManager {
     const vLShader = createShader(gl, gl.VERTEX_SHADER, vsLandedSource)
     const fLShader = createShader(gl, gl.FRAGMENT_SHADER, fsLandedSource)
     // --------------------------------------------------
-    // this.programs[0] = createProgram(gl, [vBShader, fBShader])
-    // this.positionBAttributeLocation = gl.getAttribLocation(this.programs[0], "aposition");
-    // this.textBAttributeLocation = gl.getAttribLocation(this.programs[0], "atexCoord");
-    //
-    // var background = new Background(-1, -1, 0, 2.0)
-    // background.positionBuffer = gl.createBuffer()
-    // gl.bindBuffer(gl.ARRAY_BUFFER, background.positionBuffer)
-    // background.setVerticiesAndBufferData(gl)
-    //
-    // background.texture = loadImageAndCreateTextureInfo(gl, IMG_URL)
-    // background.texture.positionBuffer = gl.createBuffer();
-    // gl.bindBuffer(gl.ARRAY_BUFFER, background.texture.positionBuffer)
-    // background.setVerticiesAndBufferData(gl)
-    // this.background = background
+    this.programs[0] = createProgram(gl, [vBShader, fBShader])
+    this.positionBAttributeLocation = gl.getAttribLocation(this.programs[0], "aposition");
+    this.textBAttributeLocation = gl.getAttribLocation(this.programs[0], "atexCoord");
+
+    var background = new Background(-1, -1, 0, 1.0)
+    background.buffer.position = gl.createBuffer()
+    gl.bindBuffer(gl.ARRAY_BUFFER, background.buffer.position)
+    background.setVerticiesAndBufferData(gl)
+
+    background.texture = loadImageAndCreateTextureInfo(gl, IMG_URL)
+    background.buffer.texturePosition = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, background.buffer.texturePosition)
+    background.setVerticiesAndBufferData(gl)
+    this.background = background
     // --------------------------------------------------
     this.programs[1] = createProgram(gl, [vShader, fShader]);
     this.positionAttributeLocation = gl.getAttribLocation(this.programs[1], "aposition");
@@ -93,70 +93,46 @@ class GLManager {
     gl.clearColor(78/255.0,159/255.0,255/255.0,1.0)
     gl.clear(gl.COLOR_BUFFER_BIT || gl.COLOR_DEPTH_BIT)
 
+    // drawing background
+    gl.useProgram(glManager.programs[0])
+
+    gl.enableVertexAttribArray(this.positionBAttributeLocation)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.background.buffer.position)
+    gl.vertexAttribPointer(
+      this.positionBAttributeLocation,
+      2,
+      gl.FLOAT, false, 0, 0
+    );
+
+    gl.enableVertexAttribArray(this.textBAttributeLocation)
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.background.buffer.texturePosition)
+
+    gl.vertexAttribPointer(
+      glManager.textBAttributeLocation, 2,
+      gl.FLOAT, false, 0, 0
+    );
+    gl.drawArrays(gl.TRIANGLES, 0, 6)
+
+
+
+
     // -----------------------------------------------------
-    // draw game elements
+    // draw active shape
     let playerShapeAttributeLocations = {
       uniform: this.matrixUniformLocation,
       position: this.positionAttributeLocation,
       color: this.colorAttributeLocation,
     };
-    setBuffersAndDraw(gl, this.programs[1], this.shape, playerShapeAttributeLocations, false);
+    setBuffersAndDraw(gl, this.programs[1], this.shape, playerShapeAttributeLocations);
 
-// -----------------------------------------------------
+    // -----------------------------------------------------
+    // draw landed shape
     let landedShapeAttributeLocations = {
       position: this.positionLAttributeLocation,
       color: this.colorLAttributeLocation,
     }
 
-    setBuffersAndDraw(gl, this.programs[2], this.landed, landedShapeAttributeLocations, true);
-
-    // this.landed.array = this.landed.setVerticiesAndBufferData(gl);
-    //
-    // if (this.landed.array.length > 0) {
-    //   gl.useProgram(this.programs[2])
-    //   gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.positionBuffer)
-    //   gl.bufferData(
-    //     gl.ARRAY_BUFFER, new Float32Array(this.landed.array), gl.STATIC_DRAW
-    //   );
-    //
-    //   gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.colorBuffer)
-    //   this.landed.arrayC = this.landed.setColorAndBufferData(gl);
-    //   gl.bufferData(
-    //     gl.ARRAY_BUFFER, new Uint8Array(this.landed.arrayC), gl.STATIC_DRAW
-    //   );
-    //
-    //   size = 3
-    //   type = gl.FLOAT
-    //   normalize = false
-    //   stride = 0
-    //   offset = 0
-    //
-    //   gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.positionBuffer)
-    //   gl.vertexAttribPointer(
-    //     this.positionAttributeLocation,
-    //     size,
-    //     type,
-    //     normalize,
-    //     stride,
-    //     offset
-    //   )
-    //   gl.enableVertexAttribArray(this.positionAttributeLocation)
-    //
-    //   gl.bindBuffer(gl.ARRAY_BUFFER, this.landed.colorBuffer)
-    //   gl.vertexAttribPointer(
-    //     this.colorLAttributeLocation,
-    //     3,
-    //     gl.UNSIGNED_BYTE,
-    //     true,
-    //     stride,
-    //     offset
-    //   )
-    //   gl.enableVertexAttribArray(this.colorLAttributeLocation)
-    //
-    //   verticiesCounter = 6 * 6 * (this.landed.array.length / 108)
-    //   drawingOffset = 0
-    //   gl.drawArrays(gl.TRIANGLES, drawingOffset, verticiesCounter)
-    // }
+    setBuffersAndDraw(gl, this.programs[2], this.landed, landedShapeAttributeLocations);
   }
 
 
