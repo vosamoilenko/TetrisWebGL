@@ -3,7 +3,6 @@ a01468749
 Volodymyr Samoilenko
 */
 
-
 class GLManager {
   constructor() {
     this.then = 0
@@ -13,8 +12,6 @@ class GLManager {
       playebleArea: {w:375, h: 600 },
       unitSize: 2.0 / 16,
     }
-    // this.gl = undefined;
-
 
     this.initScene();
   }
@@ -27,7 +24,7 @@ class GLManager {
     const canvas = document.querySelector('#glCanvas');
 
     this.gl = canvas.getContext('webgl');
-    var gl = this.gl;
+    let gl = this.gl;
 
     if (!gl) {
       alert("Unable to initialize WebGL. Your browser or machine may not support it.");
@@ -45,7 +42,7 @@ class GLManager {
     this.positionBAttributeLocation = gl.getAttribLocation(this.programs[0], "aposition");
     this.textBAttributeLocation = gl.getAttribLocation(this.programs[0], "atexCoord");
 
-    var background = new Background(-1, -1, 1, 2.0)
+    let background = new Background(-1, -1, 1, 2.0)
     background.buffer.position = gl.createBuffer()
     gl.bindBuffer(gl.ARRAY_BUFFER, background.buffer.position)
     background.setVerticiesAndBufferData(gl)
@@ -83,10 +80,8 @@ class GLManager {
 
 
   drawScene(delta) {
-
-    var gl = this.gl;
+    let gl = this.gl;
     this.array = [];
-
 
     // CLEAN SCENE
     gl.viewport(0,0,gl.canvas.width,gl.canvas.height)
@@ -112,10 +107,6 @@ class GLManager {
       gl.FLOAT, false, 0, 0
     );
     gl.drawArrays(gl.TRIANGLES, 0, 6)
-
-
-
-
     // -----------------------------------------------------
     // draw active shape
     let playerShapeAttributeLocations = {
@@ -134,9 +125,4 @@ class GLManager {
 
     setBuffersAndDraw(gl, this.programs[2], this.landed, landedShapeAttributeLocations);
   }
-
-
-
-
-
 }
