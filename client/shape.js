@@ -8,6 +8,14 @@ class Shape {
     this.positionBuffer = []
     this.colorBuffer = []
     this.indexBuffer = []
+    this.buffer = {
+      position: [],
+      color: [],
+    }
+    this.bufferCoordinates = {
+      position: [],
+      color: [],
+    }
 
     this.origin = {
       x:x,
@@ -47,31 +55,38 @@ class Shape {
     }
   }
 
-  updateMatrix(value) {
-    if (this.animProps.translation.direction === 0) {
-      this.translation = [
-        0,
-        this.translation[1],
-        0]
-      this.animProps.translation.to = [0,0,0]
-    }
-
+  updateMatrix() {
+    // if (this.animProps.translation.direction === 0) {
+    //   this.translation = [
+    //     0,
+    //     this.translation[1],
+    //     0]
+    //   this.animProps.translation.to = [0,0,0]
+    // }
+    //
     let matrix = [];
     matrix = mat4.identity(matrix);
-    // if (this.animProps.translation.direction === 0) {
-        // return matrix;
-    // }
-
-
-    let rotationMatrix = this.rotate(value.translation())
-    let translationMatrix = this.translate(value.translation())
-
-    // let scalingMatrix = this.scale(value.scale())
-
-    mat4.multiply(matrix, matrix, translationMatrix);
-    mat4.multiply(matrix, matrix, rotationMatrix)
+    // // if (this.animProps.translation.direction === 0) {
+    //     // return matrix;
+    // // }
+    //
+    // let delta = game.props.delta;
+    // let rotationMatrix = this.rotate( delta * ROTATION_PER_SECOND );
+    // let translationMatrix = this.translate( delta * TRANSLATION_PER_SECOND )
+    //
+    // // let scalingMatrix = this.scale(value.scale())
+    //
+    // mat4.multiply(matrix, matrix, translationMatrix);
+    // mat4.multiply(matrix, matrix, rotationMatrix)
     // mat4.multiply(matrix, translationMatrix, scalingMatrix)
     return matrix;
+
+  }
+
+  clean() {
+    this.bufferCoordinates.position = [];
+    this.bufferCoordinates.color = [];
+
 
   }
 
@@ -103,7 +118,7 @@ class Shape {
         }
 
 
-    return glManager.transformation.translation(
+    return transformationMatrix.translation(
       this.translation[0],this.translation[1], this.translation[2]
     )
   }
@@ -131,7 +146,7 @@ class Shape {
           this.scaling[2] = this.scaling[2] - value
       }
     }
-    return glManager.transformation.scaling(
+    return transformationMatrix.scaling(
       this.scaling[0],this.scaling[1],this.scaling[2]
     )
   }
@@ -157,39 +172,27 @@ class Shape {
   }
 
   getRotationMatrix() {
-    // TODO
+    // BUG: I have some misunderstanding here.
+    // For rotation about own axes I must translate my shape to center (0,0,z,w) and rotate it. After rotation move it back to it's position. Because order shold be vica versa I hold order:
+    // matrix = toCenterMatrix * rotation
+    // matrix = matrix * toCurrentPosition
 
-    let toCenter = glManager.transformation.translation(
+    // But everything goes wrong.
+
+    let toCenter = transformationMatrix.translation(
       -glManager.shape.array[0],
       -glManager.shape.array[1],
       -glManager.shape.array[2])
 
-    //
-    let toOrigin = glManager.transformation.translation(
+    let toOrigin = transformationMatrix.translation(
       glManager.shape.array[0],
       glManager.shape.array[1],
       glManager.shape.array[2])
 
     var matrix = []
-    // this.degrees -= 0.1
-    var rotationMatrix = glManager.transformation.rotation(this.degrees,0)
-    // console.table(rotationMatrix);
-    // mat4.multiply(rotationMatrix, rotationMatrix, glManager.transformation.rotation(this.degrees,1))
-    // mat4.multiply(rotationMatrix, rotationMatrix, glManager.transformation.rotation(this.degrees,2))
-    // mat4.multiply(rotationMatrix,rotationMatrix,glManager.transformation.rotation(this.degrees,1))
-    // mat4.multiply(matrix, toOrigin, rotationMatrix)
-    // mat4.multiply(matrix, rotationMatrix, toCenter )
-    // mat4.multiply(matrix, matrix, toCenter)
-    // console.table(matrix);debugger;
 
-
+    var rotationMatrix = transformationMatrix.rotation(this.degrees,0)
     matrix = rotationMatrix
-    // console.table(matrix);debugger;
-    // console.table(matrix);
-    // debugger;
-
-
-
 
     return matrix;
   }

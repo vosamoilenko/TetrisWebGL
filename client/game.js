@@ -139,7 +139,9 @@ class Game {
   playerReset() {
     const pieces = "ILJOTSZ";
 
-    this.player.activeShape = this.createPiece(pieces[pieces.length * Math.random() | 0]);
+    this.player.activeShape = this.createPiece(
+      pieces[pieces.length * Math.random() | 0]
+    );
     this.player.position.y = 0;
     this.player.position.x = (this.landed[0].length / 2 | 0) -
                    (this.player.activeShape[0].length / 2 | 0);

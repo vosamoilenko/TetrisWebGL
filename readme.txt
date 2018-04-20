@@ -1,6 +1,25 @@
 a01468749
 Volodymyr Samoilenko
 
+This is my code for a CG lab1b
+
+(15%) Add gravity - done
+(10%) Add more objects - done
+      7 tetrominos was taken from wiki page
+      https://en.wikipedia.org/wiki/Tetris
+(20%) Non-overlapping - done
+(20%) Fail-safe User Interaction - done
+
+(20%) Keeping Score
+Whenever we "release" one object and it is stored in the array, check whether one row is completely occupied. If that is the case, clear it from the array and move all the objects about that row as far down as possible without entering already occupied blocks. Output the number of rows deleted thus far. This is the score.
+
+(10%) Game Over/New Game
+When the tetrominos stored in the array reach the top line so that there's no space left for new blocks the game should be reset and start anew.
+
+(5%) Change the pixels per block
+Add two input buttons to increase or decrease the size of the blocks.
+
+********************************************************************************************
 This is my code for a CG lab1a
 
 Need to run node.js because used the server for using textures.

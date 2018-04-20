@@ -25,7 +25,6 @@ class PlayerShape extends Shape {
       arr = mapColor(
         shape
       );
-      // debugger;
       return arr;
     }
   }
