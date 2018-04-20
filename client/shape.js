@@ -16,7 +16,6 @@ class Shape {
       position: [],
       color: [],
     }
-
     this.origin = {
       x:x,
       y:y,

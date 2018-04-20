@@ -4,13 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
-unitBlock3d	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function unitBlock3d(x,y,z, step) {$/;"	function	line:6
-mapVerticies	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapVerticies(matrix, offset = {x: 0, y: 0}) {$/;"	function	line:43
-mapVerticies	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapVerticies(matrix, offset = {x: 0, y: 0}) {$/;"	function	line:43
-mapColor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapColor(matrix) {$/;"	function	line:61
-mapColor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function mapColor(matrix) {$/;"	function	line:61
-getRandom	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function getRandom() {$/;"	function	line:87
-setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:102
-switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:114
-function.setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:102
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  constructor(glManager) {$/;"	function	line:8
+start	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  start() {$/;"	function	line:26
+arenaSweep	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  arenaSweep() {$/;"	function	line:30
+isCollide	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  isCollide() {$/;"	function	line:48
+merge	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  merge() {$/;"	function	line:62
+update	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  update(now = 0) {$/;"	function	line:72
