@@ -114,7 +114,7 @@ class GLManager {
       position: this.positionAttributeLocation,
       color: this.colorAttributeLocation,
     };
-    setBuffersAndDraw(gl, this.programs[1], this.shape, playerShapeAttributeLocations);
+    setBuffersAndDraw(gl, this.programs[1], this.shape, playerShapeAttributeLocations, true);
 
     // -----------------------------------------------------
     // draw landed shape

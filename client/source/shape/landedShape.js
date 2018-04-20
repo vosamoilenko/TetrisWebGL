@@ -5,7 +5,6 @@ Volodymyr Samoilenko
 class LandedShape extends Shape {
   constructor(x, y, z, step) {
     super(x, y, z, step)
-    this.updateFrame()
 
     this.setVerticiesAndBufferData = function(gl) {
       let arr = [];

@@ -29,7 +29,6 @@ class Player {
       this.position.y -= 1;
       game.merge();
       game.player.reset();
-      // game.playerReset();
       game.arenaSweep();
       if (game.isCollide()) {
         game.landed.forEach(row => row.fill(0))
@@ -37,7 +36,6 @@ class Player {
     }
     game.props.moveCounter = 0;
   }
-
   rotate(direction) {
 
     let offset = 1;
@@ -52,27 +50,26 @@ class Player {
         }
     }
   }
-
   move(direction) {
     this.position.x += direction;
-
+    console.log(this.position.x);
     if (game.isCollide()) {
       this.position.x -= direction;
       return;
     }
 
-    // this.player.position.x -= dir;
+    this.position.x -= direction;
 
-    // debugger;
+    glManager.shape.animProps.translation.inverse = direction < 0 ? true : false;
+    glManager.shape.animProps.translation.direction = direction
+    glManager.shape.animProps.translation.to = [
+      glManager.shape.translation[0] + (glManager.screen.unitSize * direction),
+      glManager.shape.translation[1],
+      glManager.shape.translation[2]
+    ]
+    glManager.shape.isAnimated = true;
 
-    // glManager.shape.animProps.translation.inverse = dir < 0 ? true : false;
-    // glManager.shape.animProps.translation.direction = dir
-    // glManager.shape.animProps.translation.to = [
-    //   glManager.shape.translation[0] + glManager.screen.unitSize * dir,
-    //   glManager.shape.translation[1],
-    //   glManager.shape.translation[2]
-    // ]
-    // glManager.shape.isAnimated = true;
+    console.log(this.position);
 
   }
 

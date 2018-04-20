@@ -46,40 +46,32 @@ class Shape {
       }
     }
   }
-  updateFrame() {
-    this.center = {
-      x: this.origin.x + (this.size.width/2.0),
-      y: this.origin.y + (this.size.height/2.0),
-      z: this.origin.z + (this.size.height/2.0),
-    }
-  }
 
   updateMatrix() {
-    // if (this.animProps.translation.direction === 0) {
-    //   this.translation = [
-    //     0,
-    //     this.translation[1],
-    //     0]
-    //   this.animProps.translation.to = [0,0,0]
-    // }
-    //
+
+
+    let delta = game.props.delta;
     let matrix = [];
     matrix = mat4.identity(matrix);
-    // // if (this.animProps.translation.direction === 0) {
-    //     // return matrix;
-    // // }
     //
-    // let delta = game.props.delta;
+    if (this.animProps.translation.direction === 0) {
+      this.translation = [
+        0,
+        this.translation[1],
+        0]
+      this.animProps.translation.to = [0,0,0]
+    }
+
     // let rotationMatrix = this.rotate( delta * ROTATION_PER_SECOND );
-    // let translationMatrix = this.translate( delta * TRANSLATION_PER_SECOND )
+    let translationMatrix = this.translate( delta * TRANSLATION_PER_SECOND )
     //
     // // let scalingMatrix = this.scale(value.scale())
     //
-    // mat4.multiply(matrix, matrix, translationMatrix);
+    mat4.multiply(matrix, matrix, translationMatrix);
+    // debugger;
     // mat4.multiply(matrix, matrix, rotationMatrix)
     // mat4.multiply(matrix, translationMatrix, scalingMatrix)
     return matrix;
-
   }
 
   clean() {
@@ -93,63 +85,36 @@ class Shape {
 
     var translationAnimationFlags = this.animProps.translation
 
-        if (!translationAnimationFlags.inverse) {
-          if (this.translation[0] < translationAnimationFlags.to[0] ) {
-              this.translation[0] += (value*10) * (translationAnimationFlags.direction);
 
-            } else {
-              game.player.position.x += translationAnimationFlags.direction;
-              translationAnimationFlags.direction = 0
-            }
-        } else {
-          if (this.translation[0] > translationAnimationFlags.to[0] ) {
-              this.translation[0] += (value*10) * (translationAnimationFlags.direction);
-            } else {
-              game.player.position.x += translationAnimationFlags.direction;
-              translationAnimationFlags.direction = 0
-            }
-        }
+      if (!translationAnimationFlags.inverse) {
+        if (this.translation[0] < translationAnimationFlags.to[0] ) {
+            this.translation[0] += (value*10) * (translationAnimationFlags.direction);
 
-        if (translationAnimationFlags.down && !game.timerOff) {
-          this.translation[1] -= value
-        } else {
-          this.translation[1] = 0;
-        }
+          } else {
+            game.player.position.x += translationAnimationFlags.direction;
+            translationAnimationFlags.direction = 0
+            // this.translation[0] = 0
+          }
+      } else {
+        if (this.translation[0] > translationAnimationFlags.to[0] ) {
+            this.translation[0] += (value*10) * (translationAnimationFlags.direction);
+          } else {
+            game.player.position.x += translationAnimationFlags.direction;
+            translationAnimationFlags.direction = 0
+          }
+      }
 
+      // Animate gravity
+      if (translationAnimationFlags.down && !game.timerOff) {
+        this.translation[1] -= value
+      } else {
+        this.translation[1] = 0;
+      }
 
     return transformationMatrix.translation(
       this.translation[0],this.translation[1], this.translation[2]
     )
   }
-
-  scale(value) {
-    var scalingAnimationFlags = this.animProps.scaling
-    if (!scalingAnimationFlags.inverse) {
-      if (this.scaling[0] < scalingAnimationFlags.to[0]) {
-          this.scaling[0] = this.scaling[0] + value
-      }
-      if (this.scaling[1] < scalingAnimationFlags.to[1]){
-          this.scaling[1] = this.scaling[1] + value
-      }
-      if (this.scaling[2] < scalingAnimationFlags.to[2]){
-          this.scaling[2] = this.scaling[2] + value
-      }
-    } else {
-      if (this.scaling[0] > scalingAnimationFlags.to[0]) {
-          this.scaling[0] = this.scaling[0] - value
-      }
-      if (this.scaling[1] > scalingAnimationFlags.to[1]){
-          this.scaling[1] = this.scaling[1] - value
-      }
-      if (this.scaling[2] > scalingAnimationFlags.to[2]){
-          this.scaling[2] = this.scaling[2] - value
-      }
-    }
-    return transformationMatrix.scaling(
-      this.scaling[0],this.scaling[1],this.scaling[2]
-    )
-  }
-
 
 
   rotate(value) {
@@ -196,6 +161,32 @@ class Shape {
     return matrix;
   }
 
-
+  scale(value) {
+    var scalingAnimationFlags = this.animProps.scaling
+    if (!scalingAnimationFlags.inverse) {
+      if (this.scaling[0] < scalingAnimationFlags.to[0]) {
+          this.scaling[0] = this.scaling[0] + value
+      }
+      if (this.scaling[1] < scalingAnimationFlags.to[1]){
+          this.scaling[1] = this.scaling[1] + value
+      }
+      if (this.scaling[2] < scalingAnimationFlags.to[2]){
+          this.scaling[2] = this.scaling[2] + value
+      }
+    } else {
+      if (this.scaling[0] > scalingAnimationFlags.to[0]) {
+          this.scaling[0] = this.scaling[0] - value
+      }
+      if (this.scaling[1] > scalingAnimationFlags.to[1]){
+          this.scaling[1] = this.scaling[1] - value
+      }
+      if (this.scaling[2] > scalingAnimationFlags.to[2]){
+          this.scaling[2] = this.scaling[2] - value
+      }
+    }
+    return transformationMatrix.scaling(
+      this.scaling[0],this.scaling[1],this.scaling[2]
+    )
+  }
 
 };

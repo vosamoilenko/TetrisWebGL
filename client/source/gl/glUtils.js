@@ -240,17 +240,6 @@ function setAndEnableVertex(gl, options, buffer, location) {
 }
 function setBuffersAndDraw(gl, program, shape, locations, flag ){
 
-  // shape +
-  //       |
-  //       +---- buffer +
-  //       |            |
-  //       |            ----- position
-  //       |            ----- color
-  //       +---- bufferCoordinates +
-  //                               |
-  //                               ----- position
-  //                               ----- color
-  //
   gl.useProgram(program)
   bufferData(gl, shape);
 
@@ -260,11 +249,11 @@ function setBuffersAndDraw(gl, program, shape, locations, flag ){
   }
 
   if (locations.uniform !== undefined) {
-    let transformationMatrix = shape.updateMatrix();
+    let matrix = shape.updateMatrix();
     gl.uniformMatrix4fv(
       locations.uniform,
       false,
-      transformationMatrix
+      matrix
     )
   }
 

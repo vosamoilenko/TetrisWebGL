@@ -3,21 +3,6 @@ a01468749
 Volodymyr Samoilenko
 */
 
-function getRandom() {
-  var minus = Math.random()*10000
-
-  var x = Math.random()
-
-  if (x < 0) {x *= -1}
-  if (x > 0.5) {x = 0.5}
-
-  if (parseInt(minus)%2==0) {
-    x *= -1
-  }
-
-  return x
-}
-
 function setEventListner(game) {
   // works
   // https://caniuse.com/#feat=keyboardevent-key
@@ -72,9 +57,9 @@ function setEventListner(game) {
       game.player.position.y -= 1;
     }
     // if (shape.animProps.translation.animate) {
-      // shape.translation[1] = -1.8
+    //   shape.translation[1] = -1.8
     // } else {
-      // shape.animProps.translation.animate = true;
+    //   shape.animProps.translation.animate = true;
     // }
       break;
     case "ArrowUp":

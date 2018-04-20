@@ -1,3 +1,9 @@
+// Animation values
+const TRANSLATION_PER_SECOND = 0.125
+const ROTATION_PER_SECOND = 180.0;
+const SCALE_PER_SECOND = 2.0;
+
+
 // Game contants
 const screen = {
   size: {w:600 ,h:600},
@@ -54,8 +60,3 @@ const colors = [
    [65,   107,   183], // blue + green
   [128,   107,    83], // green
 ];
-
-// Animation values
-const TRANSLATION_PER_SECOND = 0.125
-const ROTATION_PER_SECOND = 180.0;
-const SCALE_PER_SECOND = 2.0;
