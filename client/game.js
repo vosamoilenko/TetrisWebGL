@@ -54,23 +54,25 @@ class Game {
   }
 
   playerMoveH(dir) {
-    // if ()
-    console.log(this.player.activeShape);
+
     this.player.position.x += dir;
+
     if (this.collide(this.landed, this.player)) {
       this.player.position.x -= dir;
       return;
     }
-    this.player.position.x -= dir;
+    // this.player.position.x -= dir;
 
-    glManager.shape.animProps.translation.inverse = dir < 0 ? true : false;
-    glManager.shape.animProps.translation.direction = dir
-    glManager.shape.animProps.translation.to = [
-      glManager.shape.translation[0] + glManager.screen.unitSize * dir,
-      glManager.shape.translation[1],
-      glManager.shape.translation[2]
-    ]
-    glManager.shape.isAnimated = true;
+    // debugger;
+
+    // glManager.shape.animProps.translation.inverse = dir < 0 ? true : false;
+    // glManager.shape.animProps.translation.direction = dir
+    // glManager.shape.animProps.translation.to = [
+    //   glManager.shape.translation[0] + glManager.screen.unitSize * dir,
+    //   glManager.shape.translation[1],
+    //   glManager.shape.translation[2]
+    // ]
+    // glManager.shape.isAnimated = true;
   }
 
   playerRotate(dir) {

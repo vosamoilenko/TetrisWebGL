@@ -45,7 +45,7 @@ class GLManager {
     this.positionBAttributeLocation = gl.getAttribLocation(this.programs[0], "aposition");
     this.textBAttributeLocation = gl.getAttribLocation(this.programs[0], "atexCoord");
 
-    var background = new Background(-1, -1, 0, 1.0)
+    var background = new Background(-1, -1, 1, 2.0)
     background.buffer.position = gl.createBuffer()
     gl.bindBuffer(gl.ARRAY_BUFFER, background.buffer.position)
     background.setVerticiesAndBufferData(gl)
@@ -100,7 +100,7 @@ class GLManager {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.background.buffer.position)
     gl.vertexAttribPointer(
       this.positionBAttributeLocation,
-      2,
+      3,
       gl.FLOAT, false, 0, 0
     );
 
@@ -108,7 +108,7 @@ class GLManager {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.background.buffer.texturePosition)
 
     gl.vertexAttribPointer(
-      glManager.textBAttributeLocation, 2,
+      glManager.textBAttributeLocation, 3,
       gl.FLOAT, false, 0, 0
     );
     gl.drawArrays(gl.TRIANGLES, 0, 6)
