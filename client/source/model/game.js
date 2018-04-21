@@ -55,7 +55,7 @@ class Game {
   }
 
   rowAbsorption() {
-    // let rowCount = 1;
+    let rowCount = 0;
     row: for (let y = this.landed.length -1; y > 0; --y) {
         for (let x = 0; x < this.landed[y].length; ++x) {
             if (this.landed[y][x] === 0) {
@@ -67,7 +67,8 @@ class Game {
         this.landed.unshift(row);
         ++y;
 
-        this.player.score += 10;
+        this.player.score += 10 * MULTIPLAYER;
+        this.player.row += 1;
     }
   }
 
@@ -84,7 +85,7 @@ class Game {
       this.props.delta = (now - this.props.then) * 0.001;
       this.props.then = now;
       this.props.moveCounter += this.props.delta;
-      if (this.props.moveCounter > this.props.moveIntervall) {
+      if (this.props.moveCounter > this.props.moveIntervall / MULTIPLAYER) {
         this.player.drop();
       }
       glManager.drawScene(this.props.delta);

@@ -28,6 +28,18 @@ function setEventListner(game) {
     return; // Do nothing if the event was already processed
   }
   switch (event.key) {
+    case ")":
+    case ".":
+    if (MULTIPLAYER+1 < 7) {
+      MULTIPLAYER += 1;
+    }
+      break;
+    case "(":
+    case ",":
+    if (MULTIPLAYER-1 > 0) {
+      MULTIPLAYER -= 1;
+    }
+      break;
     case "p":
     case "P":
     case "Escape":
@@ -74,8 +86,7 @@ function setEventListner(game) {
       game.player.move(1);
       rightPressed = true
     }
-      break;
-
+    break;
     default:
       return;
   }

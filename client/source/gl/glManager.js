@@ -149,7 +149,12 @@ class GLManager {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.textAlign = "center";
     this.ctx.font = "bold 20pt Courier"
-    this.ctx.fillText("Score: " + game.player.score, 487.5, 70);
+    let str = "Score: " + game.player.score
+    this.ctx.fillText(str, 487.5, 70);
+    str = 'Rows: ' + game.player.row;
+    this.ctx.fillText(str, 487.5, 100);
+    str = 'Speed: ' + MULTIPLAYER;
+    this.ctx.fillText(str, 487.5, 500);
   }
   startHorizontalTransltion(direction) {
     this.shape.animProps.translation.inverse = direction < 0 ? true : false;

@@ -7,6 +7,7 @@ class Player {
   constructor() {
     this.name = "";
     this.score = 0;
+    this.row = 0;
     this.position = {
       x: 5,
       y: 0
@@ -76,6 +77,15 @@ class Player {
 
     this.position.x -= direction;
     glManager.startHorizontalTransltion(direction);
+  }
+
+  scale(direction) {
+
+    glManager.shape.animProps.scaling.to[
+      glManager.shape.scaling[0] + direction/10,
+      glManager.shape.scaling[1] + direction/10,
+      0
+    ];
   }
 
 };

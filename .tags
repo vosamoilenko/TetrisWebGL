@@ -41,25 +41,9 @@ setBuffersAndDraw	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source
 game	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^var game;$/;"	variable	line:10
 main	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function main() {$/;"	function	line:12
 main	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/main.js	/^function main() {$/;"	function	line:12
-const.size	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/constants/constants.js	/^const screen = {$/;"	property	line:8
-const.str	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/constants/constants.js	/^const tetrominos = {$/;"	property	line:14
-const.1	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/constants/constants.js	/^  str: "ILJOTSZ",$/;"	property	line:15
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  constructor(glManager) {$/;"	function	line:8
-start	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  start() {$/;"	function	line:27
-isCollide	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  isCollide() {$/;"	function	line:31
-pause	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  pause() {$/;"	function	line:44
-merge	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  merge() {$/;"	function	line:47
-rowAbsorption	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  rowAbsorption() {$/;"	function	line:57
-update	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  update(now = 0) {$/;"	function	line:74
 canvas	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/style.css	/^canvas {$/;"	function	line:1
 #glCanvas	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/style.css	/^#glCanvas {$/;"	function	line:5
 #text	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/style.css	/^#text {$/;"	function	line:11
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  constructor() {$/;"	function	line:7
-initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  initScene() {$/;"	function	line:23
-drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  drawScene(delta) {$/;"	function	line:91
-gl.drawArrays.uniform	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^    let playerShapeAttributeLocations = {$/;"	property	line:115
-let.position	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^    let landedShapeAttributeLocations = {$/;"	property	line:124
-startHorizontalTransltion	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  startHorizontalTransltion(direction) {$/;"	function	line:154
 html	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/index.html	/^<html>$/;"	function	line:7
 head	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/index.html	/^<head>$/;"	function	line:8
 link	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/index.html	/^  <link href="style.css" rel="stylesheet" type="text\/css">$/;"	function	line:9
@@ -82,20 +66,31 @@ script	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/index.html	/^    
 script	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/index.html	/^    <script type="text\/javascript" src="source\/gl\/shaders.js"><\/script>$/;"	function	line:27
 script	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/index.html	/^    <script type="text\/javascript" src="myUtils.js"><\/script>$/;"	function	line:28
 script	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/index.html	/^    <script type="text\/javascript" src="main.js"><\/script>$/;"	function	line:29
-setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:7
-switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^    switch (event.key) {$/;"	function	line:10
-down	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  let down =  function (event) {$/;"	function	line:26
-switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:30
-let	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^    });$/;"	function	line:24
-setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:7
+const.size	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/constants/constants.js	/^const screen = {$/;"	property	line:9
+const.str	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/constants/constants.js	/^const tetrominos = {$/;"	property	line:15
+const.1	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/constants/constants.js	/^  str: "ILJOTSZ",$/;"	property	line:16
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  constructor() {$/;"	function	line:7
+initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  initScene() {$/;"	function	line:23
+drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  drawScene(delta) {$/;"	function	line:91
+gl.drawArrays.uniform	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^    let playerShapeAttributeLocations = {$/;"	property	line:115
+let.position	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^    let landedShapeAttributeLocations = {$/;"	property	line:124
+startHorizontalTransltion	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  startHorizontalTransltion(direction) {$/;"	function	line:159
 constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  constructor() {$/;"	function	line:7
-position.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^    this.position = {$/;"	property	line:10
-position.y	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^      x: 5,$/;"	property	line:11
-reset	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  reset() {$/;"	function	line:16
-colorIndex	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  colorIndex() {$/;"	function	line:21
-drop	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  drop() {$/;"	function	line:32
-rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  rotate(direction) {$/;"	function	line:55
-move	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  move(direction) {$/;"	function	line:69
+position.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^    this.position = {$/;"	property	line:11
+position.y	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^      x: 5,$/;"	property	line:12
+reset	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  reset() {$/;"	function	line:17
+colorIndex	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  colorIndex() {$/;"	function	line:22
+drop	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  drop() {$/;"	function	line:33
+rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  rotate(direction) {$/;"	function	line:56
+move	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  move(direction) {$/;"	function	line:70
+scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  scale(direction) {$/;"	function	line:82
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  constructor(glManager) {$/;"	function	line:8
+start	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  start() {$/;"	function	line:27
+isCollide	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  isCollide() {$/;"	function	line:31
+pause	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  pause() {$/;"	function	line:44
+merge	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  merge() {$/;"	function	line:47
+rowAbsorption	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  rowAbsorption() {$/;"	function	line:57
+update	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  update(now = 0) {$/;"	function	line:75
 constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  constructor(x,y,z,step) {$/;"	function	line:7
 bufferCoordinates.position	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^    this.bufferCoordinates = {$/;"	property	line:15
 origin.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^    this.origin = {$/;"	property	line:19
@@ -105,7 +100,13 @@ size.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/
 size.height	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^      width: 0,$/;"	property	line:26
 size.depth	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^      height: 0,$/;"	property	line:27
 updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  updateMatrix() {$/;"	function	line:55
-translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  translate(value) {$/;"	function	line:83
-rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  rotate(value) {$/;"	function	line:118
-getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  getRotationMatrix() {$/;"	function	line:135
-scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  scale(value) {$/;"	function	line:161
+translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  translate(value) {$/;"	function	line:82
+rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  rotate(value) {$/;"	function	line:117
+getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  getRotationMatrix() {$/;"	function	line:134
+scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  scale(value) {$/;"	function	line:160
+setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:7
+switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^    switch (event.key) {$/;"	function	line:10
+down	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  let down =  function (event) {$/;"	function	line:26
+switch	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^  switch (event.key) {$/;"	function	line:30
+let	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^    });$/;"	function	line:24
+setEventListner	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/myUtils.js	/^function setEventListner(game) {$/;"	function	line:7

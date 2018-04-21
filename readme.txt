@@ -3,21 +3,35 @@ Volodymyr Samoilenko
 
 This is my code for a CG lab1b
 
+Need to run node.js because used the server for using textures.
+Other ways to fetch image into WebGL I haven't found.
+I'm using express, for returning index.html from the server.
+For running my project, call "npm start" command.
+
+--> I add input buttons ',' and '.' for changing a difficult
+
 (15%) Add gravity - done
-(10%) Add more objects - done
-      7 tetrominos was taken from wiki page
-      https://en.wikipedia.org/wiki/Tetris
+  1. add gravity to the object such that it moves downwards by itself. - done
+  2. The up "/\" movement should simply cancel the gravity and not move pieces
+     down anymore! - done
+  3. Further, the down "\/" movement should either reinstate gravity,
+     if it was suspended or move the game piece immediately to the bottom
+     of the grid (if gravity is ON). - done
+
+(10%) Add more objects
+  1. Whenever an object reached the bottom, release the control of the current
+     object and introduce a new object at the top of the drawing area. - done
+
 (20%) Non-overlapping - done
+
 (20%) Fail-safe User Interaction - done
 
-(20%) Keeping Score
-Whenever we "release" one object and it is stored in the array, check whether one row is completely occupied. If that is the case, clear it from the array and move all the objects about that row as far down as possible without entering already occupied blocks. Output the number of rows deleted thus far. This is the score.
+(20%) Keeping Score - done
 
-(10%) Game Over/New Game
-When the tetrominos stored in the array reach the top line so that there's no space left for new blocks the game should be reset and start anew.
+(10%) Game Over/New Game - done
 
-(5%) Change the pixels per block
-Add two input buttons to increase or decrease the size of the blocks.
+(5%) Change the pixels per block - done
+    Add two input buttons (+/-) to increase or decrease the size of the blocks.
 
 ********************************************************************************************
 This is my code for a CG lab1a

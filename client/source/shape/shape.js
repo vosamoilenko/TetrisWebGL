@@ -67,15 +67,14 @@ class Shape {
       this.animProps.translation.to = [0,0,0]
     }
 
-    // let rotationMatrix = this.rotate( delta * ROTATION_PER_SECOND );
-    let translationMatrix = this.translate( delta * TRANSLATION_PER_SECOND )
+    let translationMatrix = this.translate( delta * 0.125 * MULTIPLAYER )
     //
-    // let scalingMatrix = this.scale(value.scale())
-    //
-    mat4.multiply(matrix, matrix, translationMatrix);
+    let scalingMatrix = this.scale(delta * 0.1)
     // debugger;
-    // mat4.multiply(matrix, matrix, rotationMatrix)
-    // mat4.multiply(matrix, translationMatrix, scalingMatrix)
+
+    mat4.multiply(matrix, matrix, translationMatrix);
+    mat4.multiply(matrix, matrix, scalingMatrix);
+
     return matrix;
   }
 
@@ -163,24 +162,20 @@ class Shape {
     if (!scalingAnimationFlags.inverse) {
       if (this.scaling[0] < scalingAnimationFlags.to[0]) {
           this.scaling[0] = this.scaling[0] + value
-      }
-      if (this.scaling[1] < scalingAnimationFlags.to[1]){
           this.scaling[1] = this.scaling[1] + value
-      }
-      if (this.scaling[2] < scalingAnimationFlags.to[2]){
-          this.scaling[2] = this.scaling[2] + value
+      } else {
+        this.scaling = [1,1,1]
+        this.animProps.scaling.to = [1,1,1]
       }
     } else {
       if (this.scaling[0] > scalingAnimationFlags.to[0]) {
-          this.scaling[0] = this.scaling[0] - value
-      }
-      if (this.scaling[1] > scalingAnimationFlags.to[1]){
-          this.scaling[1] = this.scaling[1] - value
-      }
-      if (this.scaling[2] > scalingAnimationFlags.to[2]){
-          this.scaling[2] = this.scaling[2] - value
-      }
+        this.scaling[0] = this.scaling[0] - value
+        this.scaling[1] = this.scaling[1] - value
+    } else {
+      this.scaling = [1,1,1]
+      this.animProps.scaling.to = [1,1,1]
     }
+  }
     return transformationMatrix.scaling(
       this.scaling[0],this.scaling[1],this.scaling[2]
     )
