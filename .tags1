@@ -4,10 +4,10 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  constructor() {$/;"	function	line:2
-position.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^    this.position = {$/;"	property	line:5
-position.y	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^      x: 5,$/;"	property	line:6
-reset	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  reset() {$/;"	function	line:11
-drop	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  drop() {$/;"	function	line:16
-rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  rotate(direction) {$/;"	function	line:39
-move	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/player.js	/^  move(direction) {$/;"	function	line:53
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  constructor(glManager) {$/;"	function	line:8
+start	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  start() {$/;"	function	line:27
+isCollide	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  isCollide() {$/;"	function	line:31
+pause	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  pause() {$/;"	function	line:44
+merge	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  merge() {$/;"	function	line:47
+rowAbsorption	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  rowAbsorption() {$/;"	function	line:57
+update	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  update(now = 0) {$/;"	function	line:74

@@ -4,7 +4,7 @@ Volodymyr Samoilenko
 */
 
 class Shape {
-  constructor(x,y,z,step, offset) {
+  constructor(x,y,z,step) {
     this.positionBuffer = []
     this.colorBuffer = []
     this.indexBuffer = []
@@ -19,9 +19,14 @@ class Shape {
     this.origin = {
       x:x,
       y:y,
-      z:0}
-    this.cetner = {}
-    this.size = {}
+      z:z,
+    }
+    this.center = {}
+    this.size = {
+      width: 0,
+      height: 0,
+      depth: 0,
+    }
     this.translation = [0,0,0]
     this.rotation = [0,1,0]
     this.scaling = [1,1,1]
@@ -74,12 +79,6 @@ class Shape {
     return matrix;
   }
 
-  clean() {
-    // this.bufferCoordinates.position = [];
-    this.bufferCoordinates.color = [];
-
-
-  }
 
   translate(value) {
 

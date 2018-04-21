@@ -175,9 +175,8 @@ function loadImageAndCreateTextureInfo(gl, url) {
     return positions;
   }
 
-  function mapVerticies(matrix, offset = {x: 0, y: 0}) {
+  function mapVerticies(matrix, shape ,offset = {x: 0, y: 0}) {
     let step = glManager.screen.unitSize;
-    let z = 0;
     let box = [];
     matrix.forEach( (row, y) => {
       row.forEach( (value, x) => {
@@ -185,7 +184,7 @@ function loadImageAndCreateTextureInfo(gl, url) {
           let _x = ((x + offset.x) * step) - 1;
           let _y = -((y + offset.y) * step)  + 1 - (2/16)
           box = box.concat(
-            unitBlock3d(_x, _y, z, step)
+            unitBlock3d(_x, _y, shape.origin.z, step)
           );
         }
       });

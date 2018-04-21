@@ -16,7 +16,10 @@ function setEventListner(game) {
 
 
   switch (event.key) {
-    // case "+":
+    case "p":
+    case "P":
+    case "Escape":
+      game.pause();
       // shape.animProps.scaling.to = [
     //     shape.scaling[0]+0.1,
     //     shape.scaling[1]+0.1,
@@ -86,9 +89,6 @@ function setEventListner(game) {
     // shape.animProps.translation.inverse = false
       break;
     case "Enter":
-      break;
-    case "Escape":
-
       break;
     default:
       return;

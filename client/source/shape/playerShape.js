@@ -13,6 +13,7 @@ class PlayerShape extends Shape {
 
       arr = mapVerticies(
         game.player.activeShape,
+        this,
         game.player.position
       );
       return arr;

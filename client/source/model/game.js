@@ -16,6 +16,7 @@ class Game {
       delta: 0,
       then: 0,
     }
+    this.isPause = false
     this.timerOff = false
     this.landed = createMatrix(
       screen.playableMatrixSize.w,
@@ -25,24 +26,6 @@ class Game {
 
   start() {
     requestAnimationFrame( now => this.update(now));
-  }
-
-  arenaSweep() {
-    // let rowCount = 1;
-    row: for (let y = this.landed.length -1; y > 0; --y) {
-        for (let x = 0; x < this.landed[y].length; ++x) {
-            if (this.landed[y][x] === 0) {
-                continue row;
-            }
-        }
-
-        const row = this.landed.splice(y, 1)[0].fill(0);
-        this.landed.unshift(row);
-        ++y;
-
-        // player.score += rowCount * 10;
-        // rowCount *= 2;
-    }
   }
 
   isCollide() {
@@ -58,7 +41,9 @@ class Game {
     }
     return false;
   }
-
+  pause() {
+    this.isPause = !this.isPause
+  }
   merge() {
     this.player.activeShape.forEach((row, y)=> {
       row.forEach((value, x) => {
@@ -69,22 +54,42 @@ class Game {
     });
   }
 
+  rowAbsorption() {
+    // let rowCount = 1;
+    row: for (let y = this.landed.length -1; y > 0; --y) {
+        for (let x = 0; x < this.landed[y].length; ++x) {
+            if (this.landed[y][x] === 0) {
+                continue row;
+            }
+        }
+
+        const row = this.landed.splice(y, 1)[0].fill(0);
+        this.landed.unshift(row);
+        ++y;
+
+        this.player.score += 10;
+    }
+  }
+
   update(now = 0) {
-    glManager.shape.animProps.translation.down = true
-    this.player.position.y += 1;
-    if (this.isCollide()) {
-      glManager.shape.animProps.translation.down = false
-    }
-    this.player.position.y -= 1;
+    if (!this.isPause) {
 
-    this.props.delta = (now - this.props.then) * 0.001;
-    this.props.then = now;
-    this.props.moveCounter += this.props.delta;
-    if (this.props.moveCounter > this.props.moveIntervall) {
-      this.player.drop();
-    }
-    glManager.drawScene(this.props.delta);
+      glManager.shape.animProps.translation.down = true
+      this.player.position.y += 1;
+      if (this.isCollide()) {
+        glManager.shape.animProps.translation.down = false
+      }
+      this.player.position.y -= 1;
 
+      this.props.delta = (now - this.props.then) * 0.001;
+      this.props.then = now;
+      this.props.moveCounter += this.props.delta;
+      if (this.props.moveCounter > this.props.moveIntervall) {
+        this.player.drop();
+      }
+      glManager.drawScene(this.props.delta);
+
+    }
     requestAnimationFrame( (now) => {this.update(now)});
   }
 

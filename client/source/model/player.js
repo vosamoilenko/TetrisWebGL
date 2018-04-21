@@ -1,7 +1,12 @@
+/*
+a01468749
+Volodymyr Samoilenko
+*/
+
 class Player {
   constructor() {
     this.name = "";
-    this.score = 0;''
+    this.score = 0;
     this.position = {
       x: 5,
       y: 0
@@ -12,6 +17,17 @@ class Player {
     this.activeShape = randShape();
     this.position.y = 0;
     this.position.x = 5;
+  }
+  colorIndex() {
+    let c = 0;
+    this.activeShape.forEach( (row, y) => {
+      row.forEach( (value, x) => {
+        if (value !== 0) {
+          c = value;
+        }
+      });
+    });
+    return c;
   }
   drop() {
     if (game.timerOff) {
@@ -29,12 +45,14 @@ class Player {
       this.position.y -= 1;
       game.merge();
       game.player.reset();
-      game.arenaSweep();
+      game.rowAbsorption();
       if (game.isCollide()) {
         game.landed.forEach(row => row.fill(0))
       }
     }
     game.props.moveCounter = 0;
+
+    console.log(this.score);
   }
   rotate(direction) {
 
@@ -59,7 +77,6 @@ class Player {
 
     this.position.x -= direction;
     glManager.startHorizontalTransltion(direction);
-
   }
 
 };

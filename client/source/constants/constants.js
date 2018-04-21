@@ -3,7 +3,7 @@ const TRANSLATION_PER_SECOND = 0.125
 const ROTATION_PER_SECOND = 180.0;
 const SCALE_PER_SECOND = 2.0;
 
-
+const IMG_URL = "./res/background.jpg";
 // Game contants
 const screen = {
   size: {w:600 ,h:600},

@@ -5,7 +5,7 @@ Volodymyr Samoilenko
 'use strict'
 
 
-let IMG_URL = "./res/background.jpg";
+
 var glManager;
 var game;
 
