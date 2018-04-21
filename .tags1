@@ -4,10 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  constructor(glManager) {$/;"	function	line:8
-start	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  start() {$/;"	function	line:27
-isCollide	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  isCollide() {$/;"	function	line:31
-pause	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  pause() {$/;"	function	line:44
-merge	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  merge() {$/;"	function	line:47
-rowAbsorption	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  rowAbsorption() {$/;"	function	line:57
-update	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/model/game.js	/^  update(now = 0) {$/;"	function	line:74
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  constructor() {$/;"	function	line:7
+initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  initScene() {$/;"	function	line:22
+drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  drawScene(delta) {$/;"	function	line:90
+gl.drawArrays.uniform	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^    let playerShapeAttributeLocations = {$/;"	property	line:114
+let.position	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^    let landedShapeAttributeLocations = {$/;"	property	line:123
+startHorizontalTransltion	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  startHorizontalTransltion(direction) {$/;"	function	line:153

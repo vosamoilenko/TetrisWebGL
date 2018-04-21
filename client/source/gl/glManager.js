@@ -22,8 +22,10 @@ class GLManager {
   initScene() {
 
     const canvas = document.querySelector('#glCanvas');
+    const textCanvas = document.getElementById("text");
 
     this.gl = canvas.getContext('webgl');
+    this.ctx = textCanvas.getContext('2d');
     let gl = this.gl;
 
     if (!gl) {
@@ -105,7 +107,7 @@ class GLManager {
       gl.FLOAT, false, 0, 0
     );
 
-    
+
     gl.drawArrays(gl.TRIANGLES, 0, 6)
     // -----------------------------------------------------
     // draw active shape
@@ -140,10 +142,13 @@ class GLManager {
     )
 
     gl.drawArrays(gl.TRIANGLES, 0, 6)
-
-
-
     setBuffersAndDraw(gl, this.programs[2], this.landed, landedShapeAttributeLocations);
+
+    // ---------------------------------------------------------
+    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    this.ctx.textAlign = "center";
+    this.ctx.font = "bold 20pt Courier"
+    this.ctx.fillText("Score: " + game.player.score, 487.5, 70);
   }
   startHorizontalTransltion(direction) {
     this.shape.animProps.translation.inverse = direction < 0 ? true : false;
