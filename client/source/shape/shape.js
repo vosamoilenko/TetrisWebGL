@@ -70,7 +70,7 @@ class Shape {
     // let rotationMatrix = this.rotate( delta * ROTATION_PER_SECOND );
     let translationMatrix = this.translate( delta * TRANSLATION_PER_SECOND )
     //
-    // // let scalingMatrix = this.scale(value.scale())
+    // let scalingMatrix = this.scale(value.scale())
     //
     mat4.multiply(matrix, matrix, translationMatrix);
     // debugger;
@@ -92,7 +92,7 @@ class Shape {
           } else {
             game.player.position.x += translationAnimationFlags.direction;
             translationAnimationFlags.direction = 0
-            // this.translation[0] = 0
+
           }
       } else {
         if (this.translation[0] > translationAnimationFlags.to[0] ) {
@@ -115,14 +115,12 @@ class Shape {
     )
   }
 
-
   rotate(value) {
 
     var rotationAnimationFlags = this.animProps.rotation
 
     if (!rotationAnimationFlags.inverse) {
 
-      // console.log(this.degrees, rotationAnimationFlags.to); debugger;
       if (this.degrees < rotationAnimationFlags.to) {
           this.degrees = this.degrees + value
       }

@@ -12,6 +12,7 @@ class GLManager {
       playebleArea: {w:375, h: 600 },
       unitSize: 2.0 / 16,
     }
+    this.isAmimated = false
 
     this.initScene();
   }

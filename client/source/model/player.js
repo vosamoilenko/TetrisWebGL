@@ -51,8 +51,6 @@ class Player {
       }
     }
     game.props.moveCounter = 0;
-
-    console.log(this.score);
   }
   rotate(direction) {
 
@@ -69,6 +67,7 @@ class Player {
     }
   }
   move(direction) {
+
     this.position.x += direction;
     if (game.isCollide()) {
       this.position.x -= direction;

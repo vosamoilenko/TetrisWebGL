@@ -4,9 +4,16 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  constructor() {$/;"	function	line:7
-initScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  initScene() {$/;"	function	line:22
-drawScene	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  drawScene(delta) {$/;"	function	line:90
-gl.drawArrays.uniform	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^    let playerShapeAttributeLocations = {$/;"	property	line:114
-let.position	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^    let landedShapeAttributeLocations = {$/;"	property	line:123
-startHorizontalTransltion	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/gl/glManager.js	/^  startHorizontalTransltion(direction) {$/;"	function	line:153
+constructor	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  constructor(x,y,z,step) {$/;"	function	line:7
+bufferCoordinates.position	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^    this.bufferCoordinates = {$/;"	property	line:15
+origin.x	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^    this.origin = {$/;"	property	line:19
+origin.y	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^      x:x,$/;"	property	line:20
+origin.z	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^      y:y,$/;"	property	line:21
+size.width	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^    this.size = {$/;"	property	line:25
+size.height	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^      width: 0,$/;"	property	line:26
+size.depth	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^      height: 0,$/;"	property	line:27
+updateMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  updateMatrix() {$/;"	function	line:55
+translate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  translate(value) {$/;"	function	line:83
+rotate	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  rotate(value) {$/;"	function	line:118
+getRotationMatrix	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  getRotationMatrix() {$/;"	function	line:135
+scale	/Users/vladimir/Developer/JavaScript/TetrisWebGL/client/source/shape/shape.js	/^  scale(value) {$/;"	function	line:161
